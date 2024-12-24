@@ -6,6 +6,12 @@ export default {
       colors: {
         primary: "var(--color-primary) ",
       },
+      boxShadow: {
+        "custom-shadow": "1px 3px 5px rgb(0,0,0,0.5) ",
+      },
+      fontWeight: {
+        lessBold: "500",
+      },
     },
   },
   plugins: [],
