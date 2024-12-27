@@ -2,6 +2,7 @@ const PDFDocument = require("pdfkit");
 const PDFGenerator = async (data, res) => {
   const doc = new PDFDocument();
 
+  res.setHeader("content-type", "application/pdf");
   doc.pipe(res);
   await new Promise((resolve) => setTimeout(resolve, 5000)); // delay for 5 seconds
 
