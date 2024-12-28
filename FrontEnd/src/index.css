@@ -3,30 +3,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-primary: #69269c;
+@layer base {
+  :root {
+    --color-primary: #69269c;
+  }
+  body {
+    font-family: Roboto;
+    font-size: x-large;
+    background-color: rgb(230, 222, 241);
+  }
+}
+@layer components {
+  .btn-custom {
+    @apply bg-primary text-white w-40 text-lg font-bold p-2 rounded-md
+           shadow-custom-shadow hover:bg-purple-600;
+  }
+  .navBar {
+    @apply hover:text-purple-600 relative;
+  }
+
+  .settings {
+    animation: spin 2s linear infinite;
+  }
+  .line {
+    transform-origin: 0;
+    animation: animatedLine 0.5s ease-in-out;
+  }
 }
 
-.btn-custom {
-  @apply bg-primary text-white w-40 text-lg font-bold p-2 rounded-md
-         shadow-custom-shadow hover:bg-purple-600;
-}
-.navBar {
-  @apply hover:text-purple-600 relative;
-}
-body {
-  font-family: Roboto;
-  font-size: x-large;
-  background-color: rgb(230, 222, 241);
-}
-
-.settings {
-  animation: spin 2s linear infinite;
-}
-.line {
-  transform-origin: 0;
-  animation: animatedLine 0.5s ease-in-out;
-}
 @keyframes animatedLine {
   from {
     transform: scaleX(0);

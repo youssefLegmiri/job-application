@@ -67,7 +67,7 @@ const Form = () => {
     <form
       action={actionFunction}
       className="border-[1px] rounded-lg bg-purple-50
-                border-purple-500 min-h-[600px] h-[90%]  w-[80%]
+                border-purple-500 min-h-[600px]   w-[80%]
                 flex flex-col justify-evenly items-center 
                 p-4 lg:w-[60%] xl:w-[50%] "
     >
@@ -111,12 +111,12 @@ const Form = () => {
         />
       )}
       {isReady && (
-        <div className="flex flex-col justify-between w-[100%] h-[50%] items-center ">
+        <div className="flex flex-col justify-between w-[100%]  h-[50%] items-center ">
           <img className="w-20" src={PDFIcon} alt="" />
           <p className="text-zinc-800 ">{state.fileName}</p>
 
           <div
-            className="flex flex-col items-center justify-between h-[40%]  w-[80%]
+            className="flex flex-col items-center justify-between  h-[40%]  w-[80%]
                           md:flex-row md:w-[70%] xl:w-[60%]  "
           >
             <Button
