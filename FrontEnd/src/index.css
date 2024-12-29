@@ -21,14 +21,6 @@
   .navBar {
     @apply hover:text-purple-600 relative;
   }
-
-  .settings {
-    animation: spin 2s linear infinite;
-  }
-  .line {
-    transform-origin: 0;
-    animation: animatedLine 0.5s ease-in-out;
-  }
 }
 
 @keyframes animatedLine {

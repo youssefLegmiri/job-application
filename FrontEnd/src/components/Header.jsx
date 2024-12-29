@@ -1,16 +1,22 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useLocation } from "react-router";
+import Button from "./Button";
 const AnimatedLine = ({ size }) => {
   return (
     <div
       style={{ width: size }}
-      className="line bg-purple-800  h-1 absolute bottom-0 left-0"
+      className="animate-line origin-left bg-purple-800  h-1 absolute bottom-0 left-0"
     ></div>
   );
 };
 
 const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handelNavigate = () => {
+    navigate("/login");
+  };
   return (
     <div className="flex justify-evenly mt-2 mb-4 ">
       <Link to={"/"} className="text-purple-800 font-bold cursor-pointer">
@@ -30,6 +36,14 @@ const Header = () => {
           Contact
         </Link>
       </div>
+      {pathname != "/login" && (
+        <Button
+          fn={handelNavigate}
+          text={"Login"}
+          className={"btn-custom  bg-blue-800 hover:bg-blue-600"}
+          type={"button"}
+        />
+      )}
     </div>
   );
 };

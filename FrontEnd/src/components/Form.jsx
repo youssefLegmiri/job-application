@@ -66,10 +66,13 @@ const Form = () => {
   return (
     <form
       action={actionFunction}
-      className="border-[1px] rounded-lg bg-purple-50
+      className={`border-[1px] rounded-lg bg-purple-50
                 border-purple-500 min-h-[600px]   w-[80%]
                 flex flex-col justify-evenly items-center 
-                p-4 lg:w-[60%] xl:w-[50%] "
+                p-4 lg:w-[60%] xl:w-[50%]
+                   animate-scaleUp
+                 transition-all duration-100
+                origin-bottom `}
     >
       {isReady && (
         <Button
@@ -81,7 +84,7 @@ const Form = () => {
       )}
       {isPending && (
         <div className="flex flex-col items-center">
-          <img className="w-20 settings" src={settings} alt="" />
+          <img className="w-20 animate-settings" src={settings} alt="" />
           <p className="text-green-600 font-bold">Processing ... </p>
         </div>
       )}
@@ -107,7 +110,7 @@ const Form = () => {
           type={"submit"}
           isPending={isPending}
           text={"Create"}
-          className="btn-custom"
+          className={"btn-custom disabled:bg-purple-400 "}
         />
       )}
       {isReady && (

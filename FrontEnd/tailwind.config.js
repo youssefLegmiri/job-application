@@ -13,6 +13,10 @@ export default {
         lessBold: "500",
       },
     },
+    animation: {
+      line: "animatedLine 0.5s ease-in-out;",
+      settings: "spin 2s linear infinite;",
+    },
   },
   plugins: [],
 };
