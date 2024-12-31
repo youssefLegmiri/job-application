@@ -9,28 +9,40 @@ import { useActionState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [state, actionFunction, isPending] = useActionState(formAction, "");
+  const [data, actionFunction, isPending] = useActionState(formAction, "");
 
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
+    if (!jsonData.email) {
+      return { error: "Email required" };
+    }
 
     await new Promise((resolve) => setTimeout(resolve, 5000));
   }
   return (
-    <main className="w-full h-full flex justify-center items-center ">
+    <main className="w-full h-full mt-10 flex justify-center items-center ">
       <form
         action={actionFunction}
-        className="h-[50%] w-[80%] min-h-[600px] p-2  flex flex-col justify-around items-center
+        className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
                       border-[1px] border-purple-500 rounded-lg  bg-purple-100
                       xl:w-[30%] lg:w-[50%] md:w-[60%] "
       >
         <h1 className="text-2xl text-purple-700 font-bold">Login</h1>
-        <Input
-          autofocus={"autofocus"}
-          name={"email"}
-          type={"email"}
-          label={"Email"}
-        />
+        {/* Email input  */}
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            autofocus={"autofocus"}
+            name={"email"}
+            type={"email"}
+            label={"Email"}
+          />
+          {data?.error && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {data?.error}{" "}
+            </p>
+          )}
+        </div>
+        {/* password input  */}
         <Input name={"password"} type={"password"} label={"Password"} />
         <div className="flex md:w-[50%] w-[80%] justify-around ">
           <Link to={"/"}>

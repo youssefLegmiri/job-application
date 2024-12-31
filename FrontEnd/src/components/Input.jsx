@@ -34,7 +34,6 @@ const Input = ({ as = "input", label, type, name, autofocus }) => {
                    bg-purple-100 pl-4 text-lg font-semibold text-purple-900  "
         type={type}
         name={name}
-        required
       />
     </div>
   );
