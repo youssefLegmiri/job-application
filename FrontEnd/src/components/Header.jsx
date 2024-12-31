@@ -5,7 +5,7 @@ const AnimatedLine = ({ size }) => {
   return (
     <div
       style={{ width: size }}
-      className="animate-line origin-left bg-purple-800  h-1 absolute bottom-0 left-0"
+      className="animate-line origin-left bg-purple-600  h-1 absolute bottom-1 left-0"
     ></div>
   );
 };
@@ -18,7 +18,7 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <div className="flex justify-evenly mt-2 mb-4 ">
+    <div className="w-full flex justify-evenly mt-2 mb-4 ">
       <Link to={"/"} className="text-purple-800 font-bold cursor-pointer">
         Text to PDF
       </Link>
@@ -40,7 +40,7 @@ const Header = () => {
         <Button
           fn={handelNavigate}
           text={"Login"}
-          className={"btn-custom  bg-blue-800 hover:bg-blue-600"}
+          className={"btn-custom "}
           type={"button"}
         />
       )}

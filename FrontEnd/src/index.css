@@ -4,19 +4,14 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-primary: #69269c;
-  }
   body {
-    font-family: Roboto;
-    font-size: x-large;
-    background-color: rgb(230, 222, 241);
+    @apply bg-purple-200 font-roboto text-2xl;
   }
 }
 @layer components {
   .btn-custom {
-    @apply bg-primary text-white w-40 text-lg font-bold p-2 rounded-md
-           shadow-custom-shadow hover:bg-purple-600;
+    @apply bg-primary  text-white w-40 text-lg font-bold p-2 rounded-md
+           shadow-custom-shadow  hover:bg-purple-600;
   }
   .navBar {
     @apply hover:text-purple-600 relative;

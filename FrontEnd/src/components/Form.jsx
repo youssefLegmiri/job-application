@@ -107,6 +107,7 @@ const Form = () => {
       )}
       {!isReady && (
         <Button
+          action="Creating..."
           type={"submit"}
           isPending={isPending}
           text={"Create"}
