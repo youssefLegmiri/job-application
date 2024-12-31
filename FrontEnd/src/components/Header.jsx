@@ -38,10 +38,10 @@ const Header = () => {
       </div>
       {pathname != "/login" && (
         <Button
-          fn={handelNavigate}
+          onClick={handelNavigate}
           text={"Login"}
-          className={"btn-custom "}
-          type={"button"}
+          className="btn-custom "
+          type="button"
         />
       )}
     </div>

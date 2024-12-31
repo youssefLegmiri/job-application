@@ -76,7 +76,7 @@ const Form = () => {
     >
       {isReady && (
         <Button
-          fn={createNewCV}
+          onClick={createNewCV}
           type={"button"}
           text={"Create New CV"}
           className={"btn-custom  "}
@@ -107,9 +107,8 @@ const Form = () => {
       )}
       {!isReady && (
         <Button
-          action="Creating..."
+          action={"Creating..."}
           type={"submit"}
-          isPending={isPending}
           text={"Create"}
           className={"btn-custom disabled:bg-purple-400 "}
         />
@@ -125,15 +124,15 @@ const Form = () => {
           >
             <Button
               type={"button"}
-              fn={handleDownload}
+              onClick={handleDownload}
               text={"Download"}
-              className="btn-custom"
+              className={"btn-custom"}
             />
             <Button
               type={"button"}
-              fn={handlePreview}
+              onClick={handlePreview}
               text={"Preview"}
-              className="btn-custom"
+              className={"btn-custom"}
             />
           </div>
         </div>
