@@ -22,7 +22,7 @@ const Login = () => {
         action={actionFunction}
         className="h-[50%] w-[80%] min-h-[600px] p-2  flex flex-col justify-around items-center
                       border-[1px] border-purple-500 rounded-lg  bg-purple-100
-                      xl:w-[30%] md:w-[60%] "
+                      xl:w-[30%] lg:w-[50%] md:w-[60%] "
       >
         <h1 className="text-2xl text-purple-700 font-bold">Login</h1>
         <Input
@@ -46,7 +46,7 @@ const Login = () => {
           text={"Login"}
           className={"btn-custom disabled:bg-purple-400"}
         />
-        <div className="w-[60%] text-purple-600 text-lg flex justify-evenly items-center">
+        <div className="md:w-[60%] w-[80%] xl:w-[90%] text-purple-600 text-lg flex justify-evenly items-center">
           <p className=" ">Don't have an account ?</p>
           <Link className="text-purple-800 hover:text-purple-600" to={"/"}>
             Sign up
@@ -58,14 +58,14 @@ const Login = () => {
           <span className="text-gray-400">Or</span>
           <div className="w-[40%] h-[1px] bg-gray-400"></div>
         </div>
-        <div className="flex flex-col w-full h-[20%] items-center justify-evenly">
+        <div className="flex flex-col w-[70%]  h-[20%] items-center justify-evenly">
           <Button
             type={"button"}
             icon={google}
             size={"w-6"}
             text={"Login with google"}
             className="btn-custom shadow-none flex justify-evenly items-center text-slate-500 bg-slate-50 hover:bg-slate-100
-                       font-[500]  border-[1px] border-slate-400 w-[60%] "
+                       font-[500]  border-[1px] border-slate-400 w-full "
           />
           <Button
             type={"button"}
@@ -73,7 +73,7 @@ const Login = () => {
             size={"w-8"}
             text={"Login with facebook"}
             className="btn-custom shadow-none flex justify-evenly items-center text-slate-500 bg-slate-50 hover:bg-slate-100
-                       font-[500]  border-[1px] border-slate-400 w-[60%] "
+                       font-[500]  border-[1px] border-slate-400 w-full"
           />
         </div>
       </form>

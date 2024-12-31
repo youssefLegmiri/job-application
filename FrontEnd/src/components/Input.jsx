@@ -7,7 +7,7 @@ const Input = ({ as = "input", label, type, name, autofocus }) => {
 
   return (
     <div
-      className={`w-[70%] relative  border-[1px] rounded-md ${
+      className={`w-[80%] relative  border-[1px] rounded-md ${
         isFocus ? "border-purple-600" : "border-purple-800"
       } `}
     >
