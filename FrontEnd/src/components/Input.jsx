@@ -1,14 +1,35 @@
 import { useEffect, useState } from "react";
 
-const Input = ({ as = "input", label, type, name, autofocus }) => {
+const Input = ({
+  as = "input",
+  label,
+  type,
+  name,
+  autofocus,
+  error,
+  inputData,
+}) => {
   const [isFocus, setIsFocus] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [data, setIsData] = useState(null);
 
   const Component = as === "textarea" ? "textarea" : "input";
+
+  useEffect(() => {
+    if (error) {
+      setIsError(true);
+    } else {
+      setIsError(false);
+    }
+    if (inputData) {
+      setIsData(inputData);
+    }
+  }, [error]);
 
   return (
     <div
       className={`w-[80%] relative  border-[1px] rounded-md ${
-        isFocus ? "border-purple-600" : "border-purple-800"
+        isError ? "border-red-600" : "border-purple-600"
       } `}
     >
       <div
@@ -25,6 +46,7 @@ const Input = ({ as = "input", label, type, name, autofocus }) => {
         {label}
       </label>
       <Component
+        defaultValue={data}
         autoFocus={autofocus}
         onFocus={() => setIsFocus(true)}
         onBlur={(e) => {

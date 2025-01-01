@@ -2,23 +2,50 @@ import Input from "./Input";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [data, actionFunction, isPending] = useActionState(formAction, "");
+  const [passwordType, setIsPasswordType] = useState("password");
+  const [state, actionFunction, isPending] = useActionState(formAction, {
+    data: { email: null, password: null },
+    emailError: false,
+    passwordError: false,
+    emailErrorMessage: null,
+    passwordErrorMessage: null,
+  });
 
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     if (!jsonData.email) {
-      return { error: "Email required" };
+      return { emailError: true, emailErrorMessage: "Email is required" };
+    } else if (!jsonData.password) {
+      return {
+        passwordError: true,
+        passwordErrorMessage: "password is required",
+        data: { email: formData.get("email") },
+      };
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return {
+      data: {
+        email: formData.get("email"),
+        password: formData.get("password"),
+      },
+    };
   }
+  const handelMouseDown = () => {
+    setIsPasswordType("text");
+  };
+  const handelMouseUp = () => {
+    setIsPasswordType("password");
+  };
   return (
     <main className="w-full h-full mt-10 flex justify-center items-center ">
       <form
@@ -31,19 +58,43 @@ const Login = () => {
         {/* Email input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
-            autofocus={"autofocus"}
+            error={state?.emailError}
+            inputData={state?.data?.email}
+            autofocus={true}
             name={"email"}
             type={"email"}
             label={"Email"}
           />
-          {data?.error && (
+          {state?.emailError && (
             <p className="text-red-600 text-sm absolute left-16 -bottom-6">
-              {data?.error}{" "}
+              {state?.emailErrorMessage}
             </p>
           )}
         </div>
         {/* password input  */}
-        <Input name={"password"} type={"password"} label={"Password"} />
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            inputData={state?.data?.password}
+            error={state?.passwordError}
+            name={"password"}
+            type={passwordType}
+            label={"Password"}
+          />
+          <FaEye
+            onMouseDown={handelMouseDown}
+            onMouseUp={handelMouseUp}
+            size={"30"}
+            className="absolute right-16 bottom-3 rounded-lg text-purple-700 cursor-pointer
+                     hover:bg-purple-300 p-1"
+          />
+
+          {state?.passwordError && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {state?.passwordErrorMessage}
+            </p>
+          )}
+        </div>
+        {/*Forgot password ? */}
         <div className="flex md:w-[50%] w-[80%] justify-around ">
           <Link to={"/"}>
             <p className="text-lg font-[500] text-purple-600 hover:text-purple-500">
@@ -51,13 +102,14 @@ const Login = () => {
             </p>
           </Link>
         </div>
+        {/*Login button */}
         <Button
-          action={"Logging..."}
           isPending={isPending}
           type={"submit"}
           text={"Login"}
           className={"btn-custom disabled:bg-purple-400"}
         />
+        {/*Don't have an account ? Sign up */}
         <div className="md:w-[60%] w-[80%] xl:w-[90%] text-purple-600 text-lg flex justify-evenly items-center">
           <p className=" ">Don't have an account ?</p>
           <Link className="text-purple-800 hover:text-purple-600" to={"/"}>
@@ -70,6 +122,7 @@ const Login = () => {
           <span className="text-gray-400">Or</span>
           <div className="w-[40%] h-[1px] bg-gray-400"></div>
         </div>
+        {/*Social media buttons */}
         <div className="flex flex-col w-[70%]  h-[20%] items-center justify-evenly">
           <Button
             type={"button"}
