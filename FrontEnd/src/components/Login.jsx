@@ -2,16 +2,14 @@ import Input from "./Input";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [passwordType, setIsPasswordType] = useState("password");
+
   const [state, actionFunction, isPending] = useActionState(formAction, {
     data: { email: null, password: null },
     emailError: false,
@@ -22,6 +20,7 @@ const Login = () => {
 
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
+
     if (!jsonData.email) {
       return { emailError: true, emailErrorMessage: "Email is required" };
     } else if (!jsonData.password) {
@@ -38,14 +37,11 @@ const Login = () => {
         email: formData.get("email"),
         password: formData.get("password"),
       },
+      passwordError: false,
+      emailError: false,
     };
   }
-  const handelMouseDown = () => {
-    setIsPasswordType("text");
-  };
-  const handelMouseUp = () => {
-    setIsPasswordType("password");
-  };
+
   return (
     <main className="w-full h-full mt-10 flex justify-center items-center ">
       <form
@@ -77,18 +73,10 @@ const Login = () => {
             inputData={state?.data?.password}
             error={state?.passwordError}
             name={"password"}
-            type={passwordType}
+            type={"password"}
             label={"Password"}
           />
-          <FaEye
-            onMouseDown={handelMouseDown}
-            onMouseUp={handelMouseUp}
-            size={"30"}
-            className="absolute right-16 bottom-3 rounded-lg text-purple-700 cursor-pointer
-                     hover:bg-purple-300 p-1"
-          />
-
-          {state?.passwordError && (
+          {state?.passwordError && !isPending && (
             <p className="text-red-600 text-sm absolute left-16 -bottom-6">
               {state?.passwordErrorMessage}
             </p>

@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Input = ({
   as = "input",
@@ -8,10 +11,14 @@ const Input = ({
   autofocus,
   error,
   inputData,
+  ref,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [data, setIsData] = useState(null);
+  const [inputType, setInputType] = useState(type);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const { pending } = useFormStatus();
 
   const Component = as === "textarea" ? "textarea" : "input";
 
@@ -21,11 +28,24 @@ const Input = ({
     } else {
       setIsError(false);
     }
-    if (inputData) {
-      setIsData(inputData);
-    }
+    setIsFocus(true);
   }, [error]);
 
+  const handelMouseDown = () => {
+    setIsVisible(true);
+    setInputType("text");
+  };
+  const handelMouseUp = () => {
+    setIsVisible(false);
+    setInputType("password");
+  };
+  const handelChange = (e) => {
+    setIsTyping(true);
+    setIsError(false);
+    if (e.target.value === "") {
+      setIsTyping(false);
+    }
+  };
   return (
     <div
       className={`w-[80%] relative  border-[1px] rounded-md ${
@@ -46,7 +66,8 @@ const Input = ({
         {label}
       </label>
       <Component
-        defaultValue={data}
+        ref={ref}
+        defaultValue={inputData}
         autoFocus={autofocus}
         onFocus={() => setIsFocus(true)}
         onBlur={(e) => {
@@ -54,9 +75,26 @@ const Input = ({
         }}
         className="outline-none w-[100%] h-[100%] rounded-md p-4 
                    bg-purple-100 pl-4 text-lg font-semibold text-purple-900  "
-        type={type}
+        type={inputType}
         name={name}
+        onChange={handelChange}
       />
+      {name === "password" && !isVisible && isTyping && (
+        <FaEyeSlash
+          onMouseDown={handelMouseDown}
+          size={"30"}
+          className="absolute right-4 bottom-3 rounded-lg text-purple-700 cursor-pointer
+                     hover:bg-purple-300 p-1"
+        />
+      )}
+      {isVisible && (
+        <FaEye
+          onMouseUp={handelMouseUp}
+          className="absolute right-4 bottom-3 rounded-lg text-purple-700 cursor-pointer
+                     hover:bg-purple-300 p-1"
+          size={"30"}
+        />
+      )}
     </div>
   );
 };
