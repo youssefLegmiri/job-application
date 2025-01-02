@@ -5,7 +5,7 @@ import clsx from "clsx";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
-import { useActionState, useReducer, useState } from "react";
+import { useActionState, useEffect, useReducer } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,6 +28,14 @@ const Login = () => {
       dispatch({
         type: "passwordError",
         payload: { email: formData.get("email") },
+      });
+    } else if (formData.get("password")?.length < 8) {
+      dispatch({
+        type: "passwordLength",
+        payload: {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        },
       });
     } else {
       dispatch({
@@ -55,6 +63,16 @@ const Login = () => {
           passwordError: true,
           passwordErrorMessage: "password is required",
           data: { email: action.payload.email },
+        };
+      case "passwordLength":
+        return {
+          ...state,
+          passwordError: true,
+          passwordErrorMessage: "password must be at least 8 characters !",
+          data: {
+            email: action.payload.email,
+            password: action.payload.password,
+          },
         };
       case "noError":
         return {
@@ -90,7 +108,7 @@ const Login = () => {
       <form
         action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
-                      border-[1px] border-purple-500 rounded-lg  bg-purple-100
+                      border-[1px] border-purple-500 rounded-lg  bg-purple-50
                       xl:w-[30%] lg:w-[50%] md:w-[60%] "
       >
         <h1 className="text-2xl text-purple-700 font-bold">Login</h1>
@@ -137,6 +155,7 @@ const Login = () => {
         </div>
         {/*Login button */}
         <Button
+          action={"Logging..."}
           isPending={isPending}
           type={"submit"}
           text={"Login"}
