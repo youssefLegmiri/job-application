@@ -29,7 +29,10 @@ const Login = () => {
     const jsonData = Object.fromEntries(formData.entries());
     if (!jsonData.email) {
       emailInputRef.current.focus();
-      dispatch({ type: "emailError" });
+      dispatch({
+        type: "emailError",
+        payload: { password: formData.get("password") },
+      });
     } else if (!jsonData.password) {
       passwordInputRef.current.focus();
       dispatch({
@@ -66,7 +69,7 @@ const Login = () => {
           emailErrorMessage: "Email is required",
           passwordError: "",
           passwordErrorMessage: "",
-          data: { email: null, password: null },
+          data: { email: null, password: action.payload.password },
         };
       case "passwordError":
         return {
