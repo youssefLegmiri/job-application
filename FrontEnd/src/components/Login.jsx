@@ -1,7 +1,6 @@
 import Input from "./Input";
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import clsx from "clsx";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
@@ -31,28 +30,28 @@ const Login = () => {
       emailInputRef.current.focus();
       dispatch({
         type: "emailError",
-        payload: { password: formData.get("password") },
+        payload: { password: jsonData.password },
       });
     } else if (!jsonData.password) {
       passwordInputRef.current.focus();
       dispatch({
         type: "passwordError",
-        payload: { email: formData.get("email") },
+        payload: { email: jsonData.email },
       });
-    } else if (formData.get("password")?.length < 8) {
+    } else if (jsonData.password?.length < 8) {
       dispatch({
         type: "passwordLength",
         payload: {
-          email: formData.get("email"),
-          password: formData.get("password"),
+          email: jsonData.email,
+          password: jsonData.password,
         },
       });
     } else {
       dispatch({
         type: "noError",
         payload: {
-          email: formData.get("email"),
-          password: formData.get("password"),
+          email: jsonData.email,
+          password: jsonData.password,
         },
       });
       return actionFunction(formData);
