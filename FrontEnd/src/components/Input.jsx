@@ -11,7 +11,7 @@ const Input = ({
   autofocus,
   error,
   inputData,
-  ref,
+  dispatch,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -41,7 +41,7 @@ const Input = ({
   };
   const handelChange = (e) => {
     setIsTyping(true);
-    setIsError(false);
+    dispatch({ type: "resetErrors" });
     if (e.target.value === "") {
       setIsTyping(false);
     }
@@ -67,7 +67,6 @@ const Input = ({
         {label}
       </label>
       <Component
-        ref={ref}
         defaultValue={inputData}
         autoFocus={autofocus}
         onFocus={() => setIsFocus(true)}

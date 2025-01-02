@@ -67,6 +67,14 @@ const Login = () => {
             password: action.payload.password,
           },
         };
+      case "resetErrors":
+        return {
+          ...state,
+          emailError: false,
+          passwordError: false,
+          emailErrorMessage: "",
+          passwordErrorMessage: "",
+        };
       default:
         return state;
     }
@@ -89,6 +97,7 @@ const Login = () => {
         {/* Email input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            dispatch={dispatch}
             error={state?.emailError}
             inputData={state?.data?.email}
             autofocus={true}
@@ -105,6 +114,7 @@ const Login = () => {
         {/* password input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            dispatch={dispatch}
             inputData={state?.data?.password}
             error={state?.passwordError}
             name={"password"}
