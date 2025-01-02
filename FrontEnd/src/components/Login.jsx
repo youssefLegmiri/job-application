@@ -5,47 +5,82 @@ import clsx from "clsx";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useReducer, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const [state, actionFunction, isPending] = useActionState(formAction, {
-    data: { email: null, password: null },
+  const initialState = {
     emailError: false,
     passwordError: false,
     emailErrorMessage: null,
     passwordErrorMessage: null,
-  });
+    data: { email: null, password: null },
+  };
+  const [state, dispatch] = useReducer(errorHandler, initialState);
 
+  const [data, actionFunction, isPending] = useActionState(formAction, {});
+
+  const validateInput = (formData) => {
+    const jsonData = Object.fromEntries(formData.entries());
+    if (!jsonData.email) {
+      dispatch({ type: "emailError" });
+    } else if (!jsonData.password) {
+      dispatch({
+        type: "passwordError",
+        payload: { email: formData.get("email") },
+      });
+    } else {
+      dispatch({
+        type: "noError",
+        payload: {
+          email: formData.get("email"),
+          password: formData.get("password"),
+        },
+      });
+      return actionFunction(formData);
+    }
+  };
+  function errorHandler(state, action) {
+    switch (action.type) {
+      case "emailError":
+        return {
+          ...state,
+          emailError: true,
+          emailErrorMessage: "Email is required",
+        };
+      case "passwordError":
+        return {
+          emailError: false,
+          emailErrorMessage: "",
+          passwordError: true,
+          passwordErrorMessage: "password is required",
+          data: { email: action.payload.email },
+        };
+      case "noError":
+        return {
+          emailError: false,
+          passwordError: false,
+          emailErrorMessage: "",
+          passwordErrorMessage: "",
+          data: {
+            email: action.payload.email,
+            password: action.payload.password,
+          },
+        };
+      default:
+        return state;
+    }
+  }
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
-
-    if (!jsonData.email) {
-      return { emailError: true, emailErrorMessage: "Email is required" };
-    } else if (!jsonData.password) {
-      return {
-        passwordError: true,
-        passwordErrorMessage: "password is required",
-        data: { email: formData.get("email") },
-      };
-    }
-
+    console.log("hey !");
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-      data: {
-        email: formData.get("email"),
-        password: formData.get("password"),
-      },
-      passwordError: false,
-      emailError: false,
-    };
   }
 
   return (
-    <main className="w-full h-full mt-10 flex justify-center items-center ">
+    <main className="w-full h-full mt-2 flex justify-center items-center ">
       <form
-        action={actionFunction}
+        action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
                       border-[1px] border-purple-500 rounded-lg  bg-purple-100
                       xl:w-[30%] lg:w-[50%] md:w-[60%] "

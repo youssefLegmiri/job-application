@@ -46,6 +46,7 @@ const Input = ({
       setIsTyping(false);
     }
   };
+
   return (
     <div
       className={`w-[80%] relative  border-[1px] rounded-md ${
