@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
@@ -11,13 +11,14 @@ const Input = ({
   error,
   inputData,
   dispatch,
+  ref,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [isError, setIsError] = useState(false);
   const [inputType, setInputType] = useState(type);
   const [isVisible, setIsVisible] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const inputRef = useRef(null);
+
   const Component = as === "textarea" ? "textarea" : "input";
 
   useEffect(() => {
@@ -26,8 +27,7 @@ const Input = ({
     } else {
       setIsError(false);
     }
-    if (error) inputRef.current.focus();
-  });
+  }, [error]);
 
   const handelMouseDown = () => {
     setIsVisible(true);
@@ -65,7 +65,7 @@ const Input = ({
         {label}
       </label>
       <Component
-        ref={inputRef}
+        ref={ref}
         defaultValue={inputData}
         autoFocus={autofocus}
         onFocus={() => setIsFocus(true)}

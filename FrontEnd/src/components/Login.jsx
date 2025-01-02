@@ -5,10 +5,12 @@ import clsx from "clsx";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { useNavigate } from "react-router-dom";
-import { useActionState, useEffect, useReducer } from "react";
+import { useActionState, useRef, useReducer } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
   const initialState = {
     emailError: false,
     passwordError: false,
@@ -20,11 +22,16 @@ const Login = () => {
 
   const [data, actionFunction, isPending] = useActionState(formAction, {});
 
+  {
+    /*  validating user inputs before triggering the form action */
+  }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
     if (!jsonData.email) {
+      emailInputRef.current.focus();
       dispatch({ type: "emailError" });
     } else if (!jsonData.password) {
+      passwordInputRef.current.focus();
       dispatch({
         type: "passwordError",
         payload: { email: formData.get("email") },
@@ -48,13 +55,18 @@ const Login = () => {
       return actionFunction(formData);
     }
   };
+  {
+    /* updating error states and returing inputs data */
+  }
   function errorHandler(state, action) {
     switch (action.type) {
       case "emailError":
         return {
-          ...state,
           emailError: true,
           emailErrorMessage: "Email is required",
+          passwordError: "",
+          passwordErrorMessage: "",
+          data: { email: null, password: null },
         };
       case "passwordError":
         return {
@@ -66,7 +78,8 @@ const Login = () => {
         };
       case "passwordLength":
         return {
-          ...state,
+          emailError: false,
+          emailErrorMessage: "",
           passwordError: true,
           passwordErrorMessage: "password must be at least 8 characters !",
           data: {
@@ -97,6 +110,10 @@ const Login = () => {
         return state;
     }
   }
+
+  {
+    /* form action (api call) */
+  }
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     console.log("hey !");
@@ -115,6 +132,7 @@ const Login = () => {
         {/* Email input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={emailInputRef}
             dispatch={dispatch}
             error={state?.emailError}
             inputData={state?.data?.email}
@@ -132,6 +150,7 @@ const Login = () => {
         {/* password input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={passwordInputRef}
             dispatch={dispatch}
             inputData={state?.data?.password}
             error={state?.passwordError}
