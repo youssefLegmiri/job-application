@@ -59,9 +59,9 @@ const Input = ({
         }  h-[1px]   bg-purple-100`}
       ></div>
       <label
-        className={`pointer-events-none transition-all duration-300 ease-in-out absolute  left-4 ${
-          isFocus ? "-top-4 left-[14px] text-lg font-[600] " : "top-2"
-        } text-purple-600 font-[400]`}
+        className={`pointer-events-none text-lg transition-all duration-300 ease-in-out absolute  left-4 ${
+          isFocus ? "-top-4 left-[14px] text-lg font-[500] " : "top-2"
+        } text-purple-700 font-[400]`}
         htmlFor=""
       >
         {label}

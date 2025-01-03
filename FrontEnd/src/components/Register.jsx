@@ -6,6 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
+  console.log("parent");
   const initialState = {
     firstNameError: false,
     lastNameError: false,
@@ -27,18 +28,182 @@ const Register = () => {
   };
   const [state, dispatch] = useReducer(errorHandler, initialState);
   const [data, actionFunction, isPending] = useActionState(formAction, {});
+
+  {
+    /* validating user inputs */
+  }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
     if (!jsonData.firstName) {
-      dispatch({ type: "emptyFirstName", payload: {} });
+      dispatch({
+        type: "emptyFirstName",
+        payload: {
+          lastName: jsonData.lastName,
+          email: jsonData.email,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else if (!jsonData.lastName) {
+      dispatch({
+        type: "emptyLastName",
+        payload: {
+          firstName: jsonData.firstName,
+          email: jsonData.email,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else if (!jsonData.email) {
+      dispatch({
+        type: "emptyEmail",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else if (!jsonData.password) {
+      dispatch({
+        type: "emptyPassword",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          email: jsonData.email,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else if (!jsonData.confirmPassword) {
+      dispatch({
+        type: "emptyConfirmPassword",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          email: jsonData.email,
+          password: jsonData.password,
+        },
+      });
+    } else if (jsonData.password != jsonData.confirmPassword) {
+      dispatch({
+        type: "PASSWORD_MISMATCH",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          email: jsonData.email,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else {
+      dispatch({
+        type: "noErrors",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          email: jsonData.email,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+      return actionFunction(formData);
     }
   };
+  {
+    /*  updating states and returing inputs data */
+  }
   function errorHandler(state, action) {
     switch (action.type) {
       case "emptyFirstName":
         return {
           firstNameError: true,
-          firstNameErrorMessage: "FirstName is required !",
+          firstNameErrorMessage: "First Name is required !",
+          data: {
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "emptyLastName":
+        return {
+          lastNameError: true,
+          lastNameErrorMessage: "Last Name is required !",
+          data: {
+            firstName: action.payload.firstName,
+            email: action.payload.email,
+            password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "emptyEmail":
+        return {
+          emailError: true,
+          emailErrorMessage: "Email is required !",
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "emptyPassword":
+        return {
+          passwordError: true,
+          passwordErrorMessage: "password is required !",
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "emptyConfirmPassword":
+        return {
+          confirmPasswordError: true,
+          confirmPasswordErrorMessage: "please confirm your password !",
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            password: action.payload.password,
+          },
+        };
+      case "PASSWORD_MISMATCH":
+        return {
+          confirmPasswordError: true,
+          confirmPasswordErrorMessage: " Passwords do not match !",
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "noErrors":
+        return {
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "resetErrors":
+        return {
+          ...state,
+          firstNameError: false,
+          lastNameError: false,
+          emailError: false,
+          passwordError: false,
+          confirmPasswordError: false,
+          firstNameErrorMessage: "",
+          lastNameErrorMessage: "",
+          emailErrorMessage: "",
+          passwordErrorMessage: "",
+          confirmPasswordErrorMessage: "",
         };
     }
   }
@@ -72,15 +237,68 @@ const Register = () => {
             </p>
           )}
         </div>
-        <Input label={"LastName"} type={"text"} name={"lastName"} />
-        <Input label={"Email"} name={"email"} type={"text"} />
-        <Input label={"password"} type={"password"} name={"password"} />
-        <Input
-          label={"confirm password"}
-          type={"password"}
-          name={"confirmPassword"}
-        />
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            dispatch={dispatch}
+            error={state?.lastNameError}
+            inputData={state?.data?.lastName}
+            label={"LastName"}
+            type={"text"}
+            name={"lastName"}
+          />
+          {state?.lastNameError && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {state?.lastNameErrorMessage}
+            </p>
+          )}
+        </div>
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            dispatch={dispatch}
+            error={state?.emailError}
+            inputData={state?.data?.email}
+            label={"Email"}
+            name={"email"}
+            type={"text"}
+          />
+          {state?.emailError && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {state?.emailErrorMessage}
+            </p>
+          )}
+        </div>
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            dispatch={dispatch}
+            error={state?.passwordError}
+            inputData={state?.data?.password}
+            label={"password"}
+            type={"password"}
+            name={"password"}
+          />
+          {state?.passwordError && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {state?.passwordErrorMessage}
+            </p>
+          )}
+        </div>
+        <div className="relative w-full flex items-center justify-center ">
+          <Input
+            dispatch={dispatch}
+            error={state?.confirmPasswordError}
+            inputData={state?.data?.confirmPassword}
+            label={"confirm password"}
+            type={"password"}
+            name={"confirmPassword"}
+          />
+          {state?.confirmPasswordError && (
+            <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+              {state?.confirmPasswordErrorMessage}
+            </p>
+          )}
+        </div>
         <Button
+          isPending={isPending}
           text={"Register"}
           className="btn-custom"
           type="submit"

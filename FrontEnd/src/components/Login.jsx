@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  console.log("Login");
   const initialState = {
     emailError: false,
     passwordError: false,
@@ -110,10 +111,6 @@ const Login = () => {
         };
       case "noError":
         return {
-          emailError: false,
-          passwordError: false,
-          emailErrorMessage: "",
-          passwordErrorMessage: "",
           data: {
             email: action.payload.email,
             password: action.payload.password,
