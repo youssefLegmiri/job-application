@@ -3,6 +3,7 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
+import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useActionState, useRef, useReducer } from "react";
 
@@ -139,14 +140,16 @@ const Login = () => {
     console.log("hey !");
     await new Promise((resolve) => setTimeout(resolve, 2000));
   }
-
+  const handelClick = () => {
+    navigate("/");
+  };
   return (
-    <main className="w-full h-full mt-2 flex justify-center items-center ">
+    <main className="w-screen h-screen  flex justify-center items-center ">
       <form
         action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
-                      border-[1px] border-purple-500 rounded-lg  bg-purple-50
-                      xl:w-[30%] lg:w-[50%] md:w-[60%] "
+                      border-[1px] border-purple-500 rounded-lg  bg-purple-50 relative
+                      xl:w-[30%] lg:w-[50%] md:w-[60%] shadow-2xl "
       >
         <h1 className="text-2xl text-purple-700 font-bold">Login</h1>
         {/* Email input  */}
@@ -233,6 +236,14 @@ const Login = () => {
             text={"Login with facebook"}
             className="btn-custom shadow-none flex justify-evenly items-center text-slate-500 bg-slate-50 hover:bg-slate-100
                        font-[500]  border-[1px] border-slate-400 w-full"
+          />
+        </div>
+        <div className="absolute -top-4 -right-4 ">
+          <IoClose
+            onClick={handelClick}
+            className=" cursor-pointer p-2 rounded-full
+                             transition-all duration-300 hover:bg-purple-600
+                             w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
           />
         </div>
       </form>
