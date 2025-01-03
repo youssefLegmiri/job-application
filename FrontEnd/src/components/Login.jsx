@@ -32,6 +32,12 @@ const Login = () => {
         type: "emailError",
         payload: { password: jsonData.password },
       });
+    } else if (!jsonData.email.includes("@") || !jsonData.email.includes(".")) {
+      emailInputRef.current.focus();
+      dispatch({
+        type: "missing@",
+        payload: { email: jsonData.email, password: jsonData.password },
+      });
     } else if (!jsonData.password) {
       passwordInputRef.current.focus();
       dispatch({
@@ -39,6 +45,7 @@ const Login = () => {
         payload: { email: jsonData.email },
       });
     } else if (jsonData.password?.length < 8) {
+      passwordInputRef.current.focus();
       dispatch({
         type: "passwordLength",
         payload: {
@@ -66,9 +73,20 @@ const Login = () => {
         return {
           emailError: true,
           emailErrorMessage: "Email is required",
-          passwordError: "",
+          passwordError: false,
           passwordErrorMessage: "",
           data: { email: null, password: action.payload.password },
+        };
+      case "missing@":
+        return {
+          emailError: true,
+          emailErrorMessage: "Email must include @ and . symbol  ",
+          passwordError: false,
+          passwordErrorMessage: "",
+          data: {
+            email: action.payload.email,
+            password: action.payload.password,
+          },
         };
       case "passwordError":
         return {
@@ -140,7 +158,7 @@ const Login = () => {
             inputData={state?.data?.email}
             autofocus={true}
             name={"email"}
-            type={"email"}
+            type={"text"}
             label={"Email"}
           />
           {state?.emailError && (
@@ -185,7 +203,10 @@ const Login = () => {
         {/*Don't have an account ? Sign up */}
         <div className="md:w-[60%] w-[80%] xl:w-[90%] text-purple-600 text-lg flex justify-evenly items-center">
           <p className=" ">Don't have an account ?</p>
-          <Link className="text-purple-800 hover:text-purple-600" to={"/"}>
+          <Link
+            className="text-purple-800 hover:text-purple-600"
+            to={"/register"}
+          >
             Sign up
           </Link>
         </div>

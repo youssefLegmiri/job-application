@@ -27,16 +27,16 @@ const Header = () => {
           Home
           {pathname === "/" && <AnimatedLine size={"55px"} />}
         </Link>
-        <Link className="navBar" to={"/about"}>
+        <Link className="navBar" to={"about"}>
           About
-          {pathname === "/about" && <AnimatedLine size={"57px"} />}
+          {pathname === "about" && <AnimatedLine size={"57px"} />}
         </Link>
-        <Link className="navBar" to={"/contact"}>
-          {pathname === "/contact" && <AnimatedLine size={"70px"} />}
+        <Link className="navBar" to={"contact"}>
+          {pathname === "contact" && <AnimatedLine size={"70px"} />}
           Contact
         </Link>
       </div>
-      {pathname != "/login" && (
+      {pathname != "login" && (
         <Button
           onClick={handelNavigate}
           text={"Login"}

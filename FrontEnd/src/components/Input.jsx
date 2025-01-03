@@ -53,7 +53,9 @@ const Input = ({
     >
       <div
         className={`absolute ${isFocus ? "" : "hidden"}  -top-[1px] left-2 ${
-          type === "email" ? "w-[60px]" : "w-[100px]"
+          name === "email" ? "w-[60px]" : "w-[100px]"
+        } ${
+          name === "confirmPassword" ? "w-[160px]" : "w-[100px]"
         }  h-[1px]   bg-purple-100`}
       ></div>
       <label
@@ -78,7 +80,7 @@ const Input = ({
         name={name}
         onChange={handelChange}
       />
-      {name === "password" && !isVisible && isTyping && (
+      {type === "password" && !isVisible && isTyping && (
         <FaEyeSlash
           onMouseDown={handelMouseDown}
           size={"30"}
