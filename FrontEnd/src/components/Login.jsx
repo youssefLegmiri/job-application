@@ -37,7 +37,7 @@ const Login = () => {
     } else if (!jsonData.email.includes("@") || !jsonData.email.includes(".")) {
       emailInputRef.current.focus();
       dispatch({
-        type: "missing@",
+        type: "EMAIL_INVALID_FORMAT",
         payload: { email: jsonData.email, password: jsonData.password },
       });
     } else if (!jsonData.password) {
@@ -79,7 +79,7 @@ const Login = () => {
           passwordErrorMessage: "",
           data: { email: null, password: action.payload.password },
         };
-      case "missing@":
+      case "EMAIL_INVALID_FORMAT":
         return {
           emailError: true,
           emailErrorMessage: "Email must include @ and . symbol  ",
@@ -116,7 +116,7 @@ const Login = () => {
             password: action.payload.password,
           },
         };
-      case "resetErrors":
+      case "RESET_ERRORS":
         return {
           ...state,
           emailError: false,

@@ -34,9 +34,10 @@ const Register = () => {
   }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
+    const email = jsonData.email.split(".");
     if (!jsonData.firstName) {
       dispatch({
-        type: "emptyFirstName",
+        type: "FIRST_NAME_EMPTY",
         payload: {
           lastName: jsonData.lastName,
           email: jsonData.email,
@@ -46,7 +47,7 @@ const Register = () => {
       });
     } else if (!jsonData.lastName) {
       dispatch({
-        type: "emptyLastName",
+        type: "LAST_NAME_EMPTY",
         payload: {
           firstName: jsonData.firstName,
           email: jsonData.email,
@@ -56,17 +57,33 @@ const Register = () => {
       });
     } else if (!jsonData.email) {
       dispatch({
-        type: "emptyEmail",
+        type: "EMAIL_EMPTY",
         payload: {
           firstName: jsonData.firstName,
           lastName: jsonData.lastName,
+          password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
+        },
+      });
+    } else if (
+      !jsonData.email.includes("@") ||
+      !jsonData.email.includes(".") ||
+      email[0].length < 2 ||
+      email[1].length < 2
+    ) {
+      dispatch({
+        type: "EMAIL_INVALID_FORMAT",
+        payload: {
+          firstName: jsonData.firstName,
+          lastName: jsonData.lastName,
+          email: jsonData.email,
           password: jsonData.password,
           confirmPassword: jsonData.confirmPassword,
         },
       });
     } else if (!jsonData.password) {
       dispatch({
-        type: "emptyPassword",
+        type: "PASSWORD_EMPTY",
         payload: {
           firstName: jsonData.firstName,
           lastName: jsonData.lastName,
@@ -74,14 +91,15 @@ const Register = () => {
           confirmPassword: jsonData.confirmPassword,
         },
       });
-    } else if (!jsonData.confirmPassword) {
+    } else if (jsonData.password.length < 8) {
       dispatch({
-        type: "emptyConfirmPassword",
+        type: "INVALID_PASSWORD_LENGTH",
         payload: {
           firstName: jsonData.firstName,
           lastName: jsonData.lastName,
           email: jsonData.email,
           password: jsonData.password,
+          confirmPassword: jsonData.confirmPassword,
         },
       });
     } else if (jsonData.password != jsonData.confirmPassword) {
@@ -97,7 +115,7 @@ const Register = () => {
       });
     } else {
       dispatch({
-        type: "noErrors",
+        type: "NO_ERROR",
         payload: {
           firstName: jsonData.firstName,
           lastName: jsonData.lastName,
@@ -114,7 +132,7 @@ const Register = () => {
   }
   function errorHandler(state, action) {
     switch (action.type) {
-      case "emptyFirstName":
+      case "FIRST_NAME_EMPTY":
         return {
           firstNameError: true,
           firstNameErrorMessage: "First Name is required !",
@@ -125,7 +143,7 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "emptyLastName":
+      case "LAST_NAME_EMPTY":
         return {
           lastNameError: true,
           lastNameErrorMessage: "Last Name is required !",
@@ -136,7 +154,7 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "emptyEmail":
+      case "EMAIL_EMPTY":
         return {
           emailError: true,
           emailErrorMessage: "Email is required !",
@@ -147,7 +165,19 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "emptyPassword":
+      case "EMAIL_INVALID_FORMAT":
+        return {
+          emailError: true,
+          emailErrorMessage: "Invalid email format !",
+          data: {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            password: action.payload.password,
+            email: action.payload.email,
+            confirmPassword: action.payload.confirmPassword,
+          },
+        };
+      case "PASSWORD_EMPTY":
         return {
           passwordError: true,
           passwordErrorMessage: "password is required !",
@@ -158,15 +188,16 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "emptyConfirmPassword":
+      case "INVALID_PASSWORD_LENGTH":
         return {
-          confirmPasswordError: true,
-          confirmPasswordErrorMessage: "please confirm your password !",
+          passwordError: true,
+          passwordErrorMessage: "password must be at least 8 characters !",
           data: {
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
             email: action.payload.email,
             password: action.payload.password,
+            confirmPassword: action.payload.confirmPassword,
           },
         };
       case "PASSWORD_MISMATCH":
@@ -181,7 +212,7 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "noErrors":
+      case "NO_ERROR":
         return {
           data: {
             firstName: action.payload.firstName,
@@ -191,7 +222,7 @@ const Register = () => {
             confirmPassword: action.payload.confirmPassword,
           },
         };
-      case "resetErrors":
+      case "RESET_ERRORS":
         return {
           ...state,
           firstNameError: false,

@@ -39,7 +39,7 @@ const Input = ({
   };
   const handelChange = (e) => {
     setIsTyping(true);
-    if (error) dispatch({ type: "resetErrors" });
+    if (error) dispatch({ type: "RESET_ERRORS" });
     if (e.target.value === "") {
       setIsTyping(false);
     }
