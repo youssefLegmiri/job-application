@@ -28,7 +28,7 @@ const Login = () => {
   }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
-    const email = jsonData.email.split(".");
+    const emailData = jsonData.email.split(".");
     if (!jsonData.email) {
       emailInputRef.current.focus();
       dispatch({
@@ -38,8 +38,8 @@ const Login = () => {
     } else if (
       !jsonData.email.includes("@") ||
       !jsonData.email.includes(".") ||
-      email[0].length < 2 ||
-      email[1].length < 2
+      emailData[0].length < 2 ||
+      emailData[1].length < 2
     ) {
       emailInputRef.current.focus();
       dispatch({
@@ -192,7 +192,7 @@ const Login = () => {
         </div>
         {/*Forgot password ? */}
         <div className="flex md:w-[50%] w-[80%] justify-around ">
-          <Link to={"/"}>
+          <Link to={"/ResetPassword"}>
             <p className="text-lg font-[500] text-purple-600 hover:text-purple-500">
               Forgot password ?
             </p>
@@ -204,7 +204,7 @@ const Login = () => {
           isPending={isPending}
           type={"submit"}
           text={"Login"}
-          className={"btn-custom disabled:bg-purple-400"}
+          className={"btn-custom disabled:bg-purple-500"}
         />
         {/*Don't have an account ? Sign up */}
         <div className="md:w-[60%] w-[80%] xl:w-[90%] text-purple-600 text-lg flex justify-evenly items-center">

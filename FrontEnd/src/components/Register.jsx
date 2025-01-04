@@ -38,7 +38,7 @@ const Register = () => {
   }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
-    const email = jsonData.email.split(".");
+    const emailData = jsonData.email.split(".");
     if (!jsonData.firstName) {
       firstNameRef.current.focus();
       dispatch({
@@ -75,8 +75,8 @@ const Register = () => {
     } else if (
       !jsonData.email.includes("@") ||
       !jsonData.email.includes(".") ||
-      email[0].length < 2 ||
-      email[1].length < 2
+      emailData[0].length < 2 ||
+      emailData[1].length < 2
     ) {
       emailRef.current.focus();
       dispatch({
@@ -352,8 +352,7 @@ const Register = () => {
         <Button
           isPending={isPending}
           text={"Register"}
-          className="btn-custom disabled:bg-purple-500 border-b-[6px] rounded-xl
-                    border-purple-900 bg-purple-700 hover:bg-purple-600"
+          className="btn-custom disabled:bg-purple-500 "
           type="submit"
           action="Registering..."
         />

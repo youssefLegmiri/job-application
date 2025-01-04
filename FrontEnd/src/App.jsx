@@ -3,6 +3,7 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ResetPassword from "./components/ResetPassword";
 import SharedLayout from "./components/sharedLayout";
 import { Routes, Route } from "react-router";
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="ResetPassword" element={<ResetPassword />} />
     </Routes>
   );
 };

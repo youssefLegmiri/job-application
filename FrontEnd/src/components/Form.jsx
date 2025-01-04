@@ -111,7 +111,7 @@ const Form = () => {
           action={"Creating..."}
           type={"submit"}
           text={"Create"}
-          className={"btn-custom disabled:bg-purple-400 "}
+          className={"btn-custom disabled:bg-purple-500 "}
         />
       )}
       {isReady && (
