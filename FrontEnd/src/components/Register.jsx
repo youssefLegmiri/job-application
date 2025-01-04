@@ -1,12 +1,16 @@
 import Input from "./Input";
 import Button from "./Button";
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { useActionState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
-  console.log("parent");
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const initialState = {
     firstNameError: false,
     lastNameError: false,
@@ -36,6 +40,7 @@ const Register = () => {
     const jsonData = Object.fromEntries(formData.entries());
     const email = jsonData.email.split(".");
     if (!jsonData.firstName) {
+      firstNameRef.current.focus();
       dispatch({
         type: "FIRST_NAME_EMPTY",
         payload: {
@@ -46,6 +51,7 @@ const Register = () => {
         },
       });
     } else if (!jsonData.lastName) {
+      lastNameRef.current.focus();
       dispatch({
         type: "LAST_NAME_EMPTY",
         payload: {
@@ -56,6 +62,7 @@ const Register = () => {
         },
       });
     } else if (!jsonData.email) {
+      emailRef.current.focus();
       dispatch({
         type: "EMAIL_EMPTY",
         payload: {
@@ -71,6 +78,7 @@ const Register = () => {
       email[0].length < 2 ||
       email[1].length < 2
     ) {
+      emailRef.current.focus();
       dispatch({
         type: "EMAIL_INVALID_FORMAT",
         payload: {
@@ -82,6 +90,7 @@ const Register = () => {
         },
       });
     } else if (!jsonData.password) {
+      passwordRef.current.focus();
       dispatch({
         type: "PASSWORD_EMPTY",
         payload: {
@@ -92,6 +101,7 @@ const Register = () => {
         },
       });
     } else if (jsonData.password.length < 8) {
+      passwordRef.current.focus();
       dispatch({
         type: "INVALID_PASSWORD_LENGTH",
         payload: {
@@ -103,6 +113,7 @@ const Register = () => {
         },
       });
     } else if (jsonData.password != jsonData.confirmPassword) {
+      confirmPasswordRef.current.focus();
       dispatch({
         type: "PASSWORD_MISMATCH",
         payload: {
@@ -236,9 +247,14 @@ const Register = () => {
           passwordErrorMessage: "",
           confirmPasswordErrorMessage: "",
         };
+      default:
+        return state;
     }
   }
-  async function formAction(previousState, formData) {}
+  async function formAction(previousState, formData) {
+    const jsonData = Object.fromEntries(formData.entries());
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  }
 
   const handelClick = () => {
     navigate("/login");
@@ -254,6 +270,7 @@ const Register = () => {
         <h1 className="text-purple-600 font-bold">Sign Up</h1>
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={firstNameRef}
             dispatch={dispatch}
             error={state?.firstNameError}
             inputData={state?.data?.firstName}
@@ -270,6 +287,7 @@ const Register = () => {
         </div>
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={lastNameRef}
             dispatch={dispatch}
             error={state?.lastNameError}
             inputData={state?.data?.lastName}
@@ -285,6 +303,7 @@ const Register = () => {
         </div>
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={emailRef}
             dispatch={dispatch}
             error={state?.emailError}
             inputData={state?.data?.email}
@@ -300,6 +319,7 @@ const Register = () => {
         </div>
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={passwordRef}
             dispatch={dispatch}
             error={state?.passwordError}
             inputData={state?.data?.password}
@@ -315,6 +335,7 @@ const Register = () => {
         </div>
         <div className="relative w-full flex items-center justify-center ">
           <Input
+            ref={confirmPasswordRef}
             dispatch={dispatch}
             error={state?.confirmPasswordError}
             inputData={state?.data?.confirmPassword}
@@ -331,7 +352,8 @@ const Register = () => {
         <Button
           isPending={isPending}
           text={"Register"}
-          className="btn-custom"
+          className="btn-custom disabled:bg-purple-500 border-b-[6px] rounded-xl
+                    border-purple-900 bg-purple-700 hover:bg-purple-600"
           type="submit"
           action="Registering..."
         />

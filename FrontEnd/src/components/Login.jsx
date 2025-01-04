@@ -28,13 +28,19 @@ const Login = () => {
   }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
+    const email = jsonData.email.split(".");
     if (!jsonData.email) {
       emailInputRef.current.focus();
       dispatch({
         type: "emailError",
         payload: { password: jsonData.password },
       });
-    } else if (!jsonData.email.includes("@") || !jsonData.email.includes(".")) {
+    } else if (
+      !jsonData.email.includes("@") ||
+      !jsonData.email.includes(".") ||
+      email[0].length < 2 ||
+      email[1].length < 2
+    ) {
       emailInputRef.current.focus();
       dispatch({
         type: "EMAIL_INVALID_FORMAT",
@@ -82,7 +88,7 @@ const Login = () => {
       case "EMAIL_INVALID_FORMAT":
         return {
           emailError: true,
-          emailErrorMessage: "Email must include @ and . symbol  ",
+          emailErrorMessage: "Invalid Email Format ! ",
           passwordError: false,
           passwordErrorMessage: "",
           data: {

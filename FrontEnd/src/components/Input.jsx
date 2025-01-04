@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { useRef } from "react";
 
 const Input = ({
   as = "input",
@@ -44,7 +45,12 @@ const Input = ({
       setIsTyping(false);
     }
   };
-
+  const handelFocus = () => {
+    setIsFocus(true);
+  };
+  const handelBlur = (e) => {
+    if (e.target.value === "") setIsFocus(false);
+  };
   return (
     <div
       className={`w-[80%] relative  border-[1px] rounded-md ${
@@ -70,10 +76,8 @@ const Input = ({
         ref={ref}
         defaultValue={inputData}
         autoFocus={autofocus}
-        onFocus={() => setIsFocus(true)}
-        onBlur={(e) => {
-          if (e.target.value === "") setIsFocus(false);
-        }}
+        onFocus={handelFocus}
+        onBlur={handelBlur}
         className="outline-none w-[100%] h-[100%] rounded-md p-4 
                    bg-purple-100 pl-4 text-lg font-semibold text-purple-900  "
         type={inputType}
