@@ -31,7 +31,10 @@ const Register = () => {
     },
   };
   const [state, dispatch] = useReducer(errorHandler, initialState);
-  const [data, actionFunction, isPending] = useActionState(formAction, {});
+  const [response, actionFunction, isPending] = useActionState(formAction, {
+    error: null,
+    message: "",
+  });
 
   {
     /* validating user inputs */
@@ -253,7 +256,25 @@ const Register = () => {
   }
   async function formAction(previousState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const res = await fetch("http://localhost:5000/api/Register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jsonData),
+      });
+      const response = await res.json();
+      if (res.status === 201) {
+        return { message: "Your account has been created successfully." };
+      } else if (res.status === 409) {
+        throw new Error(
+          "Email already in use.Try logging in or use a different email."
+        );
+      } else {
+        throw new Error("Something went wrong please try again.");
+      }
+    } catch (error) {
+      return { error };
+    }
   }
 
   const handelClick = () => {
@@ -347,6 +368,14 @@ const Register = () => {
             <p className="text-red-600 text-sm absolute left-16 -bottom-6">
               {state?.confirmPasswordErrorMessage}
             </p>
+          )}
+        </div>
+        <div className=" w-[80%] flex font-[500] text-center items-center justify-center  ">
+          {!isPending && response?.message && (
+            <p className="text-green-600 text-lg ">{response?.message}</p>
+          )}
+          {!isPending && response?.error && (
+            <p className="text-red-600  text-lg ">{response?.error?.message}</p>
           )}
         </div>
         <Button

@@ -1,5 +1,6 @@
 const PDFDocument = require("pdfkit");
-const PDFGenerator = async (data, res) => {
+const PDFGenerator = async (req, res) => {
+  const data = req.body;
   const doc = new PDFDocument();
 
   res.setHeader("content-type", "application/pdf");

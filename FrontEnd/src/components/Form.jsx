@@ -13,8 +13,8 @@ const Form = () => {
 
   async function formAction(prevState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
-    const LocalEndPoint = "http://localhost:5000/formData";
-    const RemoteEndPoint = "http://192.168.11.103/formData";
+    const LocalEndPoint = "http://localhost:5000/api/GeneratePDF";
+    const RemoteEndPoint = "http://192.168.11.103/GeneratePDF";
     try {
       const res = await fetch(LocalEndPoint, {
         method: "POST",
