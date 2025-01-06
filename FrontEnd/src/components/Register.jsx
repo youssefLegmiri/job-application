@@ -3,7 +3,8 @@ import Button from "./Button";
 import { useReducer, useRef } from "react";
 import { useActionState } from "react";
 import { IoClose } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Loading from "./Loading";
 const Register = () => {
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
@@ -269,6 +270,8 @@ const Register = () => {
         throw new Error(
           "Email already in use.Try logging in or use a different email."
         );
+      } else if (res.status === 400) {
+        throw new Error("Please enter all fields.");
       } else {
         throw new Error("Something went wrong please try again.");
       }
@@ -295,7 +298,7 @@ const Register = () => {
             dispatch={dispatch}
             error={state?.firstNameError}
             inputData={state?.data?.firstName}
-            label={"FirstName"}
+            label={"First Name"}
             type={"text"}
             name={"firstName"}
             autofocus={true}
@@ -312,7 +315,7 @@ const Register = () => {
             dispatch={dispatch}
             error={state?.lastNameError}
             inputData={state?.data?.lastName}
-            label={"LastName"}
+            label={"Last Name"}
             type={"text"}
             name={"lastName"}
           />
@@ -344,7 +347,7 @@ const Register = () => {
             dispatch={dispatch}
             error={state?.passwordError}
             inputData={state?.data?.password}
-            label={"password"}
+            label={"Password"}
             type={"password"}
             name={"password"}
           />
@@ -360,7 +363,7 @@ const Register = () => {
             dispatch={dispatch}
             error={state?.confirmPasswordError}
             inputData={state?.data?.confirmPassword}
-            label={"confirm password"}
+            label={"Confirm Password"}
             type={"password"}
             name={"confirmPassword"}
           />
@@ -371,11 +374,19 @@ const Register = () => {
           )}
         </div>
         <div className=" w-[80%] flex font-[500] text-center items-center justify-center  ">
-          {!isPending && response?.message && (
-            <p className="text-green-600 text-lg ">{response?.message}</p>
-          )}
           {!isPending && response?.error && (
-            <p className="text-red-600  text-lg ">{response?.error?.message}</p>
+            <p className="text-red-600  text-lg ">
+              {response?.error?.message}
+
+              <span className="ml-2 font-[600] italic ">
+                <Link
+                  to={"/login"}
+                  className=" text-lg underline decoration-2 underline-offset-2 text-purple-700"
+                >
+                  Login
+                </Link>
+              </span>
+            </p>
           )}
         </div>
         <Button
@@ -393,6 +404,7 @@ const Register = () => {
                      w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
           />
         </div>
+        {response?.message && <Loading response={response} />}
       </form>
     </main>
   );

@@ -4,6 +4,13 @@ const bcrypt = require("bcrypt");
 const RegisterUser = asyncErrorHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
+  // check if all user inputs are not empty
+
+  if (!firstName || !lastName || !email || !password) {
+    res.status(400);
+    throw new Error("Please enter all fields");
+  }
+
   // check if the user already exist
   const userExists = await User.findOne({ email });
   if (userExists) {
