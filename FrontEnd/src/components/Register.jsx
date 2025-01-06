@@ -258,7 +258,7 @@ const Register = () => {
   async function formAction(previousState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     try {
-      const res = await fetch("http://localhost:5000/api/Register", {
+      const res = await fetch("http://localhost:5000/api/users/Register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(jsonData),

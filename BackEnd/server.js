@@ -22,9 +22,9 @@ app.get("*", (req, res) => {
 // GeneratePDF api
 app.use("/api/GeneratePDF", require("./routes/generatePDFRoute"));
 
-//RegisterUser api
+//users api
 
-app.use("/api/Register", require("./routes/userRoute"));
+app.use("/api/users", require("./routes/userRoute"));
 
 app.use(errorHandler);
 
