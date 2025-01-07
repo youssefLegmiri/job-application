@@ -1,9 +1,11 @@
-const Home = () => {
+import Form from "./Form";
+
+const Dashboard = () => {
   return (
     <main className="w-full p-2 flex flex-col justify-between items-center">
-      home
+      <Form />
     </main>
   );
 };
 
-export default Home;
+export default Dashboard;

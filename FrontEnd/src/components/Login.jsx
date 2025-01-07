@@ -1,17 +1,16 @@
 import Input from "./Input";
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { IoClose } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 import { useActionState, useRef, useReducer } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
-  console.log("Login");
+
   const initialState = {
     emailError: false,
     passwordError: false,
@@ -150,14 +149,13 @@ const Login = () => {
         body: JSON.stringify(jsonData),
       });
       const response = await res.json();
-      if (res.status === 201) {
-        return { message: "Your account has been created successfully." };
-      } else if (res.status === 409) {
-        throw new Error(
-          "Email already in use.Try logging in or use a different email."
-        );
+      const user = `${response.firstName} ${response.lastName}`;
+      if (res.status === 200) {
+        navigate("/dashboard");
+        console.log(response.token);
+        return { message: " Success " };
       } else if (res.status === 400) {
-        throw new Error("Please enter all fields.");
+        throw new Error("Failure");
       } else {
         throw new Error("Something went wrong please try again.");
       }
@@ -222,6 +220,14 @@ const Login = () => {
           </Link>
         </div>
         {/*Login button */}
+        <div className=" w-[80%] flex font-[500] text-center items-center justify-center  ">
+          {response?.error && !isPending && (
+            <p className="text-red-600 text-lg">{response?.error?.message}</p>
+          )}
+          {response?.message && !isPending && (
+            <p className="text-green-600 text-lg">{response?.message}</p>
+          )}
+        </div>
         <Button
           action={"Logging..."}
           isPending={isPending}

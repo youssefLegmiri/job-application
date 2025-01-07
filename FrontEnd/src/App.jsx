@@ -6,6 +6,8 @@ import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
 import SharedLayout from "./components/sharedLayout";
 import { Routes, Route } from "react-router";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 const App = () => {
   return (
     <Routes>
@@ -13,6 +15,14 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
