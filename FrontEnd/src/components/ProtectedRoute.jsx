@@ -1,6 +1,9 @@
 import { Navigate } from "react-router-dom";
-const ProtectedRoute = ({ children, user }) => {
-  if (!user) {
+import { useContext } from "react";
+import { loginContext } from "../App";
+const ProtectedRoute = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useContext(loginContext);
+  if (!isLoggedIn) {
     return <Navigate to={"/"} />;
   }
   return <>{children} </>;

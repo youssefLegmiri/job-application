@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router";
 import { useLocation } from "react-router";
 import Button from "./Button";
+import { useContext } from "react";
+import { userContext } from "../App";
 const AnimatedLine = ({ size }) => {
   return (
     <div
@@ -11,6 +13,7 @@ const AnimatedLine = ({ size }) => {
 };
 
 const Header = () => {
+  const [user, setUser] = useContext(userContext);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -36,7 +39,7 @@ const Header = () => {
           Contact
         </Link>
       </div>
-      {pathname != "login" && (
+      {pathname != "/login" && pathname != "/dashboard" && (
         <Button
           onClick={handelNavigate}
           text={"Login"}

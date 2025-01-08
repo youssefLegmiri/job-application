@@ -4,9 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { IoClose } from "react-icons/io5";
-import { useActionState, useRef, useReducer } from "react";
-
+import { useActionState, useRef, useReducer, useContext } from "react";
+import { userContext } from "../App";
+import { loginContext } from "../App";
 const Login = () => {
+  const [user, setUser] = useContext(userContext);
+  const [isLoggedIn, setIsLoggedIn] = useContext(loginContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -146,21 +149,23 @@ const Login = () => {
       const res = await fetch("http://localhost:5000/api/users/Login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(jsonData),
       });
       const response = await res.json();
-      const user = `${response.firstName} ${response.lastName}`;
+      setIsLoggedIn(true);
+      setUser(`${response.firstName}`);
       if (res.status === 200) {
         navigate("/dashboard");
-        console.log(response.token);
         return { message: " Success " };
       } else if (res.status === 400) {
         throw new Error("Failure");
       } else {
-        throw new Error("Something went wrong please try again.");
+        throw new Error("Server Error");
       }
     } catch (error) {
-      return { error };
+      if (error)
+        return { error: { message: "Something went wrong please try again." } };
     }
   }
 

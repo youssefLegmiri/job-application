@@ -4,13 +4,15 @@ const cors = require("cors");
 const colors = require("colors");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
+const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.use(express.json()); // middelware to parse incoming json data
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cookieParser());
 
 // Connecting to MongoDB
 connectDB();
