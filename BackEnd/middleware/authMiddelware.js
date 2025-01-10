@@ -6,14 +6,15 @@ const protect = asyncHandler(async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
     res.status(403).json({ message: "No token provided" });
-  }
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select("-password");
-    next();
-    console.log(req.user);
-  } catch (error) {
-    res.status(401).json({ message: "Invalid or expired token " });
+  } else {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await User.findById(decoded.id).select("-password");
+      next();
+      console.log(req.user);
+    } catch (error) {
+      res.status(401).json({ message: "Invalid or expired token " });
+    }
   }
 });
 

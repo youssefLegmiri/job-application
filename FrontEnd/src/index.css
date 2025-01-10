@@ -15,7 +15,7 @@
            border-purple-900 bg-purple-700;
   }
   .navBar {
-    @apply hover:text-purple-600 relative;
+    @apply hover:text-purple-600;
   }
 }
 

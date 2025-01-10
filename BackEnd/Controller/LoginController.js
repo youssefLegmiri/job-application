@@ -10,14 +10,14 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "10min",
+      expiresIn: "1h",
     });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
-      maxAge: 10 * 60 * 1000,
+      maxAge: 60 * 60 * 1000,
     });
     res.status(200).json({
       firstName: user.firstName,

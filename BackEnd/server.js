@@ -21,6 +21,8 @@ app.get("*", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+// authentication api
+app.use("/api/auth", require("./routes/authVerifyRoute"));
 // GeneratePDF api
 app.use("/api/GeneratePDF", require("./routes/generatePDFRoute"));
 

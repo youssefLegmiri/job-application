@@ -5,11 +5,10 @@ import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import { IoClose } from "react-icons/io5";
 import { useActionState, useRef, useReducer, useContext } from "react";
-import { userContext } from "../App";
-import { loginContext } from "../App";
+import { AuthContext } from "./AuthProvider";
 const Login = () => {
-  const [user, setUser] = useContext(userContext);
-  const [isLoggedIn, setIsLoggedIn] = useContext(loginContext);
+  const { setUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -152,20 +151,18 @@ const Login = () => {
         credentials: "include",
         body: JSON.stringify(jsonData),
       });
-      const response = await res.json();
-      setIsLoggedIn(true);
-      setUser(`${response.firstName}`);
+      const userData = await res.json();
       if (res.status === 200) {
+        setUser(userData.firstName);
         navigate("/dashboard");
         return { message: " Success " };
       } else if (res.status === 400) {
-        throw new Error("Failure");
+        return { error: { message: "Invalid credentials !" } };
       } else {
-        throw new Error("Server Error");
+        throw new Error("Something went wrong please try again.");
       }
     } catch (error) {
-      if (error)
-        return { error: { message: "Something went wrong please try again." } };
+      return { error: { message: error.message } };
     }
   }
 
