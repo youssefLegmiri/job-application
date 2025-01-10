@@ -1,31 +1,28 @@
-import { Link, useNavigate } from "react-router";
-import { useLocation } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import Button from "./Button";
 import { FaUser } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
-const AnimatedLine = ({ size }) => {
-  return (
-    <div
-      style={{ width: size }}
-      className="animate-line origin-left bg-purple-600  h-1 absolute -bottom-2 left-0"
-    ></div>
-  );
-};
-
+import AnimatedLine from "./AnimatedLine";
+import UserMenu from "./UserMenu";
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const handelNavigate = () => {
+
+  const handelLogin = () => {
     navigate("/login");
   };
+  const handelUser = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div className="w-full flex justify-evenly items-center mt-2 mb-4   ">
+    <header className="relative w-full flex justify-evenly items-center mt-2 mb-4   ">
       <Link to={"/"} className="text-purple-800 font-bold cursor-pointer">
         Text to PDF
       </Link>
-      <div className="md:flex justify-between text-xl font-[500] text-purple-800 md:w-[50%] w-[30%] hidden">
+      <nav className="md:flex justify-between text-xl font-[500] text-purple-800 md:w-[50%] w-[30%] hidden">
         <div className="relative">
           <Link className="navBar " to={"/"}>
             Home
@@ -52,22 +49,26 @@ const Header = () => {
           </Link>
           {pathname === "/contact" && <AnimatedLine size={"70px"} />}
         </div>
-      </div>
+      </nav>
       {user && (
-        <div className="flex w-[10%] justify-around text-purple-50 rounded-xl bg-purple-500 p-2">
+        <div
+          onClick={handelUser}
+          className=" flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 rounded-xl bg-purple-600 p-2"
+        >
           {user}
           <FaUser />
         </div>
       )}
+      {isOpen && <UserMenu setIsOpen={setIsOpen} />}
       {!user && (
         <Button
-          onClick={handelNavigate}
+          onClick={handelLogin}
           text={"Login"}
           className="btn-custom "
           type="button"
         />
       )}
-    </div>
+    </header>
   );
 };
 

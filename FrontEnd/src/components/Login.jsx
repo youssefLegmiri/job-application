@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { useActionState, useRef, useReducer, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 const Login = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setIsLogin, setError } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -144,6 +144,7 @@ const Login = () => {
   }
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
+
     try {
       const res = await fetch("http://localhost:5000/api/users/Login", {
         method: "POST",
@@ -159,10 +160,10 @@ const Login = () => {
       } else if (res.status === 400) {
         return { error: { message: "Invalid credentials !" } };
       } else {
-        throw new Error("Something went wrong please try again.");
+        return { error: { message: "Server Error" } };
       }
     } catch (error) {
-      return { error: { message: error.message } };
+      return { error: { message: "Something went wrong please try again." } };
     }
   }
 
