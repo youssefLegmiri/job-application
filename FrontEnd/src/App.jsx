@@ -4,7 +4,7 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
-import SharedLayout from "./components/sharedLayout";
+import SharedLayout from "./components/SharedLayout";
 import { Routes, Route } from "react-router";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";

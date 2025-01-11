@@ -2,11 +2,16 @@ import { useContext } from "react";
 import { IoClose } from "react-icons/io5";
 import { AuthContext } from "./AuthProvider";
 
-const Loading = ({ message }) => {
-  const { Error, setIsLogout, setError } = useContext(AuthContext);
+const Loading = ({ text }) => {
+  const { setIsLogout, setIsLogin, response, setResponse } =
+    useContext(AuthContext);
   const handelClick = () => {
     setIsLogout(false);
-    setError("");
+    setIsLogin(false);
+    setResponse({
+      message: "",
+      error: "",
+    });
   };
   return (
     <div className=" w-screen h-screen absolute flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
@@ -15,11 +20,22 @@ const Loading = ({ message }) => {
                     bg-purple-50 rounded-xl flex flex-col items-center justify-evenly
                       "
       >
-        {!Error && (
-          <p className="text-stone-900 text-2xl font-[500] ">{message} </p>
+        {response.error ? (
+          ""
+        ) : response.message ? (
+          ""
+        ) : (
+          <p className="text-stone-900 text-2xl font-[500] ">{text} </p>
         )}
-        {Error && <p className="text-red-600 text-lg text-center ">{Error} </p>}
-        {Error && (
+        {response.error && (
+          <p className="text-red-600 text-lg text-center ">{response.error} </p>
+        )}
+        {response.message && (
+          <p className="text-green-600 text-2xl font-[500] text-center ">
+            {response.message}{" "}
+          </p>
+        )}
+        {response && (
           <div className="absolute -top-4 -right-4 ">
             <IoClose
               onClick={handelClick}

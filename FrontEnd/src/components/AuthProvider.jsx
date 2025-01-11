@@ -7,7 +7,10 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
-  const [Error, setError] = useState("");
+  const [response, setResponse] = useState({
+    error: "",
+    message: "",
+  });
   useEffect(() => {
     const verifyUser = async () => {
       try {
@@ -28,7 +31,17 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, loading, isLogout, setIsLogout, Error, setError }}
+      value={{
+        user,
+        setUser,
+        loading,
+        isLogout,
+        setIsLogout,
+        isLogin,
+        setIsLogin,
+        response,
+        setResponse,
+      }}
     >
       {children}
     </AuthContext.Provider>

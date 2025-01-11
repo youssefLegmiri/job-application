@@ -6,8 +6,9 @@ import facebook from "../assets/facebook.svg";
 import { IoClose } from "react-icons/io5";
 import { useActionState, useRef, useReducer, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
+
 const Login = () => {
-  const { setUser, setIsLogin, setError } = useContext(AuthContext);
+  const { setUser, setIsLogin, setResponse } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -153,8 +154,10 @@ const Login = () => {
         body: JSON.stringify(jsonData),
       });
       const userData = await res.json();
+      setIsLogin(true);
       if (res.status === 200) {
         setUser(userData.firstName);
+        setResponse({ message: `Welcome ${userData.firstName}` });
         navigate("/dashboard");
         return { message: " Success " };
       } else if (res.status === 400) {
@@ -170,6 +173,7 @@ const Login = () => {
   const handelClick = () => {
     navigate("/");
   };
+
   return (
     <main className="w-screen h-screen  flex justify-center items-center ">
       <form

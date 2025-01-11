@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useRef } from "react";
 
 const Input = ({
   as = "input",

@@ -18,7 +18,7 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <header className="relative w-full flex justify-evenly items-center mt-2 mb-4   ">
+    <header className=" w-full flex justify-evenly items-center mt-2 mb-4   ">
       <Link to={"/"} className="text-purple-800 font-bold cursor-pointer">
         Text to PDF
       </Link>
@@ -53,13 +53,13 @@ const Header = () => {
       {user && (
         <div
           onClick={handelUser}
-          className=" flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 rounded-xl bg-purple-600 p-2"
+          className="relative flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 bg-gray-400 p-2 rounded-lg"
         >
           {user}
           <FaUser />
+          {isOpen && <UserMenu setIsOpen={setIsOpen} />}
         </div>
       )}
-      {isOpen && <UserMenu setIsOpen={setIsOpen} />}
       {!user && (
         <Button
           onClick={handelLogin}
