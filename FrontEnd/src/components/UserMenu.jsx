@@ -24,7 +24,7 @@ const UserMenu = ({ setIsOpen }) => {
     }
   };
   return (
-    <div className="absolute -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] ">
+    <div className="absolute z-10 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] ">
       <Link className="userMenu" to={"/account"}>
         Account
       </Link>

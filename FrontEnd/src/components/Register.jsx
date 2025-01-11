@@ -1,11 +1,13 @@
 import Input from "./Input";
 import Button from "./Button";
-import { useReducer, useRef } from "react";
+import { useReducer, useRef, useContext } from "react";
 import { useActionState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "./AuthProvider";
 import Loading from "./Loading";
 const Register = () => {
+  const { setIsRegister, isRegister, setResponse } = useContext(AuthContext);
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -34,7 +36,6 @@ const Register = () => {
   const [state, dispatch] = useReducer(errorHandler, initialState);
   const [response, actionFunction, isPending] = useActionState(formAction, {
     error: null,
-    message: "",
   });
 
   {
@@ -264,19 +265,20 @@ const Register = () => {
         body: JSON.stringify(jsonData),
       });
       const response = await res.json();
+      setIsRegister(true);
       if (res.status === 201) {
-        return { message: "Your account has been created successfully." };
+        navigate("/login");
+        setResponse({ message: "Your account has been created successfully." });
       } else if (res.status === 409) {
-        throw new Error(
-          "Email already in use.Try logging in or use a different email."
-        );
+        setResponse({ error: "Email already in use !" });
       } else if (res.status === 400) {
-        throw new Error("Please enter all fields.");
+        setResponse({ error: "Please enter all fields." });
       } else {
-        throw new Error("Something went wrong please try again.");
+        setResponse({ error: "Server not responding" });
       }
     } catch (error) {
-      return { error };
+      setIsRegister(true);
+      setResponse({ error: "Something went wrong please try again." });
     }
   }
 
@@ -286,7 +288,7 @@ const Register = () => {
   return (
     <main className="w-screen h-screen bg-purple-200 flex justify-center items-center">
       <form
-        className="h-[80%] w-[80%] relative min-h-[600px] p-2  flex flex-col justify-around items-center
+        className="h-[80%] w-[80%] relative min-h-[600px] p-2  flex flex-col justify-evenly items-center
                       border-[1px] border-purple-500 rounded-lg  bg-purple-50 shadow-xl
                       xl:w-[30%] lg:w-[50%] md:w-[60%]"
         action={validateInput}
@@ -373,22 +375,7 @@ const Register = () => {
             </p>
           )}
         </div>
-        <div className=" w-[80%] flex font-[500] text-center items-center justify-center  ">
-          {!isPending && response?.error && (
-            <p className="text-red-600  text-lg ">
-              {response?.error?.message}
 
-              <span className="ml-2 font-[600] italic ">
-                <Link
-                  to={"/login"}
-                  className=" text-lg underline decoration-2 underline-offset-2 text-purple-700"
-                >
-                  Login
-                </Link>
-              </span>
-            </p>
-          )}
-        </div>
         <Button
           isPending={isPending}
           text={"Register"}
@@ -396,6 +383,7 @@ const Register = () => {
           type="submit"
           action="Registering..."
         />
+
         <div className="absolute -top-4 -right-4 ">
           <IoClose
             onClick={handelClick}
@@ -404,8 +392,8 @@ const Register = () => {
                      w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
           />
         </div>
-        {response?.message && <Loading response={response} />}
       </form>
+      {isRegister && <Loading />}
     </main>
   );
 };

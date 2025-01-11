@@ -6,9 +6,10 @@ import facebook from "../assets/facebook.svg";
 import { IoClose } from "react-icons/io5";
 import { useActionState, useRef, useReducer, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
-
+import Loading from "./Loading";
 const Login = () => {
-  const { setUser, setIsLogin, setResponse } = useContext(AuthContext);
+  const { setUser, setIsLogin, isLogin, isRegister, setResponse } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -23,10 +24,7 @@ const Login = () => {
   };
   const [state, dispatch] = useReducer(errorHandler, initialState);
 
-  const [response, actionFunction, isPending] = useActionState(formAction, {
-    error: null,
-    message: "",
-  });
+  const [response, actionFunction, isPending] = useActionState(formAction, {});
 
   {
     /*  validating user inputs before triggering the form action */
@@ -159,14 +157,14 @@ const Login = () => {
         setUser(userData.firstName);
         setResponse({ message: `Welcome ${userData.firstName}` });
         navigate("/dashboard");
-        return { message: " Success " };
       } else if (res.status === 400) {
-        return { error: { message: "Invalid credentials !" } };
+        setResponse({ error: "Invalid credentials !" });
       } else {
-        return { error: { message: "Server Error" } };
+        setResponse({ error: "Server Error" });
       }
     } catch (error) {
-      return { error: { message: "Something went wrong please try again." } };
+      setIsLogin(true);
+      setResponse({ error: "Something went wrong please try again." });
     }
   }
 
@@ -227,14 +225,7 @@ const Login = () => {
           </Link>
         </div>
         {/*Login button */}
-        <div className=" w-[80%] flex font-[500] text-center items-center justify-center  ">
-          {response?.error && !isPending && (
-            <p className="text-red-600 text-lg">{response?.error?.message}</p>
-          )}
-          {response?.message && !isPending && (
-            <p className="text-green-600 text-lg">{response?.message}</p>
-          )}
-        </div>
+
         <Button
           action={"Logging..."}
           isPending={isPending}
@@ -286,6 +277,8 @@ const Login = () => {
           />
         </div>
       </form>
+      {isRegister && <Loading />}
+      {isLogin && <Loading />}
     </main>
   );
 };

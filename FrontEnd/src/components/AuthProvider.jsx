@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -39,6 +40,8 @@ const AuthProvider = ({ children }) => {
         setIsLogout,
         isLogin,
         setIsLogin,
+        isRegister,
+        setIsRegister,
         response,
         setResponse,
       }}

@@ -53,7 +53,7 @@ const Header = () => {
       {user && (
         <div
           onClick={handelUser}
-          className="relative flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 bg-gray-400 p-2 rounded-lg"
+          className="relative flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 bg-purple-600 p-2 rounded-lg"
         >
           {user}
           <FaUser />
