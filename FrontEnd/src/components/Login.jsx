@@ -152,13 +152,14 @@ const Login = () => {
         body: JSON.stringify(jsonData),
       });
       const userData = await res.json();
+      setResponse({ error: "", message: "" });
       setIsLogin(true);
       if (res.status === 200) {
         setUser(userData.firstName);
         setResponse({ message: `Welcome ${userData.firstName}` });
         navigate("/dashboard");
       } else if (res.status === 400) {
-        setResponse({ error: "Invalid credentials !" });
+        setResponse({ error: "Invalid Credentials !" });
       } else {
         setResponse({ error: "Server Error" });
       }
@@ -278,7 +279,7 @@ const Login = () => {
         </div>
       </form>
       {isRegister && <Loading />}
-      {isLogin && <Loading />}
+      {(isLogin || isPending) && <Loading text={"Logging ..."} />}
     </main>
   );
 };

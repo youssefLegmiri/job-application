@@ -85,7 +85,7 @@ const Form = () => {
       )}
       {isPending && (
         <div className="flex flex-col items-center">
-          <img className="w-20 animate-settings" src={settings} alt="" />
+          <img className="w-20 animate-rotate" src={settings} alt="" />
           <p className="text-green-600 font-bold">Processing ... </p>
         </div>
       )}

@@ -393,7 +393,7 @@ const Register = () => {
           />
         </div>
       </form>
-      {isRegister && <Loading />}
+      {(isRegister || isPending) && <Loading text={"Registering..."} />}
     </main>
   );
 };

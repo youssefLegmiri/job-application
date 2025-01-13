@@ -19,7 +19,8 @@ export default {
       },
       animation: {
         line: "animatedLine 0.5s ease-in-out;",
-        settings: "spin 2s linear infinite;",
+        rotate: "spin 2s linear infinite;",
+        spinner: "spinner 1s linear infinite",
       },
     },
   },

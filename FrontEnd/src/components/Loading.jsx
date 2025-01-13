@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { IoClose } from "react-icons/io5";
 import { AuthContext } from "./AuthProvider";
-
+import LoaderSpinner from "./LoaderSpinner";
 const Loading = ({ text }) => {
   const { setIsLogout, setIsLogin, setIsRegister, response, setResponse } =
     useContext(AuthContext);
@@ -18,7 +18,7 @@ const Loading = ({ text }) => {
     <div className="fixed -inset-0 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
       <div
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%]
-                    bg-purple-50 rounded-xl flex flex-col items-center justify-evenly
+                    bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
       >
         {response.error ? (
@@ -26,19 +26,22 @@ const Loading = ({ text }) => {
         ) : response.message ? (
           ""
         ) : (
-          <p className="text-stone-900 text-2xl font-[500] ">{text} </p>
+          <div className=" flex flex-col items-center">
+            <LoaderSpinner />
+            <p className="text-purple-600 text-2xl font-[500] ">{text} </p>
+          </div>
         )}
         {response.error && (
           <p className="text-red-600 text-2xl font-[500] text-center ">
-            {response.error}{" "}
+            {response.error}
           </p>
         )}
         {response.message && (
-          <p className="text-green-600 text-2xl font-[500] text-center ">
-            {response.message}{" "}
+          <p className="text-purple-600 text-2xl font-[500] text-center ">
+            {response.message}
           </p>
         )}
-        {response && (
+        {(response.error || response.message) && (
           <div className="absolute -top-4 -right-4 ">
             <IoClose
               onClick={handelClick}

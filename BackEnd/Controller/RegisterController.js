@@ -4,6 +4,12 @@ const bcrypt = require("bcrypt");
 const RegisterUser = asyncErrorHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
+  // make first Letter of firstName and LastName to upperCase
+  const firstNameUpperCase =
+    firstName.charAt(0).toUpperCase() + firstName.slice(1);
+  const lastNameUpperCase =
+    lastName.charAt(0).toUpperCase() + lastName.slice(1);
+
   // check if all user inputs are not empty
 
   if (!firstName || !lastName || !email || !password) {
@@ -21,8 +27,8 @@ const RegisterUser = asyncErrorHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = await User.create({
-    firstName: firstName,
-    lastName: lastName,
+    firstName: firstNameUpperCase,
+    lastName: lastNameUpperCase,
     email: email,
     password: hashedPassword,
   });
