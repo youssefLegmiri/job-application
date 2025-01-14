@@ -3,6 +3,7 @@ import Button from "./Button";
 import Input from "./Input";
 import PDFIcon from "../assets/pdf.svg";
 import settings from "../assets/settings.svg";
+import { motion } from "framer-motion";
 const Form = () => {
   const [isReady, setIsReady] = useState(false);
   const [state, actionFunction, isPending] = useActionState(formAction, {
@@ -65,7 +66,18 @@ const Form = () => {
     setIsReady(false);
   };
   return (
-    <form
+    <motion.form
+      initial={{ scale: 0, rotate: "45deg" }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{
+        type: "spring",
+        damping: 7,
+        mass: 1,
+        stiffness: 100,
+        restDelta: 0.5,
+        restSpeed: 8,
+      }}
+      style={{ originX: "50%", originY: "50%" }}
       action={actionFunction}
       className={`border-[1px] rounded-lg bg-purple-50
                 border-purple-500 min-h-[600px]   w-[80%]
@@ -73,7 +85,7 @@ const Form = () => {
                 p-4 lg:w-[60%] xl:w-[50%]
                    animate-scaleUp
                  transition-all duration-100
-                origin-bottom `}
+                origin-bottom shadow-2xl`}
     >
       {isReady && (
         <Button
@@ -95,12 +107,7 @@ const Form = () => {
       )}
       {!isReady && (
         <>
-          <Input
-            autofocus={true}
-            name={"FirstName"}
-            type={"text"}
-            label={"First Name"}
-          />
+          <Input name={"FirstName"} type={"text"} label={"First Name"} />
           <Input name={"LastName"} type={"text"} label={"Last Name"} />
           <Input name={"email"} type={"email"} label={"Email"} />
           <Input name={"message"} as="textarea" label={"message"} />
@@ -139,7 +146,7 @@ const Form = () => {
           </div>
         </div>
       )}
-    </form>
+    </motion.form>
   );
 };
 

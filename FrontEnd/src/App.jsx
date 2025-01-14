@@ -4,6 +4,7 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
+import Account from "./components/Account";
 import SharedLayout from "./components/SharedLayout";
 import { Routes, Route } from "react-router";
 import Dashboard from "./components/Dashboard";
@@ -27,6 +28,7 @@ const App = () => {
             }
           />
         </Route>
+        <Route path="/account" element={<Account />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />

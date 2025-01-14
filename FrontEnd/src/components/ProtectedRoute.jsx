@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import Loading from "./Loading";
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { loading, user } = useContext(AuthContext);
 
   return (
     <>

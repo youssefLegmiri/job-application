@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 const Button = ({
   isPending,
   icon,
@@ -7,10 +8,15 @@ const Button = ({
   ...rest
 }) => {
   return (
-    <button disabled={isPending} {...rest}>
+    <motion.button
+      whileHover={{ scale: 1.2, rotate: "1.5deg" }}
+      whileTap={{ rotate: "-1.5deg" }}
+      disabled={isPending}
+      {...rest}
+    >
       <img className={`${size}`} src={icon} alt="" />
       {isPending ? action : text}
-    </button>
+    </motion.button>
   );
 };
 

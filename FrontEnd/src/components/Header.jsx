@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import AnimatedLine from "./AnimatedLine";
 import UserMenu from "./UserMenu";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
@@ -53,12 +53,15 @@ const Header = () => {
       </nav>
       {user && (
         <motion.div
+          whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           className="relative flex md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around text-purple-50 bg-purple-600 p-2 rounded-lg"
         >
           {user}
           <FaUser />
-          {isOpen && <UserMenu setIsOpen={setIsOpen} />}
+          <AnimatePresence>
+            {isOpen && <UserMenu setIsOpen={setIsOpen} />}
+          </AnimatePresence>
         </motion.div>
       )}
       {!user && (

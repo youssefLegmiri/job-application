@@ -2,12 +2,13 @@ import Input from "./Input";
 import Button from "./Button";
 import { useReducer, useRef, useContext } from "react";
 import { useActionState } from "react";
-import { IoClose } from "react-icons/io5";
+import Close from "./Close";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
+
 import Loading from "./Loading";
 const Register = () => {
-  const { setIsRegister, isRegister, setResponse } = useContext(AuthContext);
+  const { setIsRegister, setResponse, isRegister } = useContext(AuthContext);
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -266,6 +267,7 @@ const Register = () => {
       });
       const response = await res.json();
       setIsRegister(true);
+
       if (res.status === 201) {
         navigate("/login");
         setResponse({ message: "Your account has been created successfully." });
@@ -384,14 +386,7 @@ const Register = () => {
           action="Registering..."
         />
 
-        <div className="absolute -top-4 -right-4 ">
-          <IoClose
-            onClick={handelClick}
-            className=" cursor-pointer p-2 rounded-full
-                     transition-all duration-300 hover:bg-purple-600
-                     w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
-          />
-        </div>
+        <Close handelClick={handelClick} />
       </form>
       {(isRegister || isPending) && <Loading text={"Registering..."} />}
     </main>

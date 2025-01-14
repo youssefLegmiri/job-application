@@ -3,14 +3,15 @@ import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
-import { IoClose } from "react-icons/io5";
+import Close from "./Close";
 import { useActionState, useRef, useReducer, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
-import Loading from "./Loading";
-const Login = () => {
-  const { setUser, setIsLogin, isLogin, isRegister, setResponse } =
-    useContext(AuthContext);
 
+import Loading from "./Loading";
+
+const Login = () => {
+  const { isRegister, isLogin, setIsLogin, setResponse, setUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -152,11 +153,14 @@ const Login = () => {
         body: JSON.stringify(jsonData),
       });
       const userData = await res.json();
+
       setResponse({ error: "", message: "" });
       setIsLogin(true);
+
       if (res.status === 200) {
         setUser(userData.firstName);
         setResponse({ message: `Welcome ${userData.firstName}` });
+
         navigate("/dashboard");
       } else if (res.status === 400) {
         setResponse({ error: "Invalid Credentials !" });
@@ -269,14 +273,7 @@ const Login = () => {
                        font-[500]  border-[1px] border-slate-400 w-full"
           />
         </div>
-        <div className="absolute -top-4 -right-4 ">
-          <IoClose
-            onClick={handelClick}
-            className=" cursor-pointer p-2 rounded-full
-                             transition-all duration-300 hover:bg-purple-600
-                             w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
-          />
-        </div>
+        <Close handelClick={handelClick} />
       </form>
       {isRegister && <Loading />}
       {(isLogin || isPending) && <Loading text={"Logging ..."} />}

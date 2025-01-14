@@ -1,5 +1,4 @@
-import { createContext, useState, useEffect } from "react";
-
+import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -12,6 +11,7 @@ const AuthProvider = ({ children }) => {
     error: "",
     message: "",
   });
+
   useEffect(() => {
     const verifyUser = async () => {
       try {
@@ -36,10 +36,10 @@ const AuthProvider = ({ children }) => {
         user,
         setUser,
         loading,
-        isLogout,
-        setIsLogout,
         isLogin,
         setIsLogin,
+        isLogout,
+        setIsLogout,
         isRegister,
         setIsRegister,
         response,

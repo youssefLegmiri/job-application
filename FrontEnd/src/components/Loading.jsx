@@ -1,22 +1,28 @@
 import { useContext } from "react";
-import { IoClose } from "react-icons/io5";
 import { AuthContext } from "./AuthProvider";
 import LoaderSpinner from "./LoaderSpinner";
+import Close from "./Close";
+import { motion } from "framer-motion";
 const Loading = ({ text }) => {
-  const { setIsLogout, setIsLogin, setIsRegister, response, setResponse } =
+  const { response, setIsLogin, setIsLogout, setIsRegister, setResponse } =
     useContext(AuthContext);
   const handelClick = () => {
-    setIsLogout(false);
-    setIsLogin(false);
-    setIsRegister(false);
-    setResponse({
-      message: "",
-      error: "",
-    });
+    {
+      setIsLogout(false);
+      setIsLogin(false);
+      setIsRegister(false);
+      setResponse({
+        message: "",
+        error: "",
+      });
+    }
   };
   return (
     <div className="fixed -inset-0 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
-      <div
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%]
                     bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
@@ -42,16 +48,9 @@ const Loading = ({ text }) => {
           </p>
         )}
         {(response.error || response.message) && (
-          <div className="absolute -top-4 -right-4 ">
-            <IoClose
-              onClick={handelClick}
-              className=" cursor-pointer p-2 rounded-full
-                            transition-all duration-300 hover:bg-purple-600
-                            w-12 h-12  text-stone-50 bg-purple-700 shadow-custom-shadow"
-            />
-          </div>
+          <Close handelClick={handelClick} />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };
