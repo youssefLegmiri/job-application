@@ -6,7 +6,7 @@ import facebook from "../assets/facebook.svg";
 import Close from "./Close";
 import { useActionState, useRef, useReducer, useContext } from "react";
 import { AuthContext } from "./AuthProvider";
-
+import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 const Login = () => {
@@ -158,7 +158,7 @@ const Login = () => {
       setIsLogin(true);
 
       if (res.status === 200) {
-        setUser(userData.firstName);
+        setUser(userData);
         setResponse({ message: `Welcome ${userData.firstName}` });
 
         navigate("/dashboard");
@@ -178,8 +178,11 @@ const Login = () => {
   };
 
   return (
-    <main className="w-screen h-screen  flex justify-center items-center ">
-      <form
+    <main className="w-screen h-screen overflow-hidden flex justify-center items-center ">
+      <motion.form
+        initial={{ scale: 0, rotate: "-45deg" }}
+        animate={{ scale: 1, rotate: 0 }}
+        style={{ originX: "0", originY: "100%" }}
         action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
                       border-[1px] border-purple-500 rounded-lg  bg-purple-50 relative
@@ -274,7 +277,7 @@ const Login = () => {
           />
         </div>
         <Close handelClick={handelClick} />
-      </form>
+      </motion.form>
       {isRegister && <Loading />}
       {(isLogin || isPending) && <Loading text={"Logging ..."} />}
     </main>

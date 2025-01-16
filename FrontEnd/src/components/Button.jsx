@@ -9,7 +9,7 @@ const Button = ({
 }) => {
   return (
     <motion.button
-      whileHover={{ scale: 1.2, rotate: "1.5deg" }}
+      whileHover={{ scale: 1.1, rotate: "1.5deg" }}
       whileTap={{ rotate: "-1.5deg" }}
       disabled={isPending}
       {...rest}

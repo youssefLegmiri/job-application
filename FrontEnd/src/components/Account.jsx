@@ -8,13 +8,13 @@ const Account = () => {
     navigate("/");
   };
   return (
-    <main className="w-screen h-screen flex items-center justify-center bg-purple-300 ">
+    <main className="w-screen h-screen flex items-center justify-center  ">
       <AnimatePresence>
         <motion.div
           initial={{ scale: 0, rotate: "45deg" }}
           animate={{ scale: 1, rotate: 0 }}
           exit={{ scale: 0, rotate: "45deg" }}
-          className="relative w-[75%] h-[75%] rounded-lg bg-slate-50 shadow-2xl "
+          className="relative w-[75%] h-[75%] rounded-lg bg-stone-50 border-[1px] border-purple-500 shadow-2xl "
         >
           <Close handelClick={handleClick} />
         </motion.div>

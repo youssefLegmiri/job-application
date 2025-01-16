@@ -7,7 +7,13 @@ const ProtectedRoute = ({ children }) => {
 
   return (
     <>
-      {loading ? <Loading /> : user ? <>{children} </> : <Navigate to={"/"} />}
+      {loading ? (
+        <Loading />
+      ) : user?.firstName ? (
+        <>{children} </>
+      ) : (
+        <Navigate to={"/"} />
+      )}
     </>
   );
 };

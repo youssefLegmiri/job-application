@@ -17,11 +17,6 @@ export default {
       fontWeight: {
         lessBold: "500",
       },
-      animation: {
-        line: "animatedLine 0.5s ease-in-out;",
-        rotate: "spin 2s linear infinite;",
-        spinner: "spinner 1s linear infinite",
-      },
     },
   },
   plugins: [],

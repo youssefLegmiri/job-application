@@ -19,10 +19,7 @@ const Loading = ({ text }) => {
   };
   return (
     <div className="fixed -inset-0 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0 }}
+      <div
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%]
                     bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
@@ -50,7 +47,7 @@ const Loading = ({ text }) => {
         {(response.error || response.message) && (
           <Close handelClick={handelClick} />
         )}
-      </motion.div>
+      </div>
     </div>
   );
 };

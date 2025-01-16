@@ -80,9 +80,9 @@ const Form = () => {
       style={{ originX: "50%", originY: "50%" }}
       action={actionFunction}
       className={`border-[1px] rounded-lg bg-purple-50
-                border-purple-500 min-h-[600px]   w-[80%]
+                border-purple-500 min-h-[600px] w-[80%]
                 flex flex-col justify-evenly items-center 
-                p-4 lg:w-[60%] xl:w-[50%]
+                 lg:w-[60%] xl:w-[50%]
                    animate-scaleUp
                  transition-all duration-100
                 origin-bottom shadow-2xl`}

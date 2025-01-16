@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
           method: "POST",
         });
         const userData = await res.json();
-        setUser(userData.firstName);
+        setUser(userData);
       } catch (error) {
         setUser(null);
       } finally {
