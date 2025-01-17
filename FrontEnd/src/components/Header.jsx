@@ -10,22 +10,33 @@ import UserMenu from "./UserMenu";
 import BurgerMenu from "./BurgerMenu";
 import { motion, AnimatePresence } from "framer-motion";
 const Header = () => {
+  const menuItems = [
+    { id: 1, title: "Home", link: "/" },
+    { id: 2, title: "Dashboard", link: "dashboard" },
+    { id: 3, title: "About", link: "about" },
+    { id: 4, title: "Contact", link: "contact" },
+  ];
   const [isOpen, setIsOpen] = useState(false);
   const [burgerClick, setBurgerClick] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const menuRef = useRef(null);
+  const userMenuRef = useRef(null);
+  const burgerRef = useRef(null);
   const lottieRef = useRef(null);
   useEffect(() => {
     document.addEventListener("click", handleClick);
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [burgerClick]);
   const handleClick = (event) => {
-    if (!menuRef.current?.contains(event.target)) {
+    if (!userMenuRef.current?.contains(event.target)) {
       setIsOpen(false);
+    }
+    if (burgerClick && !burgerRef.current?.contains(event.target)) {
+      setBurgerClick(false);
+      lottieRef.current?.playSegments([60, 0], true);
     }
   };
   const handelLogin = () => {
@@ -43,24 +54,41 @@ const Header = () => {
     }
   };
   return (
-    <header className="relative w-full flex justify-evenly items-center my-2   ">
-      <Lottie
-        speed={1.5}
-        ref={lottieRef}
-        play={false}
-        loop={false}
-        onClick={handleBurgerClick}
-        className="w-[80px] md:hidden inline-block cursor-pointer "
-        animationData={animationData}
-      />
-      <Link to={"/"} className="text-purple-800 font-bold cursor-pointer">
+    <header className=" w-full flex justify-evenly items-center my-2   ">
+      <div
+        ref={burgerRef}
+        className="relative w-[30%] md:hidden inline-block   "
+      >
+        <Lottie
+          speed={1.5}
+          ref={lottieRef}
+          play={false}
+          loop={false}
+          onClick={handleBurgerClick}
+          className="w-[80px] shadow-xl border-[1px] border-purple-500 rounded-lg cursor-pointer "
+          animationData={animationData}
+        />
+        <AnimatePresence>
+          {burgerClick && (
+            <BurgerMenu
+              lottieRef={lottieRef}
+              setBurgerClick={setBurgerClick}
+              menuItems={menuItems}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+      <Link
+        to={"/"}
+        className="text-purple-800 font-bold cursor-pointer md:left-0 relative -left-6"
+      >
         Text to PDF
       </Link>
       <nav
         className={`md:flex justify-between text-xl font-[500] text-purple-100 bg-purple-950 px-8 py-4
                       rounded-full ${
                         user?.firstName
-                          ? "md:w-[60%] lg:w-[50%]"
+                          ? "md:w-[55%] lg:w-[50%]"
                           : "md:w-[50%] lg:w-[40%]"
                       }   hidden`}
       >
@@ -95,8 +123,8 @@ const Header = () => {
         <motion.div
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
-          ref={menuRef}
-          className="relative flex items-center md:w-[18%] lg:w-[15%] xl:w-[10%]  w-[30%] cursor-pointer justify-around font-[500] text-purple-800 border-[1px] border-purple-600 p-2 rounded-lg"
+          ref={userMenuRef}
+          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[10%]  w-[35%] cursor-pointer justify-around font-[500] text-purple-800 border-[1px] border-purple-600 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.image ? (
@@ -121,7 +149,6 @@ const Header = () => {
           type="button"
         />
       )}
-      <AnimatePresence>{burgerClick && <BurgerMenu />}</AnimatePresence>
     </header>
   );
 };

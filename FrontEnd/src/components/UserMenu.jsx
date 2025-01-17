@@ -5,7 +5,24 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 const UserMenu = ({ setIsOpen }) => {
   const { setIsLogout, setResponse, setUser } = useContext(AuthContext);
-
+  const variants = {
+    hidden: {
+      scaleY: 0,
+      rotateZ: "-45deg",
+    },
+    visible: {
+      scaleY: 1,
+      rotateZ: 0,
+      transition: {
+        staggerChildren: 0.1,
+        when: "beforeChildren",
+      },
+    },
+  };
+  const childVariants = {
+    hidden: { scale: 0 },
+    visible: { scale: 1 },
+  };
   const handelLogout = async () => {
     setIsOpen(false);
     setIsLogout(true);
@@ -28,18 +45,23 @@ const UserMenu = ({ setIsOpen }) => {
   return (
     <motion.div
       style={{ originX: 0, originY: 0 }}
-      initial={{ scaleY: 0, rotateZ: "-45deg" }}
-      animate={{ scaleY: 1, rotateZ: 0 }}
-      exit={{ scaleY: 0, rotateZ: "-45deg" }}
+      variants={variants}
+      initial={"hidden"}
+      animate={"visible"}
+      exit={"hidden"}
       className="absolute z-10 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] "
     >
-      <Link className="userMenu" to={"/account"}>
-        Account
-      </Link>
-      <div onClick={handelLogout} className=" userMenu cursor-pointer ">
+      <motion.div className="userMenu" variants={childVariants}>
+        <Link to={"/account"}>Account</Link>
+      </motion.div>
+      <motion.div
+        variants={childVariants}
+        onClick={handelLogout}
+        className=" userMenu cursor-pointer "
+      >
         <p className="mr-2"> Logout</p>
         <MdLogout />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

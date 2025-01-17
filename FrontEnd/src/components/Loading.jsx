@@ -21,7 +21,7 @@ const Loading = ({ text }) => {
     <div className="fixed -inset-0 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
       <div
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%]
-                    bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
+                    bg-purple-200 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
       >
         {response.error ? (
@@ -35,12 +35,12 @@ const Loading = ({ text }) => {
           </div>
         )}
         {response.error && (
-          <p className="text-red-600 text-2xl font-[500] text-center ">
+          <p className="text-purple-600 text-2xl font-[600] text-center ">
             {response.error}
           </p>
         )}
         {response.message && (
-          <p className="text-purple-600 text-2xl font-[500] text-center ">
+          <p className="text-purple-600 text-2xl font-[600] text-center ">
             {response.message}
           </p>
         )}
