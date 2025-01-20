@@ -78,7 +78,7 @@ const Input = ({
         onFocus={handelFocus}
         onBlur={handelBlur}
         className="outline-none w-[100%] h-[100%] rounded-md p-4 
-                   bg-purple-100 pl-4 text-lg font-semibold text-purple-900  "
+                   bg-stone-200 pl-4 text-lg font-semibold text-purple-900  "
         type={inputType}
         name={name}
         onChange={handelChange}

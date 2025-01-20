@@ -17,7 +17,7 @@ const authVerify = asyncHandler(async (req, res) => {
         lastName: user.lastName,
         profileImage: `${req.protocol}://${req.get(
           "host"
-        )}/${user.profileImage.replace(/\\/g, "/")}`,
+        )}/${user.profileImage?.replace(/\\/g, "/")}`,
       });
     } catch (error) {
       console.log(error.message);

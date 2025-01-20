@@ -1,9 +1,10 @@
 import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 const UserMenu = ({ setIsOpen }) => {
+  const navigate = useNavigate();
   const { setIsLogout, setResponse, setUser } = useContext(AuthContext);
   const variants = {
     hidden: {
@@ -42,6 +43,9 @@ const UserMenu = ({ setIsOpen }) => {
       });
     }
   };
+  const handleClick = () => {
+    navigate("/account");
+  };
   return (
     <motion.div
       style={{ originX: 0, originY: 0 }}
@@ -51,8 +55,12 @@ const UserMenu = ({ setIsOpen }) => {
       exit={"hidden"}
       className="absolute z-10 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] "
     >
-      <motion.div className="userMenu" variants={childVariants}>
-        <Link to={"/account"}>Account</Link>
+      <motion.div
+        onClick={handleClick}
+        className="userMenu"
+        variants={childVariants}
+      >
+        Account
       </motion.div>
       <motion.div
         variants={childVariants}

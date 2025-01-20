@@ -2,15 +2,22 @@ import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import LoaderSpinner from "./LoaderSpinner";
 import Close from "./Close";
-import { motion } from "framer-motion";
+
 const Loading = ({ text }) => {
-  const { response, setIsLogin, setIsLogout, setIsRegister, setResponse } =
-    useContext(AuthContext);
+  const {
+    response,
+    setIsLogin,
+    setIsLogout,
+    setIsRegister,
+    setIsSaving,
+    setResponse,
+  } = useContext(AuthContext);
   const handelClick = () => {
     {
       setIsLogout(false);
       setIsLogin(false);
       setIsRegister(false);
+      setIsSaving(false);
       setResponse({
         message: "",
         error: "",
@@ -21,7 +28,7 @@ const Loading = ({ text }) => {
     <div className="fixed -inset-0 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
       <div
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%]
-                    bg-purple-200 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
+                    bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
       >
         {response.error ? (

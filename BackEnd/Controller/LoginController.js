@@ -24,7 +24,7 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
       lastName: user.lastName,
       profileImage: `${req.protocol}://${req.get(
         "host"
-      )}/${user.profileImage.replace(/\\/g, "/")}`,
+      )}/${user.profileImage?.replace(/\\/g, "/")}`,
     });
   } else {
     res.status(400).json({ message: "Invalid Credentials" });

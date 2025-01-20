@@ -65,7 +65,7 @@ const Header = () => {
           play={false}
           loop={false}
           onClick={handleBurgerClick}
-          className="w-[80px] shadow-xl border-[1px] border-purple-500 rounded-lg cursor-pointer "
+          className="w-[80px] shadow-xl border-[1px] border-purple-600 rounded-lg cursor-pointer "
           animationData={animationData}
         />
         <AnimatePresence>
@@ -80,7 +80,7 @@ const Header = () => {
       </div>
       <Link
         to={"/"}
-        className="text-purple-800 font-bold cursor-pointer md:left-0 relative -left-6"
+        className="text-purple-600 font-bold cursor-pointer md:left-0 relative -left-6"
       >
         Text to PDF
       </Link>
@@ -124,11 +124,15 @@ const Header = () => {
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[10%]  w-[35%] cursor-pointer justify-around font-[500] text-purple-800 border-[1px] border-purple-600 p-2 rounded-lg"
+          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[12%]  w-[35%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
         >
           {user?.firstName}
-          {user?.image ? (
-            <img src={user?.image} className="w-[60px] " alt="" />
+          {user?.profileImage ? (
+            <img
+              src={user?.profileImage}
+              className="w-14 h-14 rounded-full text-sm "
+              alt="profile"
+            />
           ) : (
             <FaUser
               size={"40"}
