@@ -20,11 +20,14 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
       maxAge: 60 * 60 * 1000,
     });
     res.status(200).json({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      profileImage: `${req.protocol}://${req.get(
-        "host"
-      )}/${user.profileImage?.replace(/\\/g, "/")}`,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      profileImage: user?.profileImage
+        ? `${req.protocol}://${req.get("host")}/${user.profileImage?.replace(
+            /\\/g,
+            "/"
+          )}`
+        : "",
     });
   } else {
     res.status(400).json({ message: "Invalid Credentials" });

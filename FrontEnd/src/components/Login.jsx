@@ -235,8 +235,7 @@ const Login = () => {
         {/*Login button */}
 
         <Button
-          action={"Logging..."}
-          isPending={isPending}
+          isDisabled={isPending}
           type={"submit"}
           text={"Login"}
           className={"btn-custom disabled:bg-purple-500"}

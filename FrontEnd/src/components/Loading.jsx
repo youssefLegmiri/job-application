@@ -42,12 +42,12 @@ const Loading = ({ text }) => {
           </div>
         )}
         {response.error && (
-          <p className="text-purple-600 text-2xl font-[600] text-center ">
+          <p className="text-purple-600 text-2xl font-[500] text-center ">
             {response.error}
           </p>
         )}
         {response.message && (
-          <p className="text-purple-600 text-2xl font-[600] text-center ">
+          <p className="text-purple-600 text-2xl font-[500] text-center ">
             {response.message}
           </p>
         )}

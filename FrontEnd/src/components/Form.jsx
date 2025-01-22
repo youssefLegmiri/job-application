@@ -115,8 +115,7 @@ const Form = () => {
       )}
       {!isReady && (
         <Button
-          isPending={isPending}
-          action={"Creating..."}
+          isDisabled={isPending}
           type={"submit"}
           text={"Create"}
           className={"btn-custom disabled:bg-purple-500 "}

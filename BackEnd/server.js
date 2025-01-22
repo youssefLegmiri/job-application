@@ -8,15 +8,14 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(express.json()); // middelware to parse incoming json data
+app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 // Connecting to MongoDB
 connectDB();
 // setuping static folders
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "dist")));
-
-app.use(express.json()); // middelware to parse incoming json data
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(cookieParser());
 
 // serving the main app
 app.get("*", (req, res) => {

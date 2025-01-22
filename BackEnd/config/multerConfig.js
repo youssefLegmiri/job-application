@@ -1,19 +1,21 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-
+const crypto = require("crypto");
 // setuping  multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    const { firstName, lastName, profileImage, id } = req.user;
+    const { profileImage } = req.user;
     if (profileImage) {
       const oldFile = profileImage;
       fs.unlinkSync(oldFile);
     }
-    const uniquneName = `${firstName}_${lastName}_${file.originalname}`;
+    const randomName = crypto.randomBytes(16).toString("hex");
+    const fileExtension = path.extname(file.originalname);
+    const uniquneName = `${randomName}${fileExtension}`;
 
     cb(null, uniquneName);
   },

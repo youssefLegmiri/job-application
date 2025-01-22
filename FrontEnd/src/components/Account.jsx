@@ -2,19 +2,30 @@ import { useNavigate } from "react-router-dom";
 import Close from "./Close";
 import { motion, AnimatePresence } from "framer-motion";
 import { AuthContext } from "./AuthProvider";
-import { useContext, useState } from "react";
+import { useContext, useState, useActionState, useRef, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaCamera } from "react-icons/fa";
 import Button from "./Button";
-import { useActionState } from "react";
+import CustomCheck from "./CustomCheck";
 import Loading from "./Loading";
 const Account = () => {
   const [state, actionFunction, isPending] = useActionState(formAction, {});
   const [readFile, setReadFile] = useState(null);
   const [file, setFile] = useState(null);
+  const [isEdit, setIsEdit] = useState(true);
+  const inputRef = useRef(null);
   const { user, response, setResponse, isSaving, setIsSaving } =
     useContext(AuthContext);
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setFirstName(user?.firstName);
+      setLastName(user?.lastName);
+    }
+  }, [user]);
   const handleClick = () => {
     navigate("/");
   };
@@ -46,6 +57,10 @@ const Account = () => {
         setResponse({
           message: response.message,
         });
+      } else if (res.status === 403) {
+        setResponse({
+          error: "You are unauthorized, please login",
+        });
       } else {
         setResponse({
           error: response.message,
@@ -57,6 +72,16 @@ const Account = () => {
       });
     }
   }
+  const handleEdit = () => {
+    inputRef.current?.focus();
+    setIsEdit(false);
+  };
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+  const handleLastName = (e) => {
+    setLastName(e.target.value);
+  };
   return (
     <main className="w-screen h-screen flex items-center justify-center  ">
       <motion.form
@@ -64,9 +89,10 @@ const Account = () => {
         initial={{ scale: 0, rotate: "45deg" }}
         animate={{ scale: 1, rotate: 0 }}
         exit={{ scale: 0, rotate: "45deg" }}
-        className="relative w-[75%] h-[75%] pt-4 flex flex-col items-center justify-around  rounded-lg bg-stone-50 border-[1px] border-purple-500 shadow-2xl "
+        className="relative w-[75%] h-[75%] min-h-[600px] pt-4 flex flex-col md:flex-row md:items-center md:justify-evenly items-center justify-around  rounded-lg bg-stone-50 border-[1px] border-purple-500 shadow-2xl "
       >
-        <div className="w-[80%] h-[30%]  flex flex-col items-center justify-around">
+        <CustomCheck isEdit={isEdit} setIsEdit={setIsEdit} />
+        <div className=" h-[20%]  flex flex-col items-center justify-center">
           <div className="relative ">
             <div className=" w-24 h-24 overflow-hidden flex items-center justify-center text-gray-600 bg-stone-300 rounded-full">
               {readFile ? (
@@ -104,17 +130,43 @@ const Account = () => {
               onChange={handleImageChange}
             />
           </div>
-          <h1 className="text-purple-800 font-[500] ">
+          <h1 className="text-purple-800 font-[500] mt-6 ">
             {`${user?.firstName} ${user?.lastName}`}
           </h1>
         </div>
-        <div className=" flex flex-col justify-around items-center w-[90%] h-[50%] rounded-xl bg-purple-200 ">
-          <div className="w-[90%] flex justify-around">
+        <div className=" flex flex-col  justify-around items-center w-[90%] h-[50%] md:w-[60%]  md:h-[80%] rounded-xl bg-purple-200 ">
+          <div className="input-container">
             <label> First Name</label>
-            <input type="text" name="firstName" placeholder={user?.firstName} />
+            <input
+              ref={inputRef}
+              className="input "
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={handleFirstName}
+              disabled={isEdit}
+              required
+            />
           </div>
+          <div className="input-container">
+            <label> Last Name</label>
+            <input
+              className="input"
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={handleLastName}
+              disabled={isEdit}
+              required
+            />
+          </div>
+          <Button
+            isDisabled={isEdit}
+            type="submit"
+            className="btn-custom  "
+            text={"Save"}
+          />
         </div>
-        <Button type="submit" className="btn-custom " text={"Save"} />
         <Close handelClick={handleClick} />
       </motion.form>
       {(isPending || isSaving) && <Loading text={"saving ..."} />}

@@ -13,11 +13,14 @@ const authVerify = asyncHandler(async (req, res) => {
       const user = await User.findById({ _id: decoded.id }).select("-password");
 
       res.status(200).json({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        profileImage: `${req.protocol}://${req.get(
-          "host"
-        )}/${user.profileImage?.replace(/\\/g, "/")}`,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        profileImage: user?.profileImage
+          ? `${req.protocol}://${req.get("host")}/${user.profileImage?.replace(
+              /\\/g,
+              "/"
+            )}`
+          : "",
       });
     } catch (error) {
       console.log(error.message);

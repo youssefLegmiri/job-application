@@ -379,11 +379,10 @@ const Register = () => {
         </div>
 
         <Button
-          isPending={isPending}
+          isDisabled={isPending}
           text={"Register"}
           className="btn-custom disabled:bg-purple-500 "
           type="submit"
-          action="Registering..."
         />
 
         <Close handelClick={handelClick} />
