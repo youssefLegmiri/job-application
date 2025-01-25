@@ -8,13 +8,14 @@ import { FaCamera } from "react-icons/fa";
 import Button from "./Button";
 import CustomCheck from "./CustomCheck";
 import Loading from "./Loading";
+import DeleteAccount from "./DeleteAccount";
 const Account = () => {
   const [state, actionFunction, isPending] = useActionState(formAction, {});
   const [readFile, setReadFile] = useState(null);
   const [file, setFile] = useState(null);
   const [isEdit, setIsEdit] = useState(true);
   const inputRef = useRef(null);
-  const { user, response, setResponse, isSaving, setIsSaving } =
+  const { user, setResponse, isSaving, setIsSaving, isDelete } =
     useContext(AuthContext);
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
@@ -22,8 +23,8 @@ const Account = () => {
 
   useEffect(() => {
     if (user) {
-      setFirstName(user?.firstName);
-      setLastName(user?.lastName);
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
     }
   }, [user]);
   const handleClick = () => {
@@ -72,16 +73,14 @@ const Account = () => {
       });
     }
   }
-  const handleEdit = () => {
-    inputRef.current?.focus();
-    setIsEdit(false);
-  };
+
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
   };
   const handleLastName = (e) => {
     setLastName(e.target.value);
   };
+
   return (
     <main className="w-screen h-screen flex items-center justify-center  ">
       <motion.form
@@ -91,7 +90,7 @@ const Account = () => {
         exit={{ scale: 0, rotate: "45deg" }}
         className="relative w-[75%] h-[75%] min-h-[600px] pt-4 flex flex-col md:flex-row md:items-center md:justify-evenly items-center justify-around  rounded-lg bg-stone-50 border-[1px] border-purple-500 shadow-2xl "
       >
-        <CustomCheck isEdit={isEdit} setIsEdit={setIsEdit} />
+        <CustomCheck isEdit={isEdit} setIsEdit={setIsEdit} ref={inputRef} />
         <div className=" h-[20%]  flex flex-col items-center justify-center">
           <div className="relative ">
             <div className=" w-24 h-24 overflow-hidden flex items-center justify-center text-gray-600 bg-stone-300 rounded-full">
@@ -167,6 +166,7 @@ const Account = () => {
             text={"Save"}
           />
         </div>
+        {!isEdit && <DeleteAccount />}
         <Close handelClick={handleClick} />
       </motion.form>
       {(isPending || isSaving) && <Loading text={"saving ..."} />}

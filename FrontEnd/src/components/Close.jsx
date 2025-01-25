@@ -4,7 +4,7 @@ const Close = ({ handelClick }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.2, rotate: "180deg" }}
-      className="absolute -top-4 -right-4 "
+      className="absolute  -top-4 -right-4 "
     >
       <IoClose
         onClick={handelClick}

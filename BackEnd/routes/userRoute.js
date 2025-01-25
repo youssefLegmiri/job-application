@@ -3,8 +3,10 @@ const router = express.Router();
 const RegisterUser = require("../Controller/RegisterController");
 const LoginUser = require("../Controller/LoginController");
 const LogoutUser = require("../Controller/LogoutController");
-
+const DeleteUser = require("../Controller/DeleteUserController");
+const protect = require("../middleware/authMiddelware");
 router.post("/Register", RegisterUser);
 router.post("/Login", LoginUser);
 router.post("/Logout", LogoutUser);
+router.delete("/DeleteAccount", protect, DeleteUser);
 module.exports = router;

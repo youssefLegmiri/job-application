@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
   const [isLogout, setIsLogout] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -45,6 +46,9 @@ const AuthProvider = ({ children }) => {
         setIsRegister,
         isSaving,
         setIsSaving,
+        isDelete,
+        setIsDelete,
+
         response,
         setResponse,
       }}
