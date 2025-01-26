@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -48,7 +49,8 @@ const AuthProvider = ({ children }) => {
         setIsSaving,
         isDelete,
         setIsDelete,
-
+        isSubmit,
+        setIsSubmit,
         response,
         setResponse,
       }}

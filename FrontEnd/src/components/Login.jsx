@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 const Login = () => {
-  const { isRegister, isLogin, setIsLogin, setResponse, setUser } =
+  const { isRegister, isLogin, setIsLogin, setResponse, setUser, isSubmit } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -279,6 +279,7 @@ const Login = () => {
       </motion.form>
       {isRegister && <Loading />}
       {(isLogin || isPending) && <Loading text={"Logging ..."} />}
+      {isSubmit && <Loading />}
     </main>
   );
 };

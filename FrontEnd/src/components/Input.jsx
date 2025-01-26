@@ -61,7 +61,9 @@ const Input = ({
           name === "email" ? "w-[60px]" : "w-[100px]"
         } ${
           name === "confirmPassword" ? "w-[160px]" : "w-[100px]"
-        }  h-[1px]   bg-purple-100`}
+        }  h-[1px]   bg-purple-100   ${
+          label === "New Password" ? "w-[140px] " : "w-[100px] "
+        }`}
       ></div>
       <label
         className={`pointer-events-none text-lg transition-all duration-300 ease-in-out absolute  left-4 ${

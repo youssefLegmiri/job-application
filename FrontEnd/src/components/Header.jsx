@@ -65,7 +65,7 @@ const Header = () => {
           play={false}
           loop={false}
           onClick={handleBurgerClick}
-          className="w-[80px] shadow-xl border-[1px] border-purple-600 rounded-lg cursor-pointer "
+          className="w-[60px] shadow-xl border-[1px] border-purple-600 rounded-lg cursor-pointer "
           animationData={animationData}
         />
         <AnimatePresence>
@@ -80,7 +80,7 @@ const Header = () => {
       </div>
       <Link
         to={"/"}
-        className="text-purple-600 font-bold cursor-pointer md:left-0 relative -left-6"
+        className="text-purple-600 font-bold cursor-pointer md:left-0 relative -left-10"
       >
         Text to PDF
       </Link>

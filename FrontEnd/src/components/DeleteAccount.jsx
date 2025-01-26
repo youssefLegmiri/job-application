@@ -37,13 +37,8 @@ const DeleteAccount = () => {
     setIsDelete(true);
   };
   return (
-    <div>
-      <div
-        onClick={handleClick}
-        className="absolute bottom-3 left-4 text-purple-700 cursor-pointer text-lg "
-      >
-        Delete account
-      </div>
+    <div className="absolute bottom-3 left-4 text-purple-700 cursor-pointer text-lg ">
+      <div onClick={handleClick}>Delete account</div>
       {isDelete && <Loading text={"Deleting..."} handleDelete={handleDelete} />}
     </div>
   );

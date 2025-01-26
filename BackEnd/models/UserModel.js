@@ -22,6 +22,12 @@ const userSchema = mongoose.Schema(
     profileImage: {
       type: String,
     },
+    resetCode: {
+      type: String,
+    },
+    codeExpire: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

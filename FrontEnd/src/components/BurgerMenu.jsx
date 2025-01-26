@@ -45,21 +45,6 @@ const BurgerMenu = ({ menuItems, setBurgerClick, lottieRef }) => {
           </Link>
         </motion.div>
       ))}
-      {/*
-      <motion.div className="userMenu" variants={childVariants}>
-        <Link to={"/"}>Home</Link>
-      </motion.div>
-      {user?.firstName && (
-        <motion.div className="userMenu" variants={childVariants}>
-          <Link to={"dashboard"}>Dashboard</Link>
-        </motion.div>
-      )}
-      <motion.div className="userMenu" variants={childVariants}>
-        <Link to={"about"}>About</Link>
-      </motion.div>
-      <motion.div className="userMenu" variants={childVariants}>
-        <Link to={"contact"}>Contact</Link>
-      </motion.div>*/}
     </motion.div>
   );
 };

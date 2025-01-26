@@ -13,6 +13,7 @@ const Loading = ({ text, handleDelete }) => {
     setResponse,
     setIsDelete,
     isDelete,
+    setIsSubmit,
   } = useContext(AuthContext);
   const handelClick = () => {
     {
@@ -21,17 +22,18 @@ const Loading = ({ text, handleDelete }) => {
       setIsRegister(false);
       setIsSaving(false);
       setIsDelete(false);
-      setResponse({
-        message: "",
-        error: "",
-      });
+      setIsSubmit(false),
+        setResponse({
+          message: "",
+          error: "",
+        });
     }
   };
 
   return (
     <div className="fixed -inset-0 z-10 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
       <div
-        className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%] min-h-[150px]
+        className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%] min-h-[150px] 
                     bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly
                       "
       >
@@ -46,12 +48,12 @@ const Loading = ({ text, handleDelete }) => {
           </div>
         )}
         {response.error && (
-          <p className="text-purple-600 text-2xl font-[500] text-center ">
+          <p className="text-purple-600 text-xl font-[500] text-center ">
             {response.error}
           </p>
         )}
         {response.message && (
-          <p className="text-purple-600 text-2xl font-[500] text-center ">
+          <p className="text-purple-600 text-xl font-[500] text-center ">
             {response.message}
           </p>
         )}

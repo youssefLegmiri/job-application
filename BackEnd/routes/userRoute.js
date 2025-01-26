@@ -4,9 +4,12 @@ const RegisterUser = require("../Controller/RegisterController");
 const LoginUser = require("../Controller/LoginController");
 const LogoutUser = require("../Controller/LogoutController");
 const DeleteUser = require("../Controller/DeleteUserController");
+const ResetPassword = require("../Controller/ResetPasswordController");
 const protect = require("../middleware/authMiddelware");
+
 router.post("/Register", RegisterUser);
 router.post("/Login", LoginUser);
 router.post("/Logout", LogoutUser);
+router.post("/ResetPassword", ResetPassword);
 router.delete("/DeleteAccount", protect, DeleteUser);
 module.exports = router;

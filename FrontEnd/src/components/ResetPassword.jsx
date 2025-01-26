@@ -1,16 +1,26 @@
-import { useRef, useReducer } from "react";
+import { useRef, useReducer, useContext, useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import { useActionState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
+import { AuthContext } from "./AuthProvider";
+import Loading from "./Loading";
 const ResetPassword = () => {
+  const [isCode, setIsCode] = useState(false);
+  const { setResponse, isSubmit, setIsSubmit } = useContext(AuthContext);
   const emailInputRef = useRef(null);
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
   const initialState = {
     emailError: false,
     emailErrorMessage: "",
-    data: "",
+    passwordError: false,
+    passwordErrorMessage: "",
+    data: {
+      email: null,
+      password: null,
+    },
   };
   const [state, dispatch] = useReducer(errorHandler, initialState);
   const [response, actionFunction, isPending] = useActionState(formAction, {});
@@ -19,7 +29,7 @@ const ResetPassword = () => {
     const jsonData = Object.fromEntries(formData.entries());
     const emailData = jsonData.email.split(".");
     if (!jsonData.email) {
-      emailInputRef.current.focus();
+      emailInputRef.current?.focus();
       dispatch({
         type: "EMAIL_EMPTY",
       });
@@ -29,15 +39,32 @@ const ResetPassword = () => {
       emailData[0].length < 2 ||
       emailData[1].length < 2
     ) {
-      emailInputRef.current.focus();
+      emailInputRef.current?.focus();
       dispatch({
         type: "EMAIL_INVALID_FORMAT",
         payload: { email: jsonData.email },
       });
+    } else if (!jsonData.password && isCode) {
+      passwordRef.current?.focus();
+      dispatch({
+        type: "PASSWORD_EMPTY",
+        payload: {
+          email: jsonData.email,
+        },
+      });
+    } else if (jsonData.password?.length < 8 && isCode) {
+      passwordRef.current?.focus();
+      dispatch({
+        type: "INVALID_PASSWORD_LENGTH",
+        payload: {
+          email: jsonData.email,
+          password: jsonData.password,
+        },
+      });
     } else {
       dispatch({
         type: "NO_ERROR",
-        payload: { email: jsonData.email },
+        payload: { email: jsonData.email, password: jsonData.password },
       });
       return actionFunction(formData);
     }
@@ -53,18 +80,49 @@ const ResetPassword = () => {
         return {
           emailError: true,
           emailErrorMessage: "Invalid Email Format !",
-          data: action.payload.email,
+          data: {
+            email: action.payload.email,
+          },
+        };
+      case "PASSWORD_EMPTY":
+        return {
+          emailError: false,
+          emailErrorMessage: "",
+          passwordError: true,
+          passwordErrorMessage: "Password required !",
+          data: {
+            email: action.payload.email,
+          },
+        };
+      case "INVALID_PASSWORD_LENGTH":
+        return {
+          emailError: false,
+          emailErrorMessage: "",
+          passwordError: false,
+          passwordErrorMessage: "password must be at least 8 characters !",
+          data: {
+            email: action.payload.email,
+            password: action.payload.password,
+          },
         };
       case "NO_ERROR":
         return {
           emailError: false,
+          passwordError: false,
+          passwordErrorMessage: "",
           emailErrorMessage: "",
-          data: action.payload.email,
+          data: {
+            email: action.payload.email,
+            password: action.payload.password,
+          },
         };
       case "RESET_ERRORS":
         return {
+          ...state,
           emailError: false,
+          passwordError: false,
           emailErrorMessage: "",
+          passwordErrorMessage: "",
         };
       default:
         return state;
@@ -72,6 +130,29 @@ const ResetPassword = () => {
   }
   async function formAction(previousState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
+    try {
+      const res = await fetch("http://localhost:5000/api/users/ResetPassword", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jsonData),
+      });
+      const data = await res.json();
+      setIsSubmit(true);
+      if (res.status === 200) {
+        setIsCode(true);
+        setResponse({ message: data.message });
+      } else if (res.status === 201) {
+        setResponse({ message: data.message });
+        navigate("/login");
+      } else if (res.status === 400) {
+        setResponse({ message: data.message });
+      } else {
+        setResponse({ message: "Server Error" });
+      }
+    } catch (error) {
+      console.log(error);
+      setResponse({ messsage: "Something went wrong.Please try again" });
+    }
   }
   const handelClick = () => {
     navigate("/login");
@@ -90,7 +171,7 @@ const ResetPassword = () => {
             dispatch={dispatch}
             ref={emailInputRef}
             error={state?.emailError}
-            inputData={state?.data}
+            inputData={state?.data?.email}
             autofocus={true}
             name={"email"}
             type={"text"}
@@ -102,11 +183,34 @@ const ResetPassword = () => {
             </p>
           )}
         </div>
-        <Button
-          isPending={isPending}
-          text={"Submit"}
-          className="btn-custom disabled:bg-purple-500"
-        />
+        {isCode && (
+          <div className="relative w-full flex items-center justify-center ">
+            <Input
+              dispatch={dispatch}
+              ref={passwordRef}
+              error={state?.passwordError}
+              inputData={state?.data?.password}
+              name={"password"}
+              type={"password"}
+              label={"New Password"}
+            />
+            {state?.passwordError && (
+              <p className="text-red-600 text-sm absolute left-16 -bottom-6">
+                {state?.passwordErrorMessage}
+              </p>
+            )}
+          </div>
+        )}
+        {isCode && (
+          <input
+            className="p-2 focus:outline-none text-purple-700 
+                       border-[1px] border-purple-700 rounded-lg  "
+            placeholder="Code"
+            type="text"
+            name="resetCode"
+          />
+        )}
+        <Button text={"Submit"} className="btn-custom disabled:bg-purple-500" />
         <div className="absolute -top-4 -right-4 ">
           <IoClose
             onClick={handelClick}
@@ -116,6 +220,7 @@ const ResetPassword = () => {
           />
         </div>
       </form>
+      {(isPending || isSubmit) && <Loading text={"Submitting..."} />}
     </main>
   );
 };
