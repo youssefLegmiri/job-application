@@ -16,6 +16,8 @@ connectDB();
 // setuping static folders
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "dist")));
+// api jobs
+app.use("/api/jobs", require("./routes/jobRoute"));
 
 // serving the main app
 app.get("*", (req, res) => {

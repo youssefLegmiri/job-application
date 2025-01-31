@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "./AuthProvider";
 import LoaderSpinner from "./LoaderSpinner";
 import Close from "./Close";
 import Button from "./Button";
-const Loading = ({ text, handleDelete }) => {
+const Loading = ({ text }) => {
   const {
     response,
     setIsLogin,
@@ -14,6 +14,8 @@ const Loading = ({ text, handleDelete }) => {
     setIsDelete,
     isDelete,
     setIsSubmit,
+    setIsDeleteJob,
+    setIsSavingJob,
   } = useContext(AuthContext);
   const handelClick = () => {
     {
@@ -22,14 +24,21 @@ const Loading = ({ text, handleDelete }) => {
       setIsRegister(false);
       setIsSaving(false);
       setIsDelete(false);
-      setIsSubmit(false),
-        setResponse({
-          message: "",
-          error: "",
-        });
+      setIsSubmit(false);
+      setIsDeleteJob(false);
+      setIsSavingJob(false);
+      setResponse({
+        message: "",
+        error: "",
+      });
     }
   };
-
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
     <div className="fixed -inset-0 z-10 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
       <div

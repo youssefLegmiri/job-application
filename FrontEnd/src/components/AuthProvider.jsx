@@ -10,6 +10,8 @@ const AuthProvider = ({ children }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isDeleteJob, setIsDeleteJob] = useState(false);
+  const [isSavingJob, setIsSavingJob] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -51,6 +53,10 @@ const AuthProvider = ({ children }) => {
         setIsDelete,
         isSubmit,
         setIsSubmit,
+        isDeleteJob,
+        setIsDeleteJob,
+        isSavingJob,
+        setIsSavingJob,
         response,
         setResponse,
       }}

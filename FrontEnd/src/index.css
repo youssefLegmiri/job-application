@@ -20,9 +20,9 @@
     @apply hover:bg-purple-300 flex items-center justify-center hover:text-purple-700 py-1 w-[80%] rounded-lg;
   }
   .input-container {
-    @apply w-[80%] md:w-[100%] text-lg font-[500] h-[25%]  text-purple-900 flex flex-col justify-evenly  md:flex-row md:items-center md:justify-evenly;
+    @apply w-[80%]  text-lg font-[500] h-[25%]  text-purple-900 flex flex-col justify-evenly  md:flex-row md:items-center md:justify-around;
   }
   .input {
-    @apply focus:outline-none disabled:bg-purple-50 border-[1px] border-purple-600 w-[100%] md:w-[60%] p-2 rounded-lg;
+    @apply focus:outline-none  disabled:bg-purple-50 border-[1px] border-purple-600 w-[100%] md:w-[60%] p-2 rounded-lg;
   }
 }

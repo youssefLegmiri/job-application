@@ -22,6 +22,7 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
     res.status(200).json({
       firstName: user?.firstName,
       lastName: user?.lastName,
+      role: user?.role,
       profileImage: user?.profileImage
         ? `${req.protocol}://${req.get("host")}/${user.profileImage?.replace(
             /\\/g,

@@ -22,6 +22,9 @@ const userSchema = mongoose.Schema(
     profileImage: {
       type: String,
     },
+    role: {
+      type: String,
+    },
     resetCode: {
       type: String,
     },

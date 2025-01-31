@@ -159,6 +159,7 @@ const Login = () => {
 
       if (res.status === 200) {
         setUser(userData);
+
         setResponse({ message: `Welcome ${userData.firstName}` });
 
         navigate("/dashboard");
