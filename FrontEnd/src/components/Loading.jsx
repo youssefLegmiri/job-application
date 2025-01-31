@@ -3,7 +3,7 @@ import { AuthContext } from "./AuthProvider";
 import LoaderSpinner from "./LoaderSpinner";
 import Close from "./Close";
 import Button from "./Button";
-const Loading = ({ text }) => {
+const Loading = ({ text, handleDelete }) => {
   const {
     response,
     setIsLogin,

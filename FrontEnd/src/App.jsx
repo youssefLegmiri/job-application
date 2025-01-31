@@ -10,7 +10,7 @@ import { Routes, Route } from "react-router";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthProvider from "./components/AuthProvider";
-
+import JobDetails from "./components/JobDetails";
 const App = () => {
   return (
     <AuthProvider>
@@ -27,6 +27,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="jobs/:id" element={<JobDetails />} />
         </Route>
         <Route path="/account" element={<Account />} />
         <Route path="/login" element={<Login />} />

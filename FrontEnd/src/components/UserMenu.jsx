@@ -27,7 +27,7 @@ const UserMenu = ({ setIsOpen }) => {
   const handelLogout = async () => {
     setIsOpen(false);
     setIsLogout(true);
-
+    navigate("/");
     try {
       const res = await fetch("http://localhost:5000/api/users/Logout", {
         method: "POST",

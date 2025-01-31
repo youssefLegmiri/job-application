@@ -4,15 +4,17 @@ import { AuthContext } from "./AuthProvider";
 import { z } from "zod";
 import Loading from "./Loading";
 import Job from "./Job";
+
 const Admin = () => {
-  const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const {
-    response,
     setResponse,
     isSavingJob,
     setIsSavingJob,
     isDeleteJob,
     setIsDeleteJob,
+    jobs,
+    setJobs,
   } = useContext(AuthContext);
   const [state, actionFunction, isPending] = useActionState(formAction, {
     data: {
@@ -25,11 +27,13 @@ const Admin = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch("http://localhost:5000/api/jobs", {
           credentials: "include",
         });
         const data = await res.json();
+        setIsLoading(false);
         if (res.status === 200) {
           setJobs(data);
         } else {
@@ -92,10 +96,13 @@ const Admin = () => {
       setResponse({ error: error.message });
     }
   };
+  const handleClick = () => {
+    setIsAdd(!isAdd);
+  };
   return (
     <main className="w-full h-[50%] py-8  flex flex-col items-center justify-evenly ">
       <form
-        className="bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col justify-around items-center "
+        className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col justify-around items-center "
         action={actionFunction}
       >
         <div className="input-container">
@@ -140,6 +147,7 @@ const Admin = () => {
         </div>
         <button className="btn-custom mb-4"> Save </button>
       </form>
+
       <div className=" w-[80%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-center ">
         {jobs.length != 0
           ? jobs.map((job, index) => (
@@ -153,6 +161,7 @@ const Admin = () => {
       </div>
       {(isPending || isSavingJob) && <Loading text={"Saving job..."} />}
       {isDeleteJob && <Loading text={"Deleting job ..."} />}
+      {isLoading && <Loading text={"Loading..."} />}
     </main>
   );
 };

@@ -132,7 +132,9 @@ const Account = () => {
           <h1 className="text-purple-800 font-[500] mt-6 ">
             {`${user?.firstName} ${user?.lastName}`}
           </h1>
-          <h2 className="text-green-700 font-[500] ">{user?.role} </h2>
+          {user?.role === "admin" && (
+            <h2 className="text-green-700 font-[500] ">{user?.role} </h2>
+          )}
         </div>
         <div className=" flex flex-col  justify-around items-center w-[90%] h-[50%] md:w-[60%]  md:h-[80%] rounded-xl bg-purple-200 ">
           <div className="input-container">

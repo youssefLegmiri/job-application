@@ -82,7 +82,7 @@ const Header = () => {
         to={"/"}
         className="text-purple-600 font-bold cursor-pointer md:left-0 relative -left-10"
       >
-        Text to PDF
+        Job Application
       </Link>
       <nav
         className={`md:flex justify-between text-xl font-[500] text-purple-100 bg-purple-950 px-8 py-4
