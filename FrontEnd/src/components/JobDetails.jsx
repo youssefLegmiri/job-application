@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 const JobDetails = () => {
   const { id } = useParams();
   const { jobs, user } = useContext(AuthContext);
@@ -11,7 +11,7 @@ const JobDetails = () => {
     setMyJob(jobFiltered[0]);
   }, []);
   return (
-    <div className=" relative p-2 w-[40%] h-60 rounded-xl shadow-custom-shadow bg-purple-50 flex flex-col items-center justify-evenly text-purple-600 font-[500] ">
+    <div className=" relative p-2 w-[60%] h-60 rounded-xl shadow-custom-shadow bg-purple-50 flex flex-col items-center justify-evenly text-purple-600 font-[500] ">
       <h1> {myJob?.title} </h1>
       <h1> {myJob?.location} </h1>
       <h1> {myJob?.description} </h1>

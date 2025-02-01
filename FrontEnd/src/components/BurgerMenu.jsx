@@ -6,7 +6,10 @@ const BurgerMenu = ({ menuItems, setBurgerClick, lottieRef }) => {
   const { user } = useContext(AuthContext);
   const filterdMenuItems = user?.firstName
     ? menuItems
-    : menuItems.filter((item) => item.title != "Dashboard");
+    : menuItems.filter(
+        (item) =>
+          item.title != `${user?.role === "admin" ? "Dashboard" : "Jobs"} `
+      );
   const variants = {
     hidden: {
       scaleY: 0,
@@ -41,7 +44,7 @@ const BurgerMenu = ({ menuItems, setBurgerClick, lottieRef }) => {
       {filterdMenuItems.map((item) => (
         <motion.div className="userMenu" key={item.id} variants={childVariants}>
           <Link onClick={handleClick} to={item.link}>
-            {item.title}{" "}
+            {item.title}
           </Link>
         </motion.div>
       ))}

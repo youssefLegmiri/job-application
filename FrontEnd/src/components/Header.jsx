@@ -10,9 +10,14 @@ import UserMenu from "./UserMenu";
 import BurgerMenu from "./BurgerMenu";
 import { motion, AnimatePresence } from "framer-motion";
 const Header = () => {
+  const { user } = useContext(AuthContext);
   const menuItems = [
     { id: 1, title: "Home", link: "/" },
-    { id: 2, title: "Dashboard", link: "dashboard" },
+    {
+      id: 2,
+      title: `${user?.role === "admin" ? "Dashboard" : "Jobs"} `,
+      link: `${user?.role === "admin" ? "Dashboard" : "Jobs"} `,
+    },
     { id: 3, title: "About", link: "about" },
     { id: 4, title: "Contact", link: "contact" },
   ];
@@ -20,7 +25,6 @@ const Header = () => {
   const [burgerClick, setBurgerClick] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
   const userMenuRef = useRef(null);
   const burgerRef = useRef(null);
   const lottieRef = useRef(null);
@@ -54,7 +58,7 @@ const Header = () => {
     }
   };
   return (
-    <header className=" w-full flex justify-evenly items-center my-2   ">
+    <header className=" w-full flex justify-evenly items-center my-2 px-4  ">
       <div
         ref={burgerRef}
         className="relative w-[30%] md:hidden inline-block   "
@@ -100,10 +104,22 @@ const Header = () => {
         </div>
         {user?.firstName && (
           <div className="relative">
-            <Link className="navBar" to={"dashboard"}>
-              Dashboard
+            <Link
+              className="navBar"
+              to={user?.role === "admin" ? "Dashboard" : "Jobs"}
+            >
+              {user?.role === "admin" ? "Dashboard" : "Jobs"}
             </Link>
-            {pathname === "/dashboard" && <AnimatedLine size={"100px"} />}
+            {pathname === "/Dashboard" && (
+              <AnimatedLine
+                size={`${user?.role === "admin" ? "100px" : "50px"}`}
+              />
+            )}
+            {pathname === "/Jobs" && (
+              <AnimatedLine
+                size={`${user?.role === "admin" ? "100px" : "50px"}`}
+              />
+            )}
           </div>
         )}
         <div className="relative">

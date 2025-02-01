@@ -9,32 +9,33 @@ import SharedLayout from "./components/SharedLayout";
 import { Routes, Route } from "react-router";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AuthProvider from "./components/AuthProvider";
+
 import JobDetails from "./components/JobDetails";
+import { AuthContext } from "./components/AuthProvider";
+import { useContext } from "react";
 const App = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route
-            path="dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="jobs/:id" element={<JobDetails />} />
-        </Route>
-        <Route path="/account" element={<Account />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-      </Routes>
-    </AuthProvider>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route
+          path={`${user?.role === "admin" ? "Dashboard" : "Jobs"}`}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="jobs/:id" element={<JobDetails />} />
+      </Route>
+      <Route path="/account" element={<Account />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/ResetPassword" element={<ResetPassword />} />
+    </Routes>
   );
 };
 

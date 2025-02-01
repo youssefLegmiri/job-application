@@ -4,14 +4,27 @@ import { Link, useNavigate } from "react-router-dom";
 import google from "../assets/google.svg";
 import facebook from "../assets/facebook.svg";
 import Close from "./Close";
-import { useActionState, useRef, useReducer, useContext } from "react";
+import {
+  useActionState,
+  useRef,
+  useReducer,
+  useContext,
+  useEffect,
+} from "react";
 import { AuthContext } from "./AuthProvider";
 import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 const Login = () => {
-  const { isRegister, isLogin, setIsLogin, setResponse, setUser, isSubmit } =
-    useContext(AuthContext);
+  const {
+    isRegister,
+    isLogin,
+    setIsLogin,
+    setResponse,
+    user,
+    setUser,
+    isSubmit,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -26,6 +39,11 @@ const Login = () => {
   const [state, dispatch] = useReducer(errorHandler, initialState);
 
   const [response, actionFunction, isPending] = useActionState(formAction, {});
+
+  useEffect(() => {
+    if (user?.firstName)
+      navigate(`${user?.role === "admin" ? "/Dashboard" : "/Jobs"} `);
+  }, [user?.firstName]);
 
   {
     /*  validating user inputs before triggering the form action */
@@ -161,8 +179,6 @@ const Login = () => {
         setUser(userData);
 
         setResponse({ message: `Welcome ${userData.firstName}` });
-
-        navigate("/dashboard");
       } else if (res.status === 400) {
         setResponse({ error: "Invalid Credentials !" });
       } else {
