@@ -20,6 +20,7 @@ const Admin = () => {
     data: {
       title: "",
       location: "",
+      briefDescription: "",
       description: "",
       salary: "",
     },
@@ -126,6 +127,16 @@ const Admin = () => {
           />
         </div>
         <div className="input-container">
+          <label htmlFor="">Brief Description</label>
+          <input
+            defaultValue={state?.data?.briefDescription}
+            required
+            name="briefDescription"
+            type="text"
+            className="input"
+          />
+        </div>
+        <div className="input-container">
           <label htmlFor="">Description</label>
           <input
             defaultValue={state?.data?.description}
@@ -148,7 +159,7 @@ const Admin = () => {
         <button className="btn-custom mb-4"> Save </button>
       </form>
 
-      <div className=" w-[80%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-center ">
+      <div className=" w-[80%] grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-4 justify-items-center ">
         {jobs.length != 0
           ? jobs.map((job, index) => (
               <Job

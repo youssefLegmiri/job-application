@@ -53,7 +53,7 @@ const UserMenu = ({ setIsOpen }) => {
       initial={"hidden"}
       animate={"visible"}
       exit={"hidden"}
-      className="absolute z-10 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] "
+      className="absolute z-50 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] "
     >
       <motion.div
         onClick={handleClick}

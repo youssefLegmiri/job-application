@@ -169,7 +169,7 @@ const Account = () => {
             text={"Save"}
           />
         </div>
-        {!isEdit && <DeleteAccount />}
+        {!isEdit && user?.role != "admin" && <DeleteAccount />}
         <Close handelClick={handleClick} />
       </motion.form>
       {(isPending || isSaving) && <Loading text={"saving ..."} />}

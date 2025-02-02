@@ -10,6 +10,10 @@ const jobSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    briefDescription: {
+      type: String,
+      required: true,
+    },
     salary: {
       type: String,
       required: true,
