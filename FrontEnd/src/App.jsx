@@ -22,14 +22,14 @@ const App = () => {
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route
-          path={`${user?.role === "admin" ? "Dashboard" : "Jobs"}`}
+          path={user?.role === "admin" ? "Dashboard" : "Jobs"}
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
         />
-        <Route path="jobs/:id" element={<JobDetails />} />
+        <Route path="Jobs/:id" element={<JobDetails />} />
       </Route>
       <Route path="/account" element={<Account />} />
       <Route path="/login" element={<Login />} />

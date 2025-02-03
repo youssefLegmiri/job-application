@@ -18,7 +18,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "dist")));
 // api jobs
 app.use("/api/jobs", require("./routes/jobRoute"));
-
+// api applications
+app.use("/api/application", require("./routes/applicationRoute"));
 // serving the main app
 app.get("*", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "dist", "index.html"));

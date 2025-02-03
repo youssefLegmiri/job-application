@@ -25,4 +25,10 @@
   .input {
     @apply focus:outline-none  disabled:bg-purple-50 border-[1px] border-purple-600 w-[100%] md:w-[60%] p-2 rounded-lg;
   }
+  .jobItems {
+    @apply bg-purple-600 md:w-[80%] xl:w-[60%] px-10 py-2 rounded-lg text-purple-100;
+  }
+  .jobTitle {
+    @apply bg-yellow-400 px-2 text-purple-600 font-[600];
+  }
 }

@@ -140,7 +140,7 @@ const Header = () => {
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[12%]  w-[35%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
+          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (

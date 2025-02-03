@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [isDeleteJob, setIsDeleteJob] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isApply, setIsApply] = useState(false);
   const [isSavingJob, setIsSavingJob] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [response, setResponse] = useState({
@@ -59,6 +60,8 @@ const AuthProvider = ({ children }) => {
         setIsDeleteJob,
         isUpdate,
         setIsUpdate,
+        isApply,
+        setIsApply,
         isSavingJob,
         setIsSavingJob,
         response,

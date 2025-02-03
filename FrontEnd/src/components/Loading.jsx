@@ -14,6 +14,7 @@ const Loading = ({ text, handleDelete }) => {
     setIsDelete,
     isDelete,
     setIsUpdate,
+    setIsApply,
     setIsSubmit,
     setIsDeleteJob,
     setIsSavingJob,
@@ -29,6 +30,7 @@ const Loading = ({ text, handleDelete }) => {
       setIsDeleteJob(false);
       setIsSavingJob(false);
       setIsUpdate(false);
+      setIsApply(false);
       setResponse({
         message: "",
         error: "",
