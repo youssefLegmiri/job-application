@@ -29,7 +29,10 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="Jobs/:id" element={<JobDetails />} />
+        <Route
+          path={user?.role === "admin" ? "Dashboard/:id" : "Jobs/:id"}
+          element={<JobDetails />}
+        />
       </Route>
       <Route path="/account" element={<Account />} />
       <Route path="/login" element={<Login />} />

@@ -33,7 +33,6 @@ const Job = ({ job, handleDelete }) => {
             initial={{ opacity: 0 }}
             whileHover={{
               opacity: 1,
-              backdropFilter: "blur(1px) ",
             }}
           >
             <p className="text-purple-50 bg-purple-600  rounded-xl font-[400]  p-2">
@@ -48,7 +47,7 @@ const Job = ({ job, handleDelete }) => {
            font-[500] text-purple-100 bg-purple-600 px-1
            hover:bg-purple-800
             "
-          to={`/Jobs/${job?._id}`}
+          to={`/Dashboard/${job?._id}`}
         >
           See Details
         </Link>

@@ -7,14 +7,13 @@ import Job from "./Job";
 
 const Admin = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [jobs, setJobs] = useState([]);
   const {
     setResponse,
     isSavingJob,
     setIsSavingJob,
     isDeleteJob,
     setIsDeleteJob,
-    jobs,
-    setJobs,
   } = useContext(AuthContext);
   const [state, actionFunction, isPending] = useActionState(formAction, {
     data: {

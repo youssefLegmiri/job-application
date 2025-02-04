@@ -25,6 +25,12 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
     },
+    appliedJobs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ],
     resetCode: {
       type: String,
     },
