@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading text={"Loading..."} />
       ) : user?.firstName ? (
         <>{children} </>
       ) : (

@@ -3,16 +3,25 @@ import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { AuthContext } from "./AuthProvider";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
+import SkeletonJobDetails from "./SkeletonJobDetails";
 const JobDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { user, isUpdate, setIsUpdate, isApply, setIsApply, setResponse } =
-    useContext(AuthContext);
+  const {
+    user,
+    isUpdate,
+    setIsUpdate,
+    isLoading,
+    setIsLoading,
+    isApply,
+    setIsApply,
+    setResponse,
+  } = useContext(AuthContext);
   const [myJob, setMyJob] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
   useEffect(() => {
+    if (!user?.firstName) navigate("/");
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -28,7 +37,7 @@ const JobDetails = () => {
           setResponse({ mesage: data.message });
         }
       } catch (error) {
-        setResponse({ error: error.message });
+        setResponse({ error: "Something went wrong please try again" });
       }
     };
     fetchData();
@@ -81,64 +90,69 @@ const JobDetails = () => {
     }
   };
   const handleNavigate = () => {
-    navigate(`${user?.role != "admin" ? "/Jobs" : "/Dashboard"}`);
+    navigate("/jobs");
   };
   return (
-    <main className="w-full min-h-screen  py-4 flex flex-col items-center ">
-      <div
-        className=" relative p-4 mb-10 w-[80%] min-h-[500px] rounded-xl 
+    <main className="w-full   py-4 flex flex-col items-center ">
+      {!isLoading ? (
+        <div
+          className=" relative p-4 mb-10 w-[80%] min-h-[600px] rounded-xl 
       shadow-custom-shadow bg-purple-50  flex flex-col md:items-center
         justify-evenly text-purple-600 font-[500] "
-      >
-        <FaArrowAltCircleLeft
-          onClick={handleNavigate}
-          size={"40"}
-          className="absolute top-4 left-4 cursor-pointer transition-all duration-100 ease-in-out  hover:scale-110"
-        />
-        <h1 className="jobItems  ">
-          <span className="jobTitle ">Title :</span>
-          {` ${myJob?.title}`}
-        </h1>
-        <h1 className="jobItems">
-          <span className="jobTitle ">Location :</span> {`${myJob?.location}`}{" "}
-        </h1>
-        <h1 className="jobItems">
-          <span className="jobTitle ">Description :</span>
-          {` ${myJob?.description}`}
-        </h1>
-        <h1 className="jobItems">
-          <span className="jobTitle ">Salary :</span> {`${myJob?.salary} MAD `}{" "}
-        </h1>
-        {user?.role === "admin" ? (
-          ""
-        ) : !isApplied ? (
-          <button
-            onClick={handleApplication}
-            className="absolute bottom-2 right-4 btn-custom cursor-pointer"
-          >
-            Apply
-          </button>
-        ) : (
-          <div className="absolute bottom-4 right-6  text-green-600  ">
-            Applied
-          </div>
-        )}
-        {user?.role === "admin" && (
-          <button
-            onClick={handleEdit}
-            className="absolute bottom-2 right-4 cursor-pointer"
-          >
-            Edit
-          </button>
-        )}
-      </div>
+        >
+          <FaArrowAltCircleLeft
+            onClick={handleNavigate}
+            size={"40"}
+            className="absolute top-4 left-4 cursor-pointer transition-all duration-100 ease-in-out  hover:scale-110"
+          />
+          <h1 className="jobItems  ">
+            <span className="jobTitle ">Title :</span>
+            {` ${myJob?.title}`}
+          </h1>
+          <h1 className="jobItems">
+            <span className="jobTitle ">Location :</span> {`${myJob?.location}`}{" "}
+          </h1>
+          <h1 className="jobItems">
+            <span className="jobTitle ">Description :</span>
+            {` ${myJob?.description}`}
+          </h1>
+          <h1 className="jobItems">
+            <span className="jobTitle ">Salary :</span>{" "}
+            {`${myJob?.salary} MAD `}{" "}
+          </h1>
+          {user?.role === "admin" ? (
+            ""
+          ) : !isApplied ? (
+            <button
+              onClick={handleApplication}
+              className="absolute bottom-2 right-4 btn-custom cursor-pointer"
+            >
+              Apply
+            </button>
+          ) : (
+            <div className="absolute bottom-4 right-6  text-green-600  ">
+              Applied
+            </div>
+          )}
+          {user?.role === "admin" && (
+            <button
+              onClick={handleEdit}
+              className="absolute bottom-2 right-4 btn-custom p-0 w-24 h-10"
+            >
+              {isEdit ? "Close" : "Edit"}
+            </button>
+          )}
+        </div>
+      ) : (
+        <SkeletonJobDetails />
+      )}
 
       {user?.role === "admin" && isEdit && (
         <form
           className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col justify-around items-center "
           action={actionFunction}
         >
-          <div className="input-container">
+          <div className="input-container w-[80%] md:w-[60%] ">
             <label htmlFor="">Title</label>
             <input
               autoFocus
@@ -149,7 +163,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container">
+          <div className="input-container w-[80%] md:w-[60%]">
             <label htmlFor="">Location</label>
             <input
               defaultValue={myJob?.location}
@@ -159,7 +173,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container">
+          <div className="input-container w-[80%] md:w-[60%]">
             <label htmlFor="">Brief Description</label>
             <input
               defaultValue={myJob?.briefDescription}
@@ -169,7 +183,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container">
+          <div className="input-container w-[80%] md:w-[60%]">
             <label htmlFor="">Description</label>
             <input
               defaultValue={myJob?.description}
@@ -179,7 +193,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container">
+          <div className="input-container w-[80%] md:w-[60%]">
             <label htmlFor="">Salary</label>
             <input
               defaultValue={myJob?.salary}
@@ -194,7 +208,6 @@ const JobDetails = () => {
       )}
       {(isUpdate || isPending) && <Loading text={"Updating Job ..."} />}
       {isApply && <Loading text={"Applying ..."} />}
-      {isLoading && <Loading text={"Loading ..."} />}
     </main>
   );
 };

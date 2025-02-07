@@ -2,7 +2,15 @@ const Job = require("../models/JobModel");
 const asyncErrorHandler = require("express-async-handler");
 
 const CreateJob = asyncErrorHandler(async (req, res) => {
-  const { title, location, briefDescription, salary, description } = req.body;
+  const {
+    title,
+    location,
+    briefDescription,
+    salary,
+    description,
+    reference,
+    category,
+  } = req.body;
 
   if (!title || !location || !briefDescription || !salary || !description) {
     res.status(400).json({ message: "Please enter all fields" });
@@ -13,6 +21,8 @@ const CreateJob = asyncErrorHandler(async (req, res) => {
       briefDescription,
       salary,
       description,
+      reference,
+      category,
     });
     if (job) {
       res

@@ -4,9 +4,9 @@ import { useContext, useState, useEffect } from "react";
 import Loading from "./Loading";
 
 const User = () => {
-  const { setResponse } = useContext(AuthContext);
+  const { setResponse, isLoading, setIsLoading } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);

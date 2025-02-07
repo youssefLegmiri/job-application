@@ -18,6 +18,7 @@ const Loading = ({ text, handleDelete }) => {
     setIsSubmit,
     setIsDeleteJob,
     setIsSavingJob,
+    setIsLoading,
   } = useContext(AuthContext);
   const handelClick = () => {
     {
@@ -31,6 +32,7 @@ const Loading = ({ text, handleDelete }) => {
       setIsSavingJob(false);
       setIsUpdate(false);
       setIsApply(false);
+      setIsLoading(false);
       setResponse({
         message: "",
         error: "",
@@ -44,7 +46,7 @@ const Loading = ({ text, handleDelete }) => {
     };
   }, []);
   return (
-    <div className="fixed -inset-0 z-10 flex justify-center items-center bg-zinc-700 bg-opacity-50  ">
+    <div className="fixed -inset-0 z-10  flex justify-center items-center bg-zinc-700 bg-opacity-50 backdrop-blur-sm  ">
       <div
         className="relative w-[80%] xl:w-[30%] lg:w-[50%] md:w-[60%] h-[20%] min-h-[150px] 
                     bg-purple-100 shadow-custom-shadow rounded-xl flex flex-col items-center justify-evenly

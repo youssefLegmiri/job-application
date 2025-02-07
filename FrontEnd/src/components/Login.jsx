@@ -41,8 +41,7 @@ const Login = () => {
   const [response, actionFunction, isPending] = useActionState(formAction, {});
 
   useEffect(() => {
-    if (user?.firstName)
-      navigate(`${user?.role === "admin" ? "/Dashboard" : "/Jobs"} `);
+    if (user?.firstName) navigate("/jobs");
   }, [user?.firstName]);
 
   {

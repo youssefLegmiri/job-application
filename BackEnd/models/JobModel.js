@@ -22,6 +22,14 @@ const jobSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    reference: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

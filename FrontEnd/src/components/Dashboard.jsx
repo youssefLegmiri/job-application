@@ -1,15 +1,17 @@
 import Loading from "./Loading";
 import { AuthContext } from "./AuthProvider";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Admin from "./Admin";
 import User from "./User";
+
 const Dashboard = () => {
   const { isLogin, user } = useContext(AuthContext);
+
   return (
-    <>
+    <main className="w-full  flex flex-col items-center">
       {user?.role === "admin" ? <Admin /> : <User />}
       {isLogin && <Loading />}
-    </>
+    </main>
   );
 };
 

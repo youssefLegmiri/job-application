@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isApply, setIsApply] = useState(false);
   const [isSavingJob, setIsSavingJob] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -28,7 +28,11 @@ const AuthProvider = ({ children }) => {
           method: "POST",
         });
         const userData = await res.json();
-        setUser(userData);
+        if (res.status === 200) {
+          setUser(userData);
+        } else if (res.status === 401) {
+          setUser(null);
+        }
       } catch (error) {
         setUser(null);
       } finally {
@@ -64,6 +68,8 @@ const AuthProvider = ({ children }) => {
         setIsApply,
         isSavingJob,
         setIsSavingJob,
+        isLoading,
+        setIsLoading,
         response,
         setResponse,
       }}

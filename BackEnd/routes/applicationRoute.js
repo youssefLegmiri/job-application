@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/authMiddelware");
-const jobApplication = require("../Controller/JobApplicationController");
-router.post("/:id", protect, jobApplication);
+const CreateJobApplication = require("../Controller/CreateJobApplicationController");
+const GetApplications = require("../Controller/GetApplicationsControllers");
+
+router.post("/:id", protect, CreateJobApplication);
+router.get("/", protect, GetApplications);
 module.exports = router;

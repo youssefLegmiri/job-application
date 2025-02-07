@@ -137,11 +137,11 @@ const Account = () => {
           )}
         </div>
         <div className=" flex flex-col  justify-around items-center w-[90%] h-[50%] md:w-[60%]  md:h-[80%] rounded-xl bg-purple-200 ">
-          <div className="input-container">
+          <div className="input-container-legacy">
             <label> First Name</label>
             <input
               ref={inputRef}
-              className="input "
+              className="input-legacy "
               type="text"
               name="firstName"
               value={firstName}
@@ -150,10 +150,10 @@ const Account = () => {
               required
             />
           </div>
-          <div className="input-container">
+          <div className="input-container-legacy">
             <label> Last Name</label>
             <input
-              className="input"
+              className="input-legacy"
               type="text"
               name="lastName"
               value={lastName}

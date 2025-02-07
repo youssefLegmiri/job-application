@@ -9,7 +9,8 @@ import SharedLayout from "./components/SharedLayout";
 import { Routes, Route } from "react-router";
 import Dashboard from "./components/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import Applications from "./components/Applications";
+import MyApplication from "./components/MyApplication";
 import JobDetails from "./components/JobDetails";
 import { AuthContext } from "./components/AuthProvider";
 import { useContext } from "react";
@@ -22,17 +23,16 @@ const App = () => {
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route
-          path={user?.role === "admin" ? "Dashboard" : "Jobs"}
+          path="jobs"
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
         />
-        <Route
-          path={user?.role === "admin" ? "Dashboard/:id" : "Jobs/:id"}
-          element={<JobDetails />}
-        />
+        <Route path="jobs/applications" element={<Applications />} />
+        <Route path="jobs/myApplication" element={<MyApplication />} />
+        <Route path="jobs/:id" element={<JobDetails />} />
       </Route>
       <Route path="/account" element={<Account />} />
       <Route path="/login" element={<Login />} />

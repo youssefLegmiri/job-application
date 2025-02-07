@@ -6,14 +6,17 @@ import Loading from "./Loading";
 import Job from "./Job";
 
 const Admin = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const {
+    user,
     setResponse,
     isSavingJob,
     setIsSavingJob,
     isDeleteJob,
     setIsDeleteJob,
+    isLoading,
+    setIsLoading,
   } = useContext(AuthContext);
   const [state, actionFunction, isPending] = useActionState(formAction, {
     data: {
@@ -22,6 +25,7 @@ const Admin = () => {
       briefDescription: "",
       description: "",
       salary: "",
+      reference: "",
     },
   });
 
@@ -96,78 +100,121 @@ const Admin = () => {
       setResponse({ error: error.message });
     }
   };
-  const handleClick = () => {
-    setIsAdd(!isAdd);
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
   };
   return (
-    <main className="w-full h-[50%] py-8  flex flex-col items-center justify-evenly ">
-      <form
-        className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col justify-around items-center "
-        action={actionFunction}
-      >
-        <div className="input-container">
-          <label htmlFor="">Title</label>
-          <input
-            defaultValue={state?.data?.title}
-            required
-            name="title"
-            type="text"
-            className="input"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="">Location</label>
-          <input
-            defaultValue={state?.data?.location}
-            required
-            name="location"
-            type="text"
-            className="input"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="">Brief Description</label>
-          <input
-            defaultValue={state?.data?.briefDescription}
-            required
-            name="briefDescription"
-            type="text"
-            className="input"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="">Description</label>
-          <input
-            defaultValue={state?.data?.description}
-            required
-            name="description"
-            type="text"
-            className="input"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="">Salary</label>
-          <input
-            defaultValue={state?.data?.salary}
-            required
-            name="salary"
-            type="text"
-            className="input"
-          />
-        </div>
-        <button className="btn-custom mb-4"> Save </button>
-      </form>
+    <main className="w-[80%] my-4 py-2 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
+      <div className="relative w-[100%] mb-20 ">
+        <button className="absolute top-2 left-8 btn-custom p-0 w-[150px] h-[50px]  hover:bg-purple-700 ">
+          {`Admin : ${user?.firstName}`}
+        </button>
+
+        <button
+          onClick={handleOpen}
+          className="absolute top-2 right-8 btn-custom p-0 w-[100px] h-[50px]  "
+        >
+          {isOpen ? "Close" : "Add Job"}
+        </button>
+      </div>
+      {isOpen && (
+        <form
+          className=" bg-purple-200 mb-8 py-4 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
+          action={actionFunction}
+        >
+          <div className="w-[80%] h-full lg:w-[60%] flex flex-col justify-around  ">
+            <div className="input-container ">
+              <label htmlFor="">Title :</label>
+              <input
+                autoFocus
+                defaultValue={state?.data?.title}
+                required
+                name="title"
+                type="text"
+                className="input"
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="">Location :</label>
+              <input
+                defaultValue={state?.data?.location}
+                required
+                name="location"
+                type="text"
+                className="input"
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="">Brief Description :</label>
+              <input
+                defaultValue={state?.data?.briefDescription}
+                required
+                name="briefDescription"
+                type="text"
+                className="input"
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="">Description :</label>
+              <input
+                defaultValue={state?.data?.description}
+                required
+                name="description"
+                type="text"
+                className="input"
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="">Salary :</label>
+              <input
+                defaultValue={state?.data?.salary}
+                required
+                name="salary"
+                type="text"
+                className="input"
+              />
+            </div>
+          </div>
+          <div className="w-[80%] lg:w-[30%] h-full  flex flex-col items-center justify-around  ">
+            <div className="input-container ">
+              <label htmlFor="">Reference</label>
+              <input
+                defaultValue={state?.data?.reference}
+                required
+                name="reference"
+                type="text"
+                className="input"
+              />
+            </div>
+            <div className="w-full text-purple-900 flex flex-col justify-around ">
+              <label htmlFor="">Category :</label>
+              <select
+                className="my-4 p-1 outline-none rounded-md border-[1px] border-purple-500 "
+                name="category"
+              >
+                <option value="managment">Managment</option>
+                <option value="electric">Electric</option>
+                <option value="it">IT</option>
+                <option value="process">Process</option>
+              </select>
+            </div>
+            <button className="btn-custom "> Save </button>
+          </div>
+        </form>
+      )}
 
       <div className=" w-[80%] grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-4 justify-items-center ">
-        {jobs.length != 0
-          ? jobs.map((job, index) => (
-              <Job
-                key={index}
-                job={job}
-                handleDelete={() => handleDelete(job._id)}
-              />
-            ))
-          : "No job to display"}
+        {jobs.length != 0 ? (
+          jobs.map((job, index) => (
+            <Job
+              key={index}
+              job={job}
+              handleDelete={() => handleDelete(job._id)}
+            />
+          ))
+        ) : (
+          <p className="text-purple-700 font-[500] ">No job to display</p>
+        )}
       </div>
       {(isPending || isSavingJob) && <Loading text={"Saving job..."} />}
       {isDeleteJob && <Loading text={"Deleting job ..."} />}

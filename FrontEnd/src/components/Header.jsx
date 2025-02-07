@@ -16,7 +16,7 @@ const Header = () => {
     {
       id: 2,
       title: `${user?.role === "admin" ? "Dashboard" : "Jobs"} `,
-      link: `${user?.role === "admin" ? "Dashboard" : "Jobs"} `,
+      link: "jobs",
     },
     { id: 3, title: "About", link: "about" },
     { id: 4, title: "Contact", link: "contact" },
@@ -58,7 +58,7 @@ const Header = () => {
     }
   };
   return (
-    <header className=" w-full flex justify-evenly items-center my-2 px-4  ">
+    <header className=" w-full  flex justify-evenly items-center my-2 px-4  ">
       <div
         ref={burgerRef}
         className="relative w-[30%] md:hidden inline-block   "
@@ -104,18 +104,15 @@ const Header = () => {
         </div>
         {user?.firstName && (
           <div className="relative">
-            <Link
-              className="navBar"
-              to={user?.role === "admin" ? "Dashboard" : "Jobs"}
-            >
+            <Link className="navBar" to="jobs">
               {user?.role === "admin" ? "Dashboard" : "Jobs"}
             </Link>
-            {pathname === "/Dashboard" && (
+            {pathname === "/dashboard" && (
               <AnimatedLine
                 size={`${user?.role === "admin" ? "100px" : "50px"}`}
               />
             )}
-            {pathname === "/Jobs" && (
+            {pathname === "/jobs" && (
               <AnimatedLine
                 size={`${user?.role === "admin" ? "100px" : "50px"}`}
               />

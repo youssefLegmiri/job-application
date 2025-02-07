@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const applicationSchema = mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    job: { type: mongoose.Schema.Types.ObjectId, ref: "Job" },
+    userID: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    jobID: { type: mongoose.Schema.Types.ObjectId, ref: "Job" },
     status: { type: String, default: "pending" },
   },
   { timestamps: true }

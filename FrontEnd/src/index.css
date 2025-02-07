@@ -7,6 +7,12 @@
   body {
     @apply bg-stone-200 select-none font-roboto text-2xl;
   }
+  th {
+    @apply border-[1px] border-stone-800 p-2 bg-stone-200 text-stone-700;
+  }
+  td {
+    @apply border-[1px] border-purple-800 p-2 cursor-pointer bg-stone-200 text-purple-600 text-center font-[500];
+  }
 }
 @layer components {
   .btn-custom {
@@ -20,13 +26,22 @@
     @apply hover:bg-purple-300 flex items-center justify-center hover:text-purple-700 py-1 w-[80%] rounded-lg;
   }
   .input-container {
-    @apply w-[80%]  text-lg font-[500] h-[25%]  text-purple-900 flex flex-col justify-evenly  md:flex-row md:items-center md:justify-around;
+    @apply w-[100%] text-lg font-[500]   text-purple-900 flex flex-col;
   }
   .input {
+    @apply focus:outline-none  disabled:bg-purple-50 border-[1px] border-purple-600 w-[100%]  p-2 rounded-lg;
+  }
+  .input-container-legacy {
+    @apply w-[80%]  text-lg font-[500] h-[25%]  text-purple-900 flex flex-col justify-evenly  md:flex-row md:items-center md:justify-around;
+  }
+  .input-legacy {
     @apply focus:outline-none  disabled:bg-purple-50 border-[1px] border-purple-600 w-[100%] md:w-[60%] p-2 rounded-lg;
   }
   .jobItems {
     @apply bg-purple-600 md:w-[80%] xl:w-[60%] px-10 py-2 rounded-lg text-purple-100;
+  }
+  .SkeletonJobItems {
+    @apply animate-pulse bg-purple-600 h-[50px] md:w-[80%] xl:w-[60%] px-10 py-2 rounded-lg;
   }
   .jobTitle {
     @apply bg-yellow-400 px-2 text-purple-600 font-[600];

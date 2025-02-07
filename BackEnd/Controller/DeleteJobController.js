@@ -1,10 +1,11 @@
 const asyncErrorHandler = require("express-async-handler");
 const Job = require("../models/JobModel");
-
+const Application = require("../models/ApplicationModel");
 const DeleteJob = asyncErrorHandler(async (req, res) => {
-  const { id } = req.params;
+  const jobID = req.params.id;
 
-  const deletedJob = await Job.findByIdAndDelete(id);
+  await Application.deleteMany({ job: jobID });
+  const deletedJob = await Job.findByIdAndDelete(jobID);
 
   if (!deletedJob) {
     res.status(404).json({ message: "No job found" });

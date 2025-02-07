@@ -1,13 +1,13 @@
 const asyncErrorHandler = require("express-async-handler");
 const Application = require("../models/ApplicationModel");
 const User = require("../models/UserModel");
-const jobApplication = asyncErrorHandler(async (req, res) => {
+const CreateJobApplication = asyncErrorHandler(async (req, res) => {
   const userID = req.user._id;
   const jobID = req.params.id;
 
   const applicationExist = await Application.findOne({
-    user: userID,
-    job: jobID,
+    userID: userID,
+    jobID: jobID,
   });
   if (applicationExist) {
     res
@@ -15,8 +15,8 @@ const jobApplication = asyncErrorHandler(async (req, res) => {
       .json({ message: "You have already applied for this job !" });
   } else {
     const newApplication = await Application.create({
-      user: userID,
-      job: jobID,
+      userID: userID,
+      jobID: jobID,
     });
     const user = await User.findByIdAndUpdate(
       userID,
@@ -35,4 +35,4 @@ const jobApplication = asyncErrorHandler(async (req, res) => {
   }
 });
 
-module.exports = jobApplication;
+module.exports = CreateJobApplication;

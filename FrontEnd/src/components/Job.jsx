@@ -47,7 +47,7 @@ const Job = ({ job, handleDelete }) => {
            font-[500] text-purple-100 bg-purple-600 px-1
            hover:bg-purple-800
             "
-          to={`/Dashboard/${job?._id}`}
+          to={`${job?._id}`}
         >
           See Details
         </Link>

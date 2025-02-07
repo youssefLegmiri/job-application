@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 const UserMenu = ({ setIsOpen }) => {
   const navigate = useNavigate();
-  const { setIsLogout, setResponse, setUser } = useContext(AuthContext);
+  const { setIsLogout, setResponse, user, setUser } = useContext(AuthContext);
   const variants = {
     hidden: {
       scaleY: 0,
@@ -53,8 +53,18 @@ const UserMenu = ({ setIsOpen }) => {
       initial={"hidden"}
       animate={"visible"}
       exit={"hidden"}
-      className="absolute z-50 -bottom-28 right-0 text-xl bg-purple-600 text-purple-50 flex flex-col items-center justify-evenly h-[100px] rounded-lg w-[100%] "
+      className="absolute z-50 top-24 right-0 text-xl bg-purple-800 text-purple-50 flex flex-col items-center justify-evenly h-[200px] rounded-lg w-[100%] "
     >
+      <motion.div
+        variants={childVariants}
+        className=" userMenu cursor-pointer "
+      >
+        {user?.role === "admin" ? (
+          <Link to={"jobs/applications"}>Applications</Link>
+        ) : (
+          <Link to={"jobs/myApplication"}>my Application</Link>
+        )}
+      </motion.div>
       <motion.div
         onClick={handleClick}
         className="userMenu"
