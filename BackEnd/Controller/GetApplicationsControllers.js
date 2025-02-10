@@ -31,6 +31,7 @@ const GetApplications = asyncErrorHandler(async (req, res) => {
             firstName: "$user.firstName",
             lastName: "$user.lastName",
             email: "$user.email",
+            status: "$status",
           },
         },
       },
