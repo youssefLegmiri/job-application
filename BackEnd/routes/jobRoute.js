@@ -6,6 +6,7 @@ const GetJob = require("../Controller/GetJobController");
 const DeleteJob = require("../Controller/DeleteJobController");
 const UpdateJob = require("../Controller/UpdateJobController");
 const GetSelectedJob = require("../Controller/GetSelectedJobController");
+
 router.post("/", protect, CreateJob);
 router.get("/", protect, GetJob);
 router.get("/:id", protect, GetSelectedJob);

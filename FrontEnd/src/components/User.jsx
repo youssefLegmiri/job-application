@@ -28,7 +28,7 @@ const User = () => {
     fetchData();
   }, []);
   return (
-    <main className="w-full h-screen">
+    <main className="w-full bg-stone-400">
       <div className="p-8 w-[100%] grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-4 justify-items-center ">
         {jobs?.length != 0
           ? jobs.map((job, index) => <Job key={index} job={job} />)

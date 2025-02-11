@@ -72,78 +72,94 @@ const Applications = () => {
     }
   };
   return (
-    <div className="w-full p-8 grid grid-cols-1  xl:grid-cols-2   gap-2">
-      {applications?.map((application) => (
-        <div
-          className="bg-stone-400 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
-          key={application._id}
-        >
-          <div className="p-2 mb-2 bg-stone-300 h-[100px] flex flex-col  justify-around font-[500] text-purple-600 ">
-            <h1>Job Reference : {application.jobReference}</h1>
-            <h1>Job Title : {application.jobTitle}</h1>
-          </div>
-          <p className="w-40 font-[500] px-2 mb-2 bg-stone-300 text-purple-600 ">
-            Applicants :
-          </p>
-          <table className=" ">
-            <thead>
-              <tr className="">
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {application.applicants.map((applicant, index) => (
-                <tr key={index}>
-                  <td>{applicant.firstName}</td>
-                  <td>{applicant.lastName}</td>
-                  <td>{applicant.email}</td>
-                  <td className="relative">
-                    <select
-                      className="w-full bg-stone-100 rounded-lg outline-none appearance-none cursor-pointer p-2 "
-                      name="status"
-                      value={jobApplicants[application._id]?.[applicant.email]}
-                      onChange={(e) =>
-                        handleChange(
-                          application._id,
-                          applicant.email,
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value={applicant.status}>
-                        {applicant.status}
-                      </option>
-                      <option value="Accepted">Accepted</option>
-                      <option value="Rejected">Rejected</option>
-                      <option value="Pending">Pending</option>
-                    </select>
-                    <IoIosArrowDown
-                      size={"30"}
-                      className="absolute top-5 right-5  pointer-events-none"
-                    />
-                  </td>
+    <main className="w-full bg-stone-300 p-8 flex flex-col items-center ">
+      <div className="w-full  grid grid-cols-1  xl:grid-cols-2 gap-4">
+        {applications?.map((application) => (
+          <div
+            className="bg-stone-400 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
+            key={application._id}
+          >
+            <div className="p-2 mb-2 bg-stone-300 h-[100px] flex flex-col  justify-around font-[500] text-purple-600 ">
+              <h1>Job Reference : {application.jobReference}</h1>
+              <h1>Job Title : {application.jobTitle}</h1>
+            </div>
+            <p className="w-40 font-[500] px-2 mb-2 bg-stone-300 text-purple-600 ">
+              Applicants :
+            </p>
+            <table className=" ">
+              <thead>
+                <tr className="">
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
-      {isLoading && (
-        <Loading
-          text={`${jobApplicants.length === 0 ? "loading..." : "saving..."} `}
-        />
+              </thead>
+              <tbody>
+                {application.applicants.map((applicant, index) => (
+                  <tr key={index}>
+                    <td>{applicant.firstName}</td>
+                    <td>{applicant.lastName}</td>
+                    <td>{applicant.email}</td>
+                    <td className="relative">
+                      <select
+                        className={`w-full text-purple-50 ${
+                          applicant.status === "Accepted"
+                            ? "bg-green-600"
+                            : applicant.status === "Rejected"
+                            ? "bg-red-600"
+                            : applicant.status === "Pending"
+                            ? "bg-violet-600"
+                            : "bg-yellow-500"
+                        }  rounded-lg outline-none appearance-none cursor-pointer p-2 `}
+                        name="status"
+                        value={
+                          jobApplicants[application._id]?.[applicant.email]
+                        }
+                        onChange={(e) =>
+                          handleChange(
+                            application._id,
+                            applicant.email,
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value={applicant.status}>
+                          {applicant.status}
+                        </option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Pending">Pending</option>
+                      </select>
+                      <IoIosArrowDown
+                        size={"30"}
+                        className="absolute top-5 right-5 text-purple-50  pointer-events-none"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+        {isLoading && (
+          <Loading
+            text={`${jobApplicants.length === 0 ? "loading..." : "saving..."} `}
+          />
+        )}
+      </div>
+      {applications.length != 0 ? (
+        <button
+          disabled={jobApplicants.length === 0 ? true : false}
+          onClick={SendData}
+          className="btn-custom mt-4 disabled:bg-purple-600"
+        >
+          Save
+        </button>
+      ) : (
+        <p>No Application yet</p>
       )}
-      <button
-        disabled={jobApplicants.length === 0 ? true : false}
-        onClick={SendData}
-        className="btn-custom disabled:bg-purple-500"
-      >
-        Save
-      </button>
-    </div>
+    </main>
   );
 };
 

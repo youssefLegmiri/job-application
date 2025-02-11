@@ -11,8 +11,7 @@ const UpdateApplicationStatus = asyncErrorHandler(async (req, res) => {
       if (!user) continue;
       const updatedApplication = await Application.findOneAndUpdate(
         { jobID, userID: user._id },
-        { $set: { status: newStatus } },
-        { new: true }
+        { $set: { status: newStatus } }
       );
     }
   }
