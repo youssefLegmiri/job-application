@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
   const [isApply, setIsApply] = useState(false);
   const [isSavingJob, setIsSavingJob] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [jobs, setJobs] = useState([]);
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -70,6 +71,8 @@ const AuthProvider = ({ children }) => {
         setIsSavingJob,
         isLoading,
         setIsLoading,
+        jobs,
+        setJobs,
         response,
         setResponse,
       }}

@@ -23,7 +23,7 @@
   .navBar {
   }
   .userMenu {
-    @apply hover:bg-purple-300 flex items-center justify-center hover:text-purple-700 py-1 w-[80%] rounded-lg;
+    @apply relative hover:bg-purple-300 flex items-center justify-center hover:text-purple-700 py-1 w-[90%] rounded-lg;
   }
   .input-container {
     @apply w-[100%] text-lg font-[500]   text-purple-900 flex flex-col;
@@ -45,5 +45,8 @@
   }
   .jobTitle {
     @apply bg-yellow-400 px-2 text-purple-600 font-[600];
+  }
+  .category {
+    @apply relative p-2 flex items-center justify-center hover:bg-stone-300 w-[80%] cursor-pointer;
   }
 }

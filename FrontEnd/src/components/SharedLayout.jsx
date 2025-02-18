@@ -7,7 +7,7 @@ import { useContext } from "react";
 const SharedLayout = () => {
   const { isLogout } = useContext(AuthContext);
   return (
-    <main className=" h-screen relative flex flex-col justify-between items-center">
+    <main className="h-screen relative flex flex-col justify-between items-center">
       <Header />
       <Outlet />
       <Footer />
