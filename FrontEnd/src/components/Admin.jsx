@@ -104,7 +104,7 @@ const Admin = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <main className="w-[80%] my-4 py-2 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
+    <main className="w-[80%] my-4 py-8 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
       <div className="relative w-[100%] mb-20 ">
         <button className="absolute top-2 left-8 btn-custom p-0 w-[150px] h-[50px]  hover:bg-purple-700 ">
           {`Admin : ${user?.firstName}`}
@@ -174,6 +174,16 @@ const Admin = () => {
                 className="input"
               />
             </div>
+            <div className="input-container">
+              <label htmlFor="">Experience :</label>
+              <input
+                defaultValue={state?.data?.experience}
+                required
+                name="experience"
+                type="text"
+                className="input"
+              />
+            </div>
           </div>
           <div className="w-[80%] lg:w-[30%] h-full  flex flex-col items-center justify-around  ">
             <div className="input-container ">
@@ -203,7 +213,7 @@ const Admin = () => {
         </form>
       )}
 
-      <div className=" w-[80%] grid grid-cols-1 lg:grid-cols-2   gap-4 justify-items-center ">
+      <div className=" w-[90%] grid grid-cols-1 lg:grid-cols-2   gap-4 justify-items-center ">
         {jobs.length != 0 ? (
           jobs.map((job, index) => (
             <Job

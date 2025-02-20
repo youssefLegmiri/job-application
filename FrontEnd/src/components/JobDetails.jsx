@@ -118,7 +118,11 @@ const JobDetails = () => {
           </h1>
           <h1 className="jobItems">
             <span className="jobTitle ">Salary :</span>{" "}
-            {`${myJob?.salary} MAD `}{" "}
+            {`${myJob?.salary} MAD `}
+          </h1>
+          <h1 className="jobItems">
+            <span className="jobTitle ">Experience :</span>{" "}
+            {`${myJob?.experience}`}
           </h1>
           {user?.role === "admin" ? (
             ""
@@ -149,7 +153,7 @@ const JobDetails = () => {
 
       {user?.role === "admin" && isEdit && (
         <form
-          className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col justify-around items-center "
+          className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[600px] flex flex-col justify-around items-center "
           action={actionFunction}
         >
           <div className="input-container w-[80%] md:w-[60%] ">
@@ -199,6 +203,16 @@ const JobDetails = () => {
               defaultValue={myJob?.salary}
               required
               name="salary"
+              type="text"
+              className="input"
+            />
+          </div>
+          <div className="input-container w-[80%] md:w-[60%]">
+            <label htmlFor="">Experience</label>
+            <input
+              defaultValue={myJob?.experience}
+              required
+              name="experience"
               type="text"
               className="input"
             />

@@ -27,8 +27,8 @@ const MyApplication = () => {
     fetchData();
   }, []);
   return (
-    <div className="w-full h-screen overflow-x-auto my-4 p-4  bg-stone-400  flex flex-col items-center ">
-      <table className="w-[80%] ">
+    <div className="w-full h-screen overflow-x-auto my-4 p-4  bg-stone-300  flex flex-col items-center ">
+      <table className="w-[90%] ">
         <thead>
           <tr>
             <th>Job Title</th>

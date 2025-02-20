@@ -45,7 +45,7 @@ const Job = ({ job, handleDelete }) => {
         <Link
           className="absolute top-2 left-2 text-[1rem]  
            font-[500] text-purple-100 bg-purple-600 px-1
-           hover:bg-purple-800
+           hover:bg-purple-800 rounded-md
             "
           to={`${job?._id}`}
         >
@@ -56,7 +56,7 @@ const Job = ({ job, handleDelete }) => {
       <p>{job?.briefDescription} </p>
       <div className="w-full absolute bottom-4 flex items-center justify-evenly text-lg ">
         <h2>{`Location : ${job.location} `} </h2>
-        <h3>{`Salary : ${job.salary} MAD `} </h3>
+        <h3>{`Experience : ${job.experience}`} </h3>
       </div>
 
       {user?.role === "admin" && (

@@ -3,7 +3,8 @@ const asyncErrorHandler = require("express-async-handler");
 
 const UpdateJob = asyncErrorHandler(async (req, res) => {
   const { id } = req.params;
-  const { title, location, briefDescription, salary, description } = req.body;
+  const { title, location, briefDescription, salary, experience, description } =
+    req.body;
   const updateJob = await Job.findByIdAndUpdate(
     id,
     {
@@ -11,6 +12,7 @@ const UpdateJob = asyncErrorHandler(async (req, res) => {
       location,
       briefDescription,
       salary,
+      experience,
       description,
     },
     { new: true }

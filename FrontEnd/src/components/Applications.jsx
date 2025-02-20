@@ -103,15 +103,7 @@ const Applications = () => {
                     <td>{applicant.email}</td>
                     <td className="relative">
                       <select
-                        className={`w-full text-purple-50 ${
-                          applicant.status === "Accepted"
-                            ? "bg-green-600"
-                            : applicant.status === "Rejected"
-                            ? "bg-red-600"
-                            : applicant.status === "Pending"
-                            ? "bg-violet-600"
-                            : "bg-yellow-500"
-                        }  rounded-lg outline-none appearance-none cursor-pointer p-2 `}
+                        className={`w-full bg-stone-300 rounded-lg outline-none appearance-none cursor-pointer p-2 `}
                         name="status"
                         value={
                           jobApplicants[application._id]?.[applicant.email]
@@ -133,7 +125,7 @@ const Applications = () => {
                       </select>
                       <IoIosArrowDown
                         size={"30"}
-                        className="absolute top-5 right-5 text-purple-50  pointer-events-none"
+                        className="absolute top-5 right-5   pointer-events-none"
                       />
                     </td>
                   </tr>

@@ -30,6 +30,10 @@ const jobSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    experience: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
