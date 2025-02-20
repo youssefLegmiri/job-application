@@ -36,7 +36,7 @@ const CustomSelect = ({ jobsToFilter }) => {
   const handleKeyDown = (e) => {
     setOption("None");
     const searchedJobs = jobsToFilter.filter((item) =>
-      item.title.toLowerCase().startsWith(search)
+      item.title.toLowerCase().includes(search)
     );
     setJobs(searchedJobs);
     if (e.key === "Enter") {
@@ -50,6 +50,24 @@ const CustomSelect = ({ jobsToFilter }) => {
      bg-stone-100  text-purple-700 border-[1px] border-stone-600 font-[500] 
      flex flex-col items-center  justify-evenly  rounded-lg overflow-x-auto "
     >
+      <div className="relative font-[500] w-[80%]  flex items-center justify-center ">
+        <input
+          autoFocus
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          value={search}
+          className="w-[100%] focus:outline-none  p-2 text-xl text-purple-700 bg-purple-50  border-[1px] border-stone-600 rounded-lg "
+          type="text"
+          placeholder="Search job"
+        />
+        {isSearch && (
+          <FaTimes
+            onClick={handleClick}
+            size={"25"}
+            className="absolute top-3 right-2 rounded-full bg-purple-300 p-[3px] cursor-pointer"
+          />
+        )}
+      </div>
       {isMd && (
         <div className="md:bg-purple-300 w-[80%] p-2 rounded-lg text-center ">
           Category
@@ -103,24 +121,6 @@ const CustomSelect = ({ jobsToFilter }) => {
           )}
           Process
         </div>
-      </div>
-      <div className="relative font-[500] w-[80%]  flex items-center justify-center ">
-        <input
-          autoFocus
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          value={search}
-          className="w-[100%] focus:outline-none  p-2 text-xl text-purple-700 bg-purple-50  border-[1px] border-stone-600 rounded-lg "
-          type="text"
-          placeholder="Search job"
-        />
-        {isSearch && (
-          <FaTimes
-            onClick={handleClick}
-            size={"25"}
-            className="absolute top-3 right-2 rounded-full bg-purple-300 p-[3px] cursor-pointer"
-          />
-        )}
       </div>
     </main>
   );

@@ -93,10 +93,10 @@ const JobDetails = () => {
     navigate("/jobs");
   };
   return (
-    <main className="w-full   py-4 flex flex-col items-center ">
+    <main className="w-full  py-4 flex flex-col items-center ">
       {!isLoading ? (
         <div
-          className=" relative p-4 mb-10 w-[80%] min-h-[600px] rounded-xl 
+          className=" relative p-4 mb-10 w-[80%] min-h-[700px] rounded-xl 
       shadow-custom-shadow bg-purple-50  flex flex-col md:items-center
         justify-evenly text-purple-600 font-[500] "
         >

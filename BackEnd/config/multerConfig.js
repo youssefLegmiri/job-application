@@ -25,9 +25,17 @@ const storage = multer.diskStorage({
     cb(null, uniquneName);
   },
 });
-
+// prevent multer to generate a file name if the user did not upload an image
+const fileFilter = (req, file, cb) => {
+  if (!file) {
+    cb(null, false);
+  } else {
+    cb(null, true);
+  }
+};
 const upload = multer({
   storage,
+  fileFilter,
   limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     // validation

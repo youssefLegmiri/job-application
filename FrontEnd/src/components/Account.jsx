@@ -136,7 +136,7 @@ const Account = () => {
             <h2 className="text-green-700 font-[500] ">{user?.role} </h2>
           )}
         </div>
-        <div className=" flex flex-col  justify-around items-center w-[90%] h-[50%] md:w-[60%]  md:h-[80%] rounded-xl bg-purple-200 ">
+        <div className=" flex flex-col  justify-around items-center w-[90%] h-[50%] md:w-[50%]  md:h-[80%] rounded-xl bg-purple-200 ">
           <div className="input-container-legacy">
             <label> First Name</label>
             <input
@@ -165,7 +165,7 @@ const Account = () => {
           <Button
             isDisabled={isEdit}
             type="submit"
-            className="btn-custom  "
+            className="btn-custom "
             text={"Save"}
           />
         </div>

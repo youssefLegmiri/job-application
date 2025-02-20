@@ -176,7 +176,6 @@ const Login = () => {
 
       if (res.status === 200) {
         setUser(userData);
-
         setResponse({ message: `Welcome ${userData.firstName}` });
       } else if (res.status === 400) {
         setResponse({ error: "Invalid Credentials !" });

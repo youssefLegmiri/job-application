@@ -61,7 +61,7 @@ const Header = () => {
     <header className=" w-full  flex justify-evenly items-center my-2 px-4  ">
       <div
         ref={burgerRef}
-        className="relative w-[30%] md:hidden inline-block   "
+        className="relative w-[35%] md:hidden inline-block   "
       >
         <Lottie
           speed={1.5}
@@ -137,7 +137,7 @@ const Header = () => {
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative shadow-xl flex items-center md:w-[20%] lg:w-[15%] xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
+          className="relative shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (

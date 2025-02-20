@@ -14,6 +14,9 @@ const Job = ({ job, handleDelete }) => {
   const handleMouseLeave = () => {
     setIsToolTip(false);
   };
+  const handleClick = () => {
+    navigate(`${job?._id}`);
+  };
   return (
     <motion.div
       whileHover={user?.role != "admin" && { scale: 0.95 }}
@@ -26,20 +29,19 @@ const Job = ({ job, handleDelete }) => {
         </div>
       )}
       {user?.role != "admin" && (
-        <Link to={`${job?._id}`}>
-          <motion.div
-            className=" absolute inset-0 z-10 rounded-xl  flex justify-center items-center
+        <motion.div
+          className="absolute inset-0 z-10 rounded-xl  flex justify-center items-center
                      hover:bg-opacity-20 hover:bg-black"
-            initial={{ opacity: 0 }}
-            whileHover={{
-              opacity: 1,
-            }}
-          >
-            <p className="text-purple-50 bg-purple-600  rounded-xl font-[400]  p-2">
-              View details
-            </p>
-          </motion.div>
-        </Link>
+          initial={{ opacity: 0 }}
+          whileHover={{
+            opacity: 1,
+          }}
+          onClick={handleClick}
+        >
+          <p className="text-purple-50 bg-purple-600  rounded-xl font-[400]  p-2">
+            View details
+          </p>
+        </motion.div>
       )}
       {user?.role === "admin" && (
         <Link
