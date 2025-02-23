@@ -12,33 +12,41 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Applications from "./components/Applications";
 import MyApplication from "./components/MyApplication";
 import JobDetails from "./components/JobDetails";
-import { AuthContext } from "./components/AuthProvider";
-import { useContext } from "react";
+import image from "./assets/images/image3.jpg";
+import { useLocation } from "react-router";
+import useBreakPoint from "./CustomHook/useBreakPoint";
 const App = () => {
-  const { user } = useContext(AuthContext);
+  const { pathname } = useLocation();
+  const isMd = useBreakPoint("(min-width:768px)");
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route
-          path="jobs"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="jobs/applications" element={<Applications />} />
-        <Route path="jobs/myApplication" element={<MyApplication />} />
-        <Route path="jobs/:id" element={<JobDetails />} />
-      </Route>
-      <Route path="/account" element={<Account />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/ResetPassword" element={<ResetPassword />} />
-    </Routes>
+    <div
+      className={`w-full h-full bg-cover bg-no-repeat ${!isMd && "bg-center"}`}
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      <div className="absolute inset-0  bg-opacity-20 bg-purple-50 backdrop-blur-[2px] "></div>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route
+            path="jobs"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="jobs/applications" element={<Applications />} />
+          <Route path="jobs/myApplication" element={<MyApplication />} />
+          <Route path="jobs/:id" element={<JobDetails />} />
+        </Route>
+        <Route path="/account" element={<Account />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
+      </Routes>
+    </div>
   );
 };
 

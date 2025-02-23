@@ -58,7 +58,7 @@ const Header = () => {
     }
   };
   return (
-    <header className=" w-full  flex justify-evenly items-center my-2 px-4  ">
+    <header className="relative w-full  flex justify-evenly items-center my-2 px-4  ">
       <div
         ref={burgerRef}
         className="relative w-[35%] md:hidden inline-block   "
@@ -84,7 +84,7 @@ const Header = () => {
       </div>
       <Link
         to={"/"}
-        className="text-purple-600 font-bold cursor-pointer md:left-0 relative -left-10"
+        className="text-purple-600 bg-purple-50 text-[1.1rem] text-center rounded-md p-2 font-bold cursor-pointer md:left-0 relative -left-10"
       >
         Job Application
       </Link>
@@ -132,12 +132,12 @@ const Header = () => {
           {pathname === "/contact" && <AnimatedLine size={"70px"} />}
         </div>
       </nav>
-      {user?.firstName && (
+      {user?.firstName != "Guest" && user?.firstName ? (
         <motion.div
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 border-[1px] border-purple-600 p-2 rounded-lg"
+          className="relative bg-purple-50 shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (
@@ -157,14 +157,17 @@ const Header = () => {
             {isOpen && <UserMenu setIsOpen={setIsOpen} />}
           </AnimatePresence>
         </motion.div>
+      ) : user?.firstName === "Guest" ? (
+        <div className="text-purple-700 bg-purple-100 p-2 rounded-md">
+          Guest
+        </div>
+      ) : (
+        ""
       )}
       {!user?.firstName && (
-        <Button
-          onClick={handelLogin}
-          text={"Login"}
-          className="btn-custom "
-          type="button"
-        />
+        <button onClick={handelLogin} className="btn-custom  " type="button">
+          Login
+        </button>
       )}
     </header>
   );

@@ -1,8 +1,6 @@
 import Input from "./Input";
 import Button from "./Button";
 import { Link, useNavigate } from "react-router-dom";
-import google from "../assets/google.svg";
-import facebook from "../assets/facebook.svg";
 import Close from "./Close";
 import {
   useActionState,
@@ -41,7 +39,7 @@ const Login = () => {
   const [response, actionFunction, isPending] = useActionState(formAction, {});
 
   useEffect(() => {
-    if (user?.firstName) navigate("/jobs");
+    if (user?.firstName && user?.firstName != "Guest") navigate("/jobs");
   }, [user?.firstName]);
 
   {
@@ -191,19 +189,22 @@ const Login = () => {
   const handelClick = () => {
     navigate("/");
   };
-
+  const handleGuest = () => {
+    setUser({ firstName: "Guest" });
+    navigate("/jobs");
+  };
   return (
-    <main className="w-screen h-screen overflow-hidden flex justify-center items-center ">
+    <main className="w-screen h-screen overflow-hidden flex justify-center items-center text-purple-700 ">
       <motion.form
         initial={{ scale: 0, rotate: "-45deg" }}
         animate={{ scale: 1, rotate: 0 }}
         style={{ originX: "0", originY: "100%" }}
         action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
-                      border-[1px] border-purple-500 rounded-lg  bg-purple-50 relative
+                      border-[1px] border-purple-500 rounded-lg  bg-opacity-75 bg-purple-50 relative
                       xl:w-[30%] lg:w-[50%] md:w-[60%] shadow-2xl "
       >
-        <h1 className="text-2xl text-purple-700 font-bold">Login</h1>
+        <h1 className="text-2xl  font-bold">Login</h1>
         {/* Email input  */}
         <div className="relative w-full flex items-center justify-center ">
           <Input
@@ -242,7 +243,7 @@ const Login = () => {
         {/*Forgot password ? */}
         <div className="flex md:w-[50%] w-[80%] justify-around ">
           <Link to={"/ResetPassword"}>
-            <p className="text-lg font-[500] text-purple-600 hover:text-purple-500">
+            <p className="text-lg font-[500]  hover:text-purple-500">
               Forgot password ?
             </p>
           </Link>
@@ -256,12 +257,9 @@ const Login = () => {
           className={"btn-custom disabled:bg-purple-500"}
         />
         {/*Don't have an account ? Sign up */}
-        <div className="md:w-[60%] w-[80%] xl:w-[90%] text-purple-600 text-lg flex justify-evenly items-center">
+        <div className=" w-[90%] md:w-[70%]   text-lg flex justify-around  ">
           <p className=" ">Don't have an account ?</p>
-          <Link
-            className="text-purple-800 hover:text-purple-600"
-            to={"/register"}
-          >
+          <Link className=" hover:text-purple-500 font-[500] " to={"/register"}>
             Sign up
           </Link>
         </div>
@@ -271,24 +269,11 @@ const Login = () => {
           <span className="text-gray-400">Or</span>
           <div className="w-[40%] h-[1px] bg-gray-400"></div>
         </div>
-        {/*Social media buttons */}
-        <div className="flex flex-col w-[70%]  h-[20%] items-center justify-evenly">
-          <Button
-            type={"button"}
-            icon={google}
-            size={"w-6"}
-            text={"Login with google"}
-            className="btn-custom shadow-none flex justify-evenly items-center text-slate-500 bg-slate-50 hover:bg-slate-100
-                       font-[500]  border-[1px] border-slate-400 w-full "
-          />
-          <Button
-            type={"button"}
-            icon={facebook}
-            size={"w-8"}
-            text={"Login with facebook"}
-            className="btn-custom shadow-none flex justify-evenly items-center text-slate-500 bg-slate-50 hover:bg-slate-100
-                       font-[500]  border-[1px] border-slate-400 w-full"
-          />
+        <div className=" h-[150px] flex flex-col items-center justify-around ">
+          <h1 className="">Continue as</h1>
+          <button onClick={handleGuest} className="btn-custom">
+            Guest
+          </button>
         </div>
         <Close handelClick={handelClick} />
       </motion.form>

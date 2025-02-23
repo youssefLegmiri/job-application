@@ -288,10 +288,10 @@ const Register = () => {
     navigate("/login");
   };
   return (
-    <main className="w-screen h-screen bg-purple-200 flex justify-center items-center">
+    <main className="w-screen h-screen  flex justify-center items-center">
       <form
         className="h-[80%] w-[80%] relative min-h-[600px] p-2  flex flex-col justify-evenly items-center
-                      border-[1px] border-purple-500 rounded-lg  bg-purple-50 shadow-xl
+                      border-[1px] border-purple-500 rounded-lg  bg-opacity-75 bg-purple-50 shadow-xl
                       xl:w-[30%] lg:w-[50%] md:w-[60%]"
         action={validateInput}
       >

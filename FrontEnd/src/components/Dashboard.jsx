@@ -8,7 +8,7 @@ const Dashboard = () => {
   const { isLogin, user } = useContext(AuthContext);
 
   return (
-    <main className="w-full   flex flex-col items-center mb-12 ">
+    <main className="w-full flex flex-col items-center mb-12 ">
       {user?.role === "admin" ? <Admin /> : <User />}
       {isLogin && <Loading />}
     </main>

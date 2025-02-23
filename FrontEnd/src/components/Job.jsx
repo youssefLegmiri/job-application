@@ -15,7 +15,11 @@ const Job = ({ job, handleDelete }) => {
     setIsToolTip(false);
   };
   const handleClick = () => {
-    navigate(`${job?._id}`);
+    if (user.firstName === "Guest") {
+      navigate("/login");
+    } else {
+      navigate(`${job?._id}`);
+    }
   };
   return (
     <motion.div

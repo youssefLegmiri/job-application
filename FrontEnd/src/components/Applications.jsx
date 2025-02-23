@@ -19,7 +19,6 @@ const Applications = () => {
           credentials: "include",
         });
         const data = await res.json();
-        console.log(data);
         setApplications(data);
         setIsLoading(false);
         if (res.status === 200) {
@@ -66,27 +65,26 @@ const Applications = () => {
       } else {
         setResponse({ error: "Server Error" });
       }
-      console.log(response.message);
     } catch (error) {
-      console.log(error.message);
+      setResponse({ error: "Something went wrong" });
     }
   };
   return (
-    <main className="w-full bg-stone-300 p-8 flex flex-col items-center ">
+    <main className="w-full  p-8 flex flex-col items-center ">
       <div className="w-full  grid grid-cols-1  xl:grid-cols-2 gap-4">
         {applications?.map((application) => (
           <div
-            className="bg-stone-400 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
+            className="bg-stone-100 border-[1px] border-purple-600 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
             key={application._id}
           >
-            <div className="p-2 mb-2 bg-stone-300 h-[100px] flex flex-col  justify-around font-[500] text-purple-600 ">
+            <div className="p-2 mb-2 bg-purple-300 h-[100px] flex flex-col  justify-around font-[500] text-purple-700 ">
               <h1>Job Reference : {application.jobReference}</h1>
               <h1>Job Title : {application.jobTitle}</h1>
             </div>
-            <p className="w-40 font-[500] px-2 mb-2 bg-stone-300 text-purple-600 ">
+            <p className="w-40 font-[500] p-2 mb-2 bg-purple-300 text-purple-700 ">
               Applicants :
             </p>
-            <table className=" ">
+            <table className=" table-styling min-w-[800px] ">
               <thead>
                 <tr className="">
                   <th>First Name</th>
@@ -103,7 +101,7 @@ const Applications = () => {
                     <td>{applicant.email}</td>
                     <td className="relative">
                       <select
-                        className={`w-full bg-stone-300 rounded-lg outline-none appearance-none cursor-pointer p-2 `}
+                        className={`w-full bg-purple-300 rounded-lg outline-none appearance-none cursor-pointer p-2 `}
                         name="status"
                         value={
                           jobApplicants[application._id]?.[applicant.email]

@@ -1,6 +1,6 @@
 const Contact = () => {
   return (
-    <div className="flex flex-col justify-between items-center">Contact</div>
+    <div className="w-full h-full flex flex-col justify-between items-center "></div>
   );
 };
 

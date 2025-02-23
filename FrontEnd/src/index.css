@@ -5,13 +5,16 @@
 
 @layer base {
   body {
-    @apply bg-stone-200 select-none font-roboto text-2xl;
+    @apply bg-sky-50 select-none font-roboto text-2xl;
   }
   th {
-    @apply border-[1px] border-stone-800 p-2 bg-stone-200 text-stone-700;
+    @apply border-0 border-stone-800 p-2 bg-purple-300 text-stone-700;
   }
   td {
-    @apply border-[1px] border-purple-800 p-2 cursor-pointer bg-stone-200 text-purple-600 text-center font-[500];
+    @apply border-0 border-purple-800 p-2 cursor-pointer bg-purple-300 text-purple-700 text-center font-[500];
+  }
+  .table-styling {
+    @apply border-separate  border-spacing-2;
   }
 }
 @layer components {

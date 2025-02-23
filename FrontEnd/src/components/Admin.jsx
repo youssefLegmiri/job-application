@@ -41,10 +41,10 @@ const Admin = () => {
         if (res.status === 200) {
           setJobs(data);
         } else {
-          setResponse({ mesage: data.message });
+          setResponse({ message: "Server error" });
         }
       } catch (error) {
-        setResponse({ error: error.message });
+        setResponse({ error: "Something went wrong" });
       }
     };
     fetchData();
@@ -104,7 +104,7 @@ const Admin = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <main className="w-[80%] my-4 py-8 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
+    <main className="w-[80%]  my-4 py-8 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
       <div className="relative w-[100%] mb-20 ">
         <button className="absolute top-2 left-8 btn-custom p-0 w-[150px] h-[50px]  hover:bg-purple-700 ">
           {`Admin : ${user?.firstName}`}

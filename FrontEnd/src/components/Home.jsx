@@ -5,8 +5,10 @@ import { useContext } from "react";
 const Home = () => {
   const { isDelete } = useContext(AuthContext);
   return (
-    <main className="w-full p-2 flex flex-col justify-between items-center">
-      <h1>Home</h1>
+    <main
+      className="w-full h-full p-2 flex flex-col justify-between items-center
+    "
+    >
       {isDelete && <Loading />}
     </main>
   );
