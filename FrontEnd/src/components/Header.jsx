@@ -84,12 +84,12 @@ const Header = () => {
       </div>
       <Link
         to={"/"}
-        className="text-purple-600 bg-purple-50 text-[1.1rem] text-center rounded-md p-2 font-bold cursor-pointer md:left-0 relative -left-10"
+        className="text-purple-700 bg-purple-200 text-center rounded-md p-2 font-bold cursor-pointer md:left-0 relative -left-10"
       >
         Job Application
       </Link>
       <nav
-        className={`md:flex justify-between text-xl font-[500] text-purple-100 bg-purple-950 px-8 py-4
+        className={`md:flex justify-between text-xl font-[500] text-purple-700  bg-purple-200 px-8 py-4
                       rounded-full ${
                         user?.firstName
                           ? "md:w-[55%] lg:w-[50%]"
@@ -137,7 +137,7 @@ const Header = () => {
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative bg-purple-50 shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-600 p-2 rounded-lg"
+          className="relative bg-purple-200 shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (
@@ -149,7 +149,7 @@ const Header = () => {
           ) : (
             <FaUser
               size={"40"}
-              className="bg-stone-100 text-slate-400 border-[1px] border-stone-400 rounded-full p-2"
+              className="bg-purple-100 text-purple-700 border-[1px] border-purple-700 rounded-full p-2"
             />
           )}
 
@@ -158,7 +158,7 @@ const Header = () => {
           </AnimatePresence>
         </motion.div>
       ) : user?.firstName === "Guest" ? (
-        <div className="text-purple-700 bg-purple-100 p-2 rounded-md">
+        <div className="text-purple-700 font-[500] bg-purple-200 p-2 px-4 rounded-md">
           Guest
         </div>
       ) : (

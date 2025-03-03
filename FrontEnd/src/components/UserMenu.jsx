@@ -53,7 +53,7 @@ const UserMenu = ({ setIsOpen }) => {
       initial={"hidden"}
       animate={"visible"}
       exit={"hidden"}
-      className="absolute z-50 top-24 right-0 text-xl bg-purple-50 text-purple-600 flex flex-col items-center justify-evenly h-[200px] rounded-lg w-[100%] "
+      className="absolute z-50 top-24 right-0 text-xl bg-purple-200 text-purple-700 flex flex-col items-center justify-evenly h-[200px] rounded-lg w-[100%] "
     >
       <motion.div
         variants={childVariants}

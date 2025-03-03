@@ -5,13 +5,13 @@
 
 @layer base {
   body {
-    @apply bg-sky-50 select-none font-roboto text-2xl;
+    @apply bg-purple-50 select-none font-roboto text-2xl;
   }
   th {
     @apply border-0 border-stone-800 p-2 bg-purple-300 text-stone-700;
   }
   td {
-    @apply border-0 border-purple-800 p-2 cursor-pointer bg-purple-300 text-purple-700 text-center font-[500];
+    @apply border-0 border-purple-800 p-2 cursor-pointer bg-purple-300 text-purple-800 text-center font-[500];
   }
   .table-styling {
     @apply border-separate  border-spacing-2;

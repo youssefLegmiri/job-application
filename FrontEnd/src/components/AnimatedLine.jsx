@@ -12,7 +12,7 @@ const AnimatedLine = ({ size }) => {
         restDelta: 0.02,
       }}
       style={{ width: size, originX: 0 }}
-      className="bg-purple-100 rounded-xl  h-1 absolute -bottom-2 left-0"
+      className="bg-purple-700 rounded-xl  h-1 absolute -bottom-2 left-0"
     ></motion.div>
   );
 };

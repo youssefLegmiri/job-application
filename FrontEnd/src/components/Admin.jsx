@@ -104,7 +104,7 @@ const Admin = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <main className="w-[80%]  my-4 py-8 rounded-lg bg-stone-300 flex flex-col items-center justify-around ">
+    <main className="w-[80%]  my-4 py-8 rounded-lg bg-purple-300  flex flex-col items-center justify-around ">
       <div className="relative w-[100%] mb-20 ">
         <button className="absolute top-2 left-8 btn-custom p-0 w-[150px] h-[50px]  hover:bg-purple-700 ">
           {`Admin : ${user?.firstName}`}
@@ -119,7 +119,7 @@ const Admin = () => {
       </div>
       {isOpen && (
         <form
-          className=" bg-purple-200 mb-8 py-4 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
+          className=" bg-purple-100 mb-8 py-4 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
           action={actionFunction}
         >
           <div className="w-[80%] h-full lg:w-[60%] flex flex-col justify-around  ">

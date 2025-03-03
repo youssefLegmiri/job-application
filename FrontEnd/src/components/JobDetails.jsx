@@ -97,7 +97,7 @@ const JobDetails = () => {
       {!isLoading ? (
         <div
           className=" relative p-4 mb-10 w-[80%] min-h-[700px] rounded-xl 
-      shadow-custom-shadow bg-purple-50  flex flex-col md:items-center
+      shadow-custom-shadow bg-purple-100   flex flex-col md:items-center
         justify-evenly text-purple-600 font-[500] "
         >
           <FaArrowAltCircleLeft

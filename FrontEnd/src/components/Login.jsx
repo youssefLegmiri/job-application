@@ -10,7 +10,6 @@ import {
   useEffect,
 } from "react";
 import { AuthContext } from "./AuthProvider";
-import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 const Login = () => {
@@ -195,13 +194,10 @@ const Login = () => {
   };
   return (
     <main className="w-screen h-screen overflow-hidden flex justify-center items-center text-purple-700 ">
-      <motion.form
-        initial={{ scale: 0, rotate: "-45deg" }}
-        animate={{ scale: 1, rotate: 0 }}
-        style={{ originX: "0", originY: "100%" }}
+      <form
         action={validateInput}
         className="h-[50%] w-[80%] min-h-[700px] p-2  flex flex-col justify-around items-center
-                      border-[1px] border-purple-500 rounded-lg  bg-opacity-75 bg-purple-50 relative
+                      border-[1px] border-purple-500 rounded-lg   bg-purple-100 relative
                       xl:w-[30%] lg:w-[50%] md:w-[60%] shadow-2xl "
       >
         <h1 className="text-2xl  font-bold">Login</h1>
@@ -263,7 +259,7 @@ const Login = () => {
             Sign up
           </Link>
         </div>
-        {/* horizental line   */}
+        {/* horizental line   
         <div className="w-[80%]  flex items-center justify-between">
           <div className=" w-[40%] h-[1px] bg-gray-400 "></div>
           <span className="text-gray-400">Or</span>
@@ -275,8 +271,9 @@ const Login = () => {
             Guest
           </button>
         </div>
+        */}
         <Close handelClick={handelClick} />
-      </motion.form>
+      </form>
       {isRegister && <Loading />}
       {(isLogin || isPending) && <Loading text={"Logging ..."} />}
       {isSubmit && <Loading />}

@@ -39,11 +39,11 @@ const User = () => {
     <main className="w-full min-h-screen flex flex-col  items-center md:flex-row md:justify-around md:items-start p-4  ">
       <CustomSelect jobsToFilter={jobsToFilter} />
 
-      <div className="p-4 2xl:w-[80%] xl:w-[70%] md:w-[65%] w-[90%]  bg-stone-300 rounded-md border-[1px] border-stone-600 grid grid-cols-1   xl:grid-cols-2 gap-4  justify-items-center ">
+      <div className="p-4 2xl:w-[80%] xl:w-[70%] md:w-[65%] w-[90%]  bg-purple-300 bg-opacity-50 rounded-md border-[1px] border-stone-600 grid grid-cols-1   xl:grid-cols-2 gap-4  justify-items-center ">
         {jobs?.length != 0 ? (
           jobs.map((job, index) => <Job key={index} job={job} />)
         ) : (
-          <p className="text-stone-600 font-[500] ">No job to display</p>
+          <p className="text-purple-700 font-[500] ">No job to display</p>
         )}
       </div>
       {isLoading && <Loading text={"Loading..."} />}

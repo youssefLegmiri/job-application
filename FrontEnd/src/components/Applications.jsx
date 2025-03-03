@@ -74,14 +74,14 @@ const Applications = () => {
       <div className="w-full  grid grid-cols-1  xl:grid-cols-2 gap-4">
         {applications?.map((application) => (
           <div
-            className="bg-stone-100 border-[1px] border-purple-600 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
+            className="bg-purple-50 border-[1px] border-purple-600 flex flex-col  justify-around min-h-[600px] p-4 overflow-x-auto rounded-xl"
             key={application._id}
           >
-            <div className="p-2 mb-2 bg-purple-300 h-[100px] flex flex-col  justify-around font-[500] text-purple-700 ">
+            <div className="p-2 mb-2 bg-purple-500 h-[100px] flex flex-col  justify-around font-[500] text-purple-100 ">
               <h1>Job Reference : {application.jobReference}</h1>
               <h1>Job Title : {application.jobTitle}</h1>
             </div>
-            <p className="w-40 font-[500] p-2 mb-2 bg-purple-300 text-purple-700 ">
+            <p className="w-40 font-[500] p-2 mb-2 bg-purple-500 text-purple-100 ">
               Applicants :
             </p>
             <table className=" table-styling min-w-[800px] ">

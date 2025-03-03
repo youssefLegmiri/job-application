@@ -39,7 +39,7 @@ const BurgerMenu = ({ menuItems, setBurgerClick, lottieRef }) => {
       initial={"hidden"}
       animate={"visible"}
       exit={"hidden"}
-      className="absolute left-0 top-24 z-20 flex flex-col justify-around items-center text-xl font-[500]  rounded-lg md:hidden w-[100%] h-[200px]  text-violet-50 bg-purple-800 "
+      className="absolute left-0 top-24 z-20 flex flex-col justify-around items-center text-xl font-[500]  rounded-lg md:hidden w-[100%] h-[200px]  text-purple-700 bg-purple-200 "
     >
       {filterdMenuItems.map((item) => (
         <motion.div className="userMenu" key={item.id} variants={childVariants}>

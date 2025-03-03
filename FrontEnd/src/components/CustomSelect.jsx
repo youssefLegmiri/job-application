@@ -47,7 +47,7 @@ const CustomSelect = ({ jobsToFilter }) => {
   return (
     <main
       className="2xl:w-[15%] xl:w-[20%] md:w-[28%] md:p-0 p-2 mb-4  w-[90%] h-[150px]  md:h-[400px] text-xl
-     bg-stone-100  text-purple-700 border-[1px] border-stone-600 font-[500] 
+     bg-purple-200  text-purple-700 border-[1px] border-stone-600 font-[500] 
      flex flex-col items-center  justify-evenly  rounded-lg overflow-x-auto "
     >
       <div className="relative font-[500] w-[80%]  flex items-center justify-center ">
