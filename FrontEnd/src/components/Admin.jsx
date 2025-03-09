@@ -122,7 +122,7 @@ const Admin = () => {
           className=" bg-purple-100 mb-8 py-4 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
           action={actionFunction}
         >
-          <div className="w-[80%] h-full lg:w-[60%] flex flex-col justify-around  ">
+          <div className="w-[90%] h-full lg:w-[50%] flex flex-col justify-around  ">
             <div className="input-container ">
               <label htmlFor="">Title :</label>
               <input

@@ -156,7 +156,7 @@ const JobDetails = () => {
           className=" bg-purple-200 mb-8 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[600px] flex flex-col justify-around items-center "
           action={actionFunction}
         >
-          <div className="input-container w-[80%] md:w-[60%] ">
+          <div className="input-container w-[90%] md:w-[60%] ">
             <label htmlFor="">Title</label>
             <input
               autoFocus
@@ -167,7 +167,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container w-[80%] md:w-[60%]">
+          <div className="input-container w-[90%] md:w-[60%]">
             <label htmlFor="">Location</label>
             <input
               defaultValue={myJob?.location}
@@ -177,7 +177,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container w-[80%] md:w-[60%]">
+          <div className="input-container w-[90%] md:w-[60%]">
             <label htmlFor="">Brief Description</label>
             <input
               defaultValue={myJob?.briefDescription}
@@ -187,7 +187,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container w-[80%] md:w-[60%]">
+          <div className="input-container w-[90%] md:w-[60%]">
             <label htmlFor="">Description</label>
             <input
               defaultValue={myJob?.description}
@@ -197,7 +197,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container w-[80%] md:w-[60%]">
+          <div className="input-container w-[90%] md:w-[60%]">
             <label htmlFor="">Salary</label>
             <input
               defaultValue={myJob?.salary}
@@ -207,7 +207,7 @@ const JobDetails = () => {
               className="input"
             />
           </div>
-          <div className="input-container w-[80%] md:w-[60%]">
+          <div className="input-container w-[90%] md:w-[60%]">
             <label htmlFor="">Experience</label>
             <input
               defaultValue={myJob?.experience}
