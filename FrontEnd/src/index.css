@@ -11,7 +11,7 @@
     @apply border-0 border-stone-800 p-2 bg-purple-300 text-stone-700;
   }
   td {
-    @apply border-0 border-purple-800 p-2 cursor-pointer bg-purple-300 text-purple-800 text-center font-[500];
+    @apply border-0 border-purple-800 p-2 cursor-pointer bg-purple-300 text-purple-800 text-center font-[400];
   }
   .table-styling {
     @apply border-separate  border-spacing-2;
@@ -51,5 +51,11 @@
   }
   .category {
     @apply relative p-2 flex items-center justify-center rounded-md md:hover:bg-purple-300 w-[80%] cursor-pointer;
+  }
+  .p-container-about {
+    @apply p-2 flex items-center;
+  }
+  .p-about {
+    @apply ml-4;
   }
 }

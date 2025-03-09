@@ -132,12 +132,12 @@ const Header = () => {
           {pathname === "/contact" && <AnimatedLine size={"70px"} />}
         </div>
       </nav>
-      {user?.firstName != "Guest" && user?.firstName ? (
+      {user?.firstName ? (
         <motion.div
           whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative bg-purple-200 shadow-xl flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 p-2 rounded-lg"
+          className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 p-2 rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (
@@ -157,14 +157,7 @@ const Header = () => {
             {isOpen && <UserMenu setIsOpen={setIsOpen} />}
           </AnimatePresence>
         </motion.div>
-      ) : user?.firstName === "Guest" ? (
-        <div className="text-purple-700 font-[500] bg-purple-200 p-2 px-4 rounded-md">
-          Guest
-        </div>
       ) : (
-        ""
-      )}
-      {!user?.firstName && (
         <button onClick={handelLogin} className="btn-custom  " type="button">
           Login
         </button>
