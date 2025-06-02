@@ -85,9 +85,9 @@ const Account = () => {
     <main className="w-screen h-screen flex items-center justify-center  ">
       <motion.form
         action={actionFunction}
-        initial={{ scale: 0, rotate: "45deg" }}
-        animate={{ scale: 1, rotate: 0 }}
-        exit={{ scale: 0, rotate: "45deg" }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
         className="relative w-[75%] h-[75%] min-h-[600px] pt-4 flex flex-col md:flex-row md:items-center md:justify-evenly items-center justify-around  rounded-lg bg-stone-50 border-[1px] border-purple-500 shadow-2xl "
       >
         <CustomCheck isEdit={isEdit} setIsEdit={setIsEdit} ref={inputRef} />

@@ -9,7 +9,7 @@ const DeleteAccount = () => {
     useContext(AuthContext);
 
   const handleDelete = async () => {
-    setResponse({ message: "" });
+    setResponse({ message: "", error: "" });
     try {
       const res = await fetch("http://localhost:5000/api/users/DeleteAccount", {
         method: "DELETE",
@@ -23,6 +23,7 @@ const DeleteAccount = () => {
           message: response.message,
         });
       } else {
+        console.log(response.message);
         setResponse({
           message: "Something went wrong",
         });

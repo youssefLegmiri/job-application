@@ -107,11 +107,7 @@ const Header = () => {
             <Link className="navBar" to="jobs">
               {user?.role === "admin" ? "Dashboard" : "Jobs"}
             </Link>
-            {pathname === "/dashboard" && (
-              <AnimatedLine
-                size={`${user?.role === "admin" ? "100px" : "50px"}`}
-              />
-            )}
+
             {pathname === "/jobs" && (
               <AnimatedLine
                 size={`${user?.role === "admin" ? "100px" : "50px"}`}
@@ -134,7 +130,6 @@ const Header = () => {
       </nav>
       {user?.firstName ? (
         <motion.div
-          whileTap={{ y: 10, rotate: "2.5deg" }}
           onClick={handelUser}
           ref={userMenuRef}
           className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 p-2 rounded-lg"

@@ -5,12 +5,14 @@ const DeleteUser = asyncErrorHandler(async (req, res) => {
   const { profileImage } = req.user;
 
   const deletetedUser = await User.findByIdAndDelete(req.user._id);
-  if (deletetedUser) {
+  if (profileImage) {
     fs.unlink(profileImage, (err) => {
       if (err) {
         console.log(err);
       }
     });
+  }
+  if (deletetedUser) {
     res.clearCookie("token", {
       httpOnly: true,
       secure: false,
