@@ -146,11 +146,11 @@ const ResetPassword = () => {
         navigate("/login");
       } else if (res.status === 400) {
         setResponse({ message: data.message });
+        navigate("/login");
       } else {
         setResponse({ message: "Server Error" });
       }
     } catch (error) {
-      console.log(error);
       setResponse({ messsage: "Something went wrong.Please try again" });
     }
   }

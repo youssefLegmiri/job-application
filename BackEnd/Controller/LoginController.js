@@ -8,6 +8,13 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  // 1. Check if email is verified
+  if (!user.isVerified) {
+    return res
+      .status(401)
+      .json({ message: "Please verify your email before logging in" });
+  }
+
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",

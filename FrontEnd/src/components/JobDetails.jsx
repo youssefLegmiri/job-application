@@ -9,6 +9,8 @@ const JobDetails = () => {
   const { id } = useParams();
   const {
     user,
+    isError,
+    setIsError,
     isUpdate,
     setIsUpdate,
     isLoading,
@@ -34,10 +36,17 @@ const JobDetails = () => {
           setMyJob(data.selectedJob);
           setIsApplied(data.isApplied);
         } else {
-          setResponse({ mesage: data.message });
+          setIsError(true);
+          setResponse({ message: data.message });
+          setTimeout(() => {
+            setIsError(false);
+            navigate("/jobs");
+          }, 2000);
         }
       } catch (error) {
-        setResponse({ error: "Something went wrong please try again" });
+        navigate("/jobs");
+        setIsError(true);
+        setResponse({ error: "please check your connection and try again" });
       }
     };
     fetchData();
@@ -222,6 +231,7 @@ const JobDetails = () => {
       )}
       {(isUpdate || isPending) && <Loading text={"Updating Job ..."} />}
       {isApply && <Loading text={"Applying ..."} />}
+      {isError && <Loading />}
     </main>
   );
 };

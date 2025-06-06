@@ -10,6 +10,6 @@ const protect = require("../middleware/authMiddelware");
 router.post("/Register", RegisterUser);
 router.post("/Login", LoginUser);
 router.post("/Logout", LogoutUser);
-router.post("/ResetPassword", ResetPassword);
+router.post("/ResetPassword", protect, ResetPassword);
 router.delete("/DeleteAccount", protect, DeleteUser);
 module.exports = router;

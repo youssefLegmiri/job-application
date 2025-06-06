@@ -175,13 +175,15 @@ const Login = () => {
         setUser(userData);
         setResponse({ message: `Welcome ${userData.firstName}` });
       } else if (res.status === 400) {
-        setResponse({ error: "Invalid Credentials !" });
+        setResponse({ error: userData.message });
+      } else if (res.status === 401) {
+        setResponse({ error: userData.message });
       } else {
         setResponse({ error: "Server Error" });
       }
     } catch (error) {
       setIsLogin(true);
-      setResponse({ error: "Something went wrong please try again." });
+      setResponse({ error: "please check your connection and try again." });
     }
   }
 

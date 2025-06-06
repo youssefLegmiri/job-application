@@ -38,6 +38,17 @@ const userSchema = mongoose.Schema(
     codeExpire: {
       type: Number,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    emailVerificationToken: {
+      type: String,
+      unique: true,
+    },
+    emailVerificationExpires: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

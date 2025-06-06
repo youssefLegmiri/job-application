@@ -20,6 +20,10 @@ app.use(express.static(path.join(__dirname, "dist")));
 app.use("/api/jobs", require("./routes/jobRoute"));
 // api applications
 app.use("/api/application", require("./routes/applicationRoute"));
+
+// authentication api
+app.use("/api/auth", require("./routes/authVerifyRoute"));
+app.use("/api/verifyEmail", require("./routes/authVerifyRoute"));
 // serving the main app
 app.get("*", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "dist", "index.html"));
@@ -27,13 +31,13 @@ app.get("*", (req, res) => {
 
 // update profile api
 app.use("/UpdateProfile", require("./routes/udateProfileRoute"));
-// authentication api
-app.use("/api/auth", require("./routes/authVerifyRoute"));
+
 // GeneratePDF api
 app.use("/api/GeneratePDF", require("./routes/generatePDFRoute"));
 
 //users api
 app.use("/api/users", require("./routes/userRoute"));
+
 // custom error handler middlware
 app.use(errorHandler);
 

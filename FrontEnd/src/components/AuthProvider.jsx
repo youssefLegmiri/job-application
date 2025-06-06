@@ -4,6 +4,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
@@ -48,6 +49,8 @@ const AuthProvider = ({ children }) => {
       value={{
         user,
         setUser,
+        isError,
+        setIsError,
         loading,
         isLogin,
         setIsLogin,

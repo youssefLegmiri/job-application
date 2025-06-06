@@ -265,22 +265,22 @@ const Register = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(jsonData),
       });
-      const response = await res.json();
+      const data = await res.json();
       setIsRegister(true);
 
       if (res.status === 201) {
         navigate("/login");
-        setResponse({ message: "Your account has been created successfully." });
+        setResponse({ message: data.message });
       } else if (res.status === 409) {
-        setResponse({ error: "Email already in use !" });
+        setResponse({ error: data.message });
       } else if (res.status === 400) {
-        setResponse({ error: "Please enter all fields." });
+        setResponse({ error: data.message });
       } else {
-        setResponse({ error: "Server not responding" });
+        setResponse({ error: "Server Error" });
       }
     } catch (error) {
       setIsRegister(true);
-      setResponse({ error: "Something went wrong please try again." });
+      setResponse({ error: "Please check your connection and try again." });
     }
   }
 

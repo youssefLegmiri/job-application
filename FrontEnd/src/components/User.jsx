@@ -27,7 +27,7 @@ const User = () => {
           setResponse({ mesage: data.message });
         }
       } catch (error) {
-        setResponse({ error: error.message });
+        setResponse({ error: "please check your connection and try again" });
       }
     };
     fetchData();

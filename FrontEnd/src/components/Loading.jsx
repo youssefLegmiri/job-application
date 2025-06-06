@@ -6,6 +6,7 @@ import Button from "./Button";
 const Loading = ({ text, handleDelete }) => {
   const {
     response,
+    setIsError,
     setIsLogin,
     setIsLogout,
     setIsRegister,
@@ -22,6 +23,7 @@ const Loading = ({ text, handleDelete }) => {
   } = useContext(AuthContext);
   const handelClick = () => {
     {
+      setIsError(false);
       setIsLogout(false);
       setIsLogin(false);
       setIsRegister(false);
