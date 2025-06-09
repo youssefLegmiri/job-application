@@ -8,7 +8,8 @@ import { AuthContext } from "./AuthProvider";
 import Loading from "./Loading";
 const ResetPassword = () => {
   const [isCode, setIsCode] = useState(false);
-  const { setResponse, isSubmit, setIsSubmit } = useContext(AuthContext);
+  const { setResponse, isSubmit, setIsSubmit, userEmail } =
+    useContext(AuthContext);
   const emailInputRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const ResetPassword = () => {
     passwordError: false,
     passwordErrorMessage: "",
     data: {
-      email: null,
+      email: userEmail,
       password: null,
     },
   };
@@ -148,7 +149,7 @@ const ResetPassword = () => {
         setResponse({ message: data.message });
         navigate("/login");
       } else {
-        setResponse({ message: "Server Error" });
+        setResponse({ message: data.message });
       }
     } catch (error) {
       setResponse({ messsage: "Something went wrong.Please try again" });

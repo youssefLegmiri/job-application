@@ -7,7 +7,7 @@ const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
-
+require("dotenv").config();
 app.use(express.json()); // middelware to parse incoming json data
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
@@ -15,6 +15,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 connectDB();
 // setuping static folders
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "dist")));
 // api jobs
 app.use("/api/jobs", require("./routes/jobRoute"));

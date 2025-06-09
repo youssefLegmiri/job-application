@@ -16,11 +16,14 @@ const Login = () => {
   const {
     isRegister,
     isLogin,
+    isLogout,
     setIsLogin,
     setResponse,
     user,
     setUser,
     isSubmit,
+    setUserEmail,
+    userEmail,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -31,14 +34,14 @@ const Login = () => {
     passwordError: false,
     emailErrorMessage: null,
     passwordErrorMessage: null,
-    data: { email: null, password: null },
+    data: { email: userEmail, password: null },
   };
   const [state, dispatch] = useReducer(errorHandler, initialState);
 
   const [response, actionFunction, isPending] = useActionState(formAction, {});
 
   useEffect(() => {
-    if (user?.firstName && user?.firstName != "Guest") navigate("/jobs");
+    if (user?.firstName) navigate("/jobs");
   }, [user?.firstName]);
 
   {
@@ -46,7 +49,10 @@ const Login = () => {
   }
   const validateInput = (formData) => {
     const jsonData = Object.fromEntries(formData.entries());
+    //save user Email in case navigating to reset password
+    setUserEmail(jsonData.email);
     const emailData = jsonData.email.split(".");
+
     if (!jsonData.email) {
       emailInputRef.current.focus();
       dispatch({
@@ -178,6 +184,8 @@ const Login = () => {
         setResponse({ error: userData.message });
       } else if (res.status === 401) {
         setResponse({ error: userData.message });
+      } else if (res.status === 403) {
+        setResponse({ error: userData.message });
       } else {
         setResponse({ error: "Server Error" });
       }
@@ -279,6 +287,7 @@ const Login = () => {
       {isRegister && <Loading />}
       {(isLogin || isPending) && <Loading text={"Logging ..."} />}
       {isSubmit && <Loading />}
+      {isLogout && <Loading text={"Logout ..."} />}
     </main>
   );
 };

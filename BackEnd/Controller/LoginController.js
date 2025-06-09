@@ -8,11 +8,16 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  // check if user exist
+  if (!user) {
+    return res.status(403).json({ message: "User not found , please sign up" });
+  }
+
   // 1. Check if email is verified
   if (!user.isVerified) {
     return res
       .status(401)
-      .json({ message: "Please verify your email before logging in" });
+      .json({ message: "Please verify your email before login" });
   }
 
   if (user && (await bcrypt.compare(password, user.password))) {

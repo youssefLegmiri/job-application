@@ -11,7 +11,6 @@ const SharedLayout = () => {
       <Header />
       <Outlet />
       <Footer />
-      {isLogout && <Loading text={"Logout ..."} />}
     </main>
   );
 };

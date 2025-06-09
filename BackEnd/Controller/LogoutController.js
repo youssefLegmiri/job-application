@@ -5,7 +5,7 @@ const LogoutUser = asyncErrorHandler(async (req, res) => {
     secure: false,
     sameSite: "strict",
   });
-  res.status(200).json({ message: "User logout" });
+  res.status(200).json({ message: "You've logout successfully" });
 });
 
 module.exports = LogoutUser;

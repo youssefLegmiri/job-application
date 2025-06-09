@@ -1,0 +1,13 @@
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.5em;
+  color: rgb(43, 23, 66);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aliceblue;
+}
+p {
+  color: rgb(100, 16, 168);
+  font-weight: 600;
+}

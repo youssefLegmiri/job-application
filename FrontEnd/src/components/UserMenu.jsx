@@ -1,5 +1,5 @@
 import { MdLogout } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import { useContext } from "react";
 import { motion } from "framer-motion";
@@ -27,19 +27,24 @@ const UserMenu = ({ setIsOpen }) => {
   const handelLogout = async () => {
     setIsOpen(false);
     setIsLogout(true);
-    navigate("/");
     try {
       const res = await fetch("http://localhost:5000/api/users/Logout", {
         method: "POST",
         credentials: "include",
       });
-
-      setResponse({ message: "You have logged out  " });
-      setUser(null);
+      const data = await res.json();
+      navigate("/login");
+      if (res.status === 200) {
+        setResponse({ message: data.message });
+        setUser(null);
+      } else {
+        setResponse({
+          message: data.message,
+        });
+      }
     } catch (error) {
       setResponse({
-        error:
-          "Something went wrong please check your connection and try again",
+        error: data.message,
       });
     }
   };

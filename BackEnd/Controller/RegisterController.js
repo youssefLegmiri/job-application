@@ -25,19 +25,11 @@ const RegisterUser = asyncErrorHandler(async (req, res) => {
     // Generate verification token
     const token = crypto.randomBytes(32).toString("hex");
 
-    const user = await User.create({
-      firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
-      lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
-      email: email,
-      password: hashedPassword,
-      emailVerificationToken: token,
-      emailVerificationExpires: Date.now() + 3600000,
-    });
-
     // Verification URL
     const verificationUrl = `http://localhost:5000/api/verifyEmail/?token=${token}`;
 
     // sending token via email
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -50,18 +42,34 @@ const RegisterUser = asyncErrorHandler(async (req, res) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject: "Verify your email",
-        html: `<p>Click <a href="${verificationUrl}">here</a> to verify your email. The link expires in one hour.</p>`,
+        text: `Hi ${firstName} ,
+        Please click on the link bellow to verify you email.
+        ${verificationUrl}
+        Thanks.`,
       });
+
+      // Create the user
+      const user = await User.create({
+        firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+        lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
+        email: email,
+        password: hashedPassword,
+        emailVerificationToken: token,
+        emailVerificationExpires: Date.now() + 3600000,
+      });
+      if (user) {
+        res.status(201).json({
+          message:
+            "Registered successfully! Please check your email to verify.",
+        });
+      } else {
+        throw new Error("Registration failed, please try again");
+      }
     } catch (error) {
       console.log(error.message);
-    }
-
-    if (user) {
-      res.status(201).json({
-        message: "Registered successfully! Please check your email to verify.",
+      res.status(500).json({
+        message: "Server error, please enter a valid email and try again",
       });
-    } else {
-      throw new Error("Registration failed");
     }
   }
 });

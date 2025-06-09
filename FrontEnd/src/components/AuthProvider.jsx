@@ -17,6 +17,7 @@ const AuthProvider = ({ children }) => {
   const [isSavingJob, setIsSavingJob] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [userEmail, setUserEmail] = useState("");
   const [response, setResponse] = useState({
     error: "",
     message: "",
@@ -78,6 +79,8 @@ const AuthProvider = ({ children }) => {
         setJobs,
         response,
         setResponse,
+        userEmail,
+        setUserEmail,
       }}
     >
       {children}

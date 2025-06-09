@@ -9,7 +9,7 @@ const ResetPassword = asyncErrorHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(400).json({ message: "Invalid Email !" });
+    return res.status(400).json({ message: "Invalid Email !" });
   } else {
     if (resetCode) {
       if (resetCode === user.resetCode && Date.now() < user.codeExpire) {
@@ -50,6 +50,7 @@ const ResetPassword = asyncErrorHandler(async (req, res) => {
           subject: "Password reset code",
           text: `Your reset code is :${resetCode}`,
         });
+
         res.status(200).json({ message: "Reset code sent to your email" });
       } catch (error) {
         res.status(500).json({ message: "server error" });

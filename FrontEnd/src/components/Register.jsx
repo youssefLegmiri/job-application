@@ -8,7 +8,8 @@ import { AuthContext } from "./AuthProvider";
 
 import Loading from "./Loading";
 const Register = () => {
-  const { setIsRegister, setResponse, isRegister } = useContext(AuthContext);
+  const { setIsRegister, setResponse, isRegister, userEmail } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -29,7 +30,7 @@ const Register = () => {
     data: {
       firstName: null,
       lastName: null,
-      email: null,
+      email: userEmail,
       password: null,
       confirmPassword: null,
     },
@@ -276,7 +277,7 @@ const Register = () => {
       } else if (res.status === 400) {
         setResponse({ error: data.message });
       } else {
-        setResponse({ error: "Server Error" });
+        setResponse({ error: data.message });
       }
     } catch (error) {
       setIsRegister(true);
@@ -285,7 +286,7 @@ const Register = () => {
   }
 
   const handelClick = () => {
-    navigate("/login");
+    navigate("/");
   };
   return (
     <main className="w-screen h-screen  flex justify-center items-center">

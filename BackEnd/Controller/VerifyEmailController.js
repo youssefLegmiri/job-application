@@ -1,25 +1,31 @@
 const User = require("../models/UserModel");
 const asyncErrorHandler = require("express-async-handler");
-
+const path = require("path");
 const verifyEmail = asyncErrorHandler(async (req, res) => {
   const { token } = req.query;
   if (!token) {
-    res.status(400).send("Invalid or missing token.");
+    res
+      .status(400)
+      .sendFile(path.join(__dirname, "../public/invalidToken.html"));
   } else {
-    const user = await User.findOne({
-      emailVerificationToken: token,
-      emailVerificationExpires: { $gt: Date.now() },
-    });
+    const user = await User.updateOne(
+      {
+        emailVerificationToken: token,
+        emailVerificationExpires: { $gt: Date.now() },
+      },
+      {
+        $set: { isVerified: true },
+        $unset: { emailVerificationToken: "", emailVerificationExpires: "" },
+      }
+    );
 
-    if (!user) return res.status(400).send("Token invalid or expired.");
+    if (!user) {
+      return res
+        .status(400)
+        .sendFile(path.join(__dirname, "../public/invalidToken.html"));
+    }
 
-    user.isVerified = true;
-    user.emailVerificationToken = undefined;
-    user.emailVerificationExpires = undefined;
-
-    await user.save();
-    console.log(" email Verified");
-    res.send("Email verified successfully! You can now log in.");
+    res.status(200).sendFile(path.join(__dirname, "../public/verified.html"));
   }
 });
 module.exports = verifyEmail;

@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
       ) : user?.firstName ? (
         <>{children} </>
       ) : (
-        <Navigate to={"/"} />
+        <Navigate to={"/login"} />
       )}
     </>
   );
