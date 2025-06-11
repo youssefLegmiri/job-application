@@ -1,13 +1,13 @@
 {
-  "name": "texttopdfapi",
+  "name": "backend-apis",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "start": "nodemon --env-file=.env server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "youssef legmiri",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.9"
