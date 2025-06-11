@@ -126,8 +126,7 @@ const JobDetails = () => {
             {` ${myJob?.description}`}
           </h1>
           <h1 className="jobItems">
-            <span className="jobTitle ">Salary :</span>{" "}
-            {`${myJob?.salary} MAD `}
+            <span className="jobTitle ">Salary :</span> {`${myJob?.salary}  `}
           </h1>
           <h1 className="jobItems">
             <span className="jobTitle ">Experience :</span>{" "}

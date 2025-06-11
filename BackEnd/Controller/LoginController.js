@@ -22,14 +22,14 @@ const LoginUser = asyncErrorHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
-      maxAge: 60 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 1000, // expired in 24 hours
     });
     res.status(200).json({
       firstName: user?.firstName,
