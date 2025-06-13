@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="w-full z-20 flex justify-center items-center min-h-[150px] font-[500]  bg-purple-200 text-purple-700">
+    <div className="w-[80%] rounded-xl flex justify-center items-center min-h-[150px] font-[500]  bg-purple-500 text-purple-100">
       Youssef Legmiri &copy; 2025
     </div>
   );

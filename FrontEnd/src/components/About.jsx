@@ -1,7 +1,7 @@
 import { FaCheck } from "react-icons/fa";
 const About = () => {
   return (
-    <div className="w-full h-full p-4 flex flex-col justify-evenly items-center  ">
+    <div className="min-h-[500px] p-4 flex flex-col justify-around items-center  ">
       <p className="bg-purple-300 text-purple-800 p-4 rounded-lg">
         Job hunting made simple ! Our platform helps you search , filter , and
         apply for jobs effortlessly. Keep track of your applications and get

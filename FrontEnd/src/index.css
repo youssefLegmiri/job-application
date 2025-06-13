@@ -19,7 +19,7 @@
 }
 @layer components {
   .btn-custom {
-    @apply text-white w-40 text-lg font-bold p-2 
+    @apply text-white  text-lg  p-2 font-bold w-40
            shadow-custom-shadow   border-b-[6px] rounded-xl
            border-purple-900 bg-purple-700 disabled:bg-purple-600 hover:bg-purple-600;
   }

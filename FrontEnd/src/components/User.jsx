@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import CustomSelect from "./CustomSelect";
 
 const User = () => {
-  const { setResponse, isLoading, setIsLoading, jobs, setJobs } =
+  const { setResponse, isLoading, setIsLoading, jobs, setJobs, serverDomain } =
     useContext(AuthContext);
   const [isCategory, setIsCategory] = useState(false);
   const [jobsToFilter, setJobsToFilter] = useState([]);
@@ -15,7 +15,7 @@ const User = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/jobs", {
+        const res = await fetch(`${serverDomain}/api/jobs`, {
           credentials: "include",
         });
         const data = await res.json();

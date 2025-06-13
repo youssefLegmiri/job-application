@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useActionState } from "react";
 import { AuthContext } from "./AuthProvider";
-import { z } from "zod";
 import Loading from "./Loading";
 import Job from "./Job";
 
@@ -17,6 +16,7 @@ const Admin = () => {
     setIsDeleteJob,
     isLoading,
     setIsLoading,
+    serverDomain,
   } = useContext(AuthContext);
   const [state, actionFunction, isPending] = useActionState(formAction, {
     data: {
@@ -33,7 +33,7 @@ const Admin = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/jobs", {
+        const res = await fetch(`${serverDomain}/api/jobs`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -52,7 +52,7 @@ const Admin = () => {
   async function formAction(previous, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     try {
-      const res = await fetch("http://localhost:5000/api/jobs", {
+      const res = await fetch(`${serverDomain}/api/jobs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -85,7 +85,7 @@ const Admin = () => {
   const handleDelete = async (id) => {
     setIsDeleteJob(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
+      const res = await fetch(`${serverDomain}/api/jobs/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -104,22 +104,17 @@ const Admin = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <main className="w-[80%]  my-4 py-8 rounded-lg bg-purple-300  flex flex-col items-center justify-around ">
-      <div className="relative w-[100%] mb-20 ">
-        <button className="absolute top-2 left-8 btn-custom p-0 w-[150px] h-[50px]  hover:bg-purple-700 ">
-          {`Admin : ${user?.firstName}`}
-        </button>
+    <main className="w-[95%]   my-2 p-2 text-lg  rounded-lg bg-purple-300  flex flex-col items-center justify-between ">
+      <div className="flex items-center justify-between w-[100%] mb-5 ">
+        <label className="text-purple-800 font-bold">{`Admin : ${user?.firstName}`}</label>
 
-        <button
-          onClick={handleOpen}
-          className="absolute top-2 right-8 btn-custom p-0 w-[100px] h-[50px]  "
-        >
+        <button onClick={handleOpen} className=" btn-custom   ">
           {isOpen ? "Close" : "Add Job"}
         </button>
       </div>
       {isOpen && (
         <form
-          className=" bg-purple-100 mb-8 py-4 border-[1px] border-purple-600 shadow-custom-shadow rounded-lg w-[80%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
+          className=" bg-purple-100 mb-8 py-4 border border-purple-600 shadow-custom-shadow rounded-lg w-[95%]  min-h-[500px] flex flex-col items-center lg:items-start lg:flex-row justify-evenly "
           action={actionFunction}
         >
           <div className="w-[90%] h-full lg:w-[50%] flex flex-col justify-around  ">
@@ -213,7 +208,7 @@ const Admin = () => {
         </form>
       )}
 
-      <div className=" w-[90%] grid grid-cols-1 lg:grid-cols-2   gap-4 justify-items-center ">
+      <div className=" w-[95%] grid grid-cols-1 lg:grid-cols-2   gap-4  ">
         {jobs.length != 0 ? (
           jobs.map((job, index) => (
             <Job

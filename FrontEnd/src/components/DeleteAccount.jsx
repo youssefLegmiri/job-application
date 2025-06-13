@@ -5,13 +5,13 @@ import Loading from "./Loading";
 const DeleteAccount = () => {
   const navigate = useNavigate();
 
-  const { setResponse, setIsDelete, isDelete, setUser } =
+  const { setResponse, setIsDelete, isDelete, setUser, serverDomain } =
     useContext(AuthContext);
 
   const handleDelete = async () => {
     setResponse({ message: "", error: "" });
     try {
-      const res = await fetch("http://localhost:5000/api/users/DeleteAccount", {
+      const res = await fetch(`${serverDomain}/api/users/DeleteAccount`, {
         method: "DELETE",
         credentials: "include",
       });

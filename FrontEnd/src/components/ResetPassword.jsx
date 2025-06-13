@@ -8,7 +8,7 @@ import { AuthContext } from "./AuthProvider";
 import Loading from "./Loading";
 const ResetPassword = () => {
   const [isCode, setIsCode] = useState(false);
-  const { setResponse, isSubmit, setIsSubmit, userEmail } =
+  const { setResponse, isSubmit, setIsSubmit, userEmail, serverDomain } =
     useContext(AuthContext);
   const emailInputRef = useRef(null);
   const passwordRef = useRef(null);
@@ -132,7 +132,7 @@ const ResetPassword = () => {
   async function formAction(previousState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     try {
-      const res = await fetch("http://localhost:5000/api/users/ResetPassword", {
+      const res = await fetch(`${serverDomain}/api/users/ResetPassword`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(jsonData),

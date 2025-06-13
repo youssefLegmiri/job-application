@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const [serverDomain, setServerDomain] = useState("http://localhost:8000");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -26,7 +27,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/auth/verify", {
+        const res = await fetch(`${serverDomain}/api/auth/verify`, {
           credentials: "include",
           method: "POST",
         });
@@ -48,6 +49,7 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        serverDomain,
         user,
         setUser,
         isError,

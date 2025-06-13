@@ -24,6 +24,7 @@ const Login = () => {
     isSubmit,
     setUserEmail,
     userEmail,
+    serverDomain,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const emailInputRef = useRef(null);
@@ -166,7 +167,7 @@ const Login = () => {
     const jsonData = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/Login", {
+      const res = await fetch(`${serverDomain}/api/users/Login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

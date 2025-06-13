@@ -58,10 +58,10 @@ const Header = () => {
     }
   };
   return (
-    <header className="relative w-full  flex justify-evenly items-center my-2 px-4  ">
+    <header className=" w-full  bg-opacity-40 bg-purple-200 flex justify-around items-center px-4 py-2  ">
       <div
         ref={burgerRef}
-        className="relative w-[35%] md:hidden inline-block   "
+        className="relative w-[20%] md:hidden inline-block   "
       >
         <Lottie
           speed={1.5}
@@ -69,7 +69,7 @@ const Header = () => {
           play={false}
           loop={false}
           onClick={handleBurgerClick}
-          className="w-[60px] shadow-xl border-[1px] border-purple-600 rounded-lg cursor-pointer "
+          className="w-[40px] shadow-xl border border-purple-600 rounded-md cursor-pointer "
           animationData={animationData}
         />
         <AnimatePresence>
@@ -84,17 +84,17 @@ const Header = () => {
       </div>
       <Link
         to={"/"}
-        className="text-purple-700 bg-purple-200 text-center rounded-md p-2 font-bold cursor-pointer md:left-0 relative -left-10"
+        className="text-purple-700  text-center rounded-md p-2 font-bold cursor-pointer "
       >
-        Job Application
+        Logo
       </Link>
       <nav
-        className={`md:flex justify-between text-xl font-[500] text-purple-700  bg-purple-200 px-8 py-4
-                      rounded-full ${
-                        user?.firstName
-                          ? "md:w-[55%] lg:w-[50%]"
-                          : "md:w-[50%] lg:w-[40%]"
-                      }   hidden`}
+        className={`md:flex justify-between text-xl font-[500] text-purple-700  
+                       ${
+                         user?.firstName
+                           ? "md:w-[55%] lg:w-[50%]"
+                           : "md:w-[50%] lg:w-[40%]"
+                       }   hidden`}
       >
         <div className="relative">
           <Link className="navBar " to={"/"}>
@@ -108,7 +108,7 @@ const Header = () => {
               {user?.role === "admin" ? "Dashboard" : "Jobs"}
             </Link>
 
-            {pathname === "/jobs" && (
+            {(pathname === "/jobs" || pathname === "/jobs/applications") && (
               <AnimatedLine
                 size={`${user?.role === "admin" ? "100px" : "50px"}`}
               />
@@ -132,13 +132,13 @@ const Header = () => {
         <motion.div
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 p-2 rounded-lg"
+          className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 py-1  rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (
             <img
               src={user?.profileImage}
-              className="w-14 h-14 rounded-full text-sm "
+              className="w-10 h-10 rounded-full text-sm "
               alt="profile"
             />
           ) : (

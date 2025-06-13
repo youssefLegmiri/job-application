@@ -18,6 +18,7 @@ const JobDetails = () => {
     isApply,
     setIsApply,
     setResponse,
+    serverDomain,
   } = useContext(AuthContext);
   const [myJob, setMyJob] = useState({});
   const [isEdit, setIsEdit] = useState(false);
@@ -27,7 +28,7 @@ const JobDetails = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
+        const res = await fetch(`${serverDomain}/api/jobs/${id}`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -60,7 +61,7 @@ const JobDetails = () => {
     const jsonData = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
+      const res = await fetch(`${serverDomain}/api/jobs/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -81,7 +82,7 @@ const JobDetails = () => {
   const handleApplication = async () => {
     setIsApply(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/application/${id}`, {
+      const res = await fetch(`${serverDomain}/api/application/${id}`, {
         method: "POST",
         credentials: "include",
       });

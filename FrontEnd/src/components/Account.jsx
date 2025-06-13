@@ -15,7 +15,7 @@ const Account = () => {
   const [file, setFile] = useState(null);
   const [isEdit, setIsEdit] = useState(true);
   const inputRef = useRef(null);
-  const { user, setResponse, isSaving, setIsSaving, isDelete } =
+  const { user, setResponse, isSaving, setIsSaving, isDelete, serverDomain } =
     useContext(AuthContext);
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
@@ -47,7 +47,7 @@ const Account = () => {
     formData.append("profileImage", file);
 
     try {
-      const res = await fetch("http://localhost:5000/UpdateProfile", {
+      const res = await fetch(`${serverDomain}/UpdateProfile`, {
         method: "POST",
         body: formData,
         credentials: "include",

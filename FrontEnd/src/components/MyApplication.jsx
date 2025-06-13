@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import Loading from "./Loading";
 const MyApplication = () => {
-  const { user, isLoading, setIsLoading, setResponse } =
+  const { user, isLoading, setIsLoading, setResponse, serverDomain } =
     useContext(AuthContext);
   const [userApplications, setUserApplications] = useState([]);
   useEffect(() => {
@@ -10,7 +10,7 @@ const MyApplication = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/application/userApplications",
+          `${serverDomain}/api/application/userApplications`,
           {
             credentials: "include",
           }

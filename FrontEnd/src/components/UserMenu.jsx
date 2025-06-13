@@ -5,7 +5,8 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 const UserMenu = ({ setIsOpen }) => {
   const navigate = useNavigate();
-  const { setIsLogout, setResponse, user, setUser } = useContext(AuthContext);
+  const { setIsLogout, setResponse, user, setUser, serverDomain } =
+    useContext(AuthContext);
   const variants = {
     hidden: {
       scaleY: 0,
@@ -28,7 +29,7 @@ const UserMenu = ({ setIsOpen }) => {
     setIsOpen(false);
     setIsLogout(true);
     try {
-      const res = await fetch("http://localhost:5000/api/users/Logout", {
+      const res = await fetch(`${serverDomain}/api/users/Logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -58,7 +59,7 @@ const UserMenu = ({ setIsOpen }) => {
       initial={"hidden"}
       animate={"visible"}
       exit={"hidden"}
-      className="absolute z-50 top-24 right-0 text-xl bg-purple-200 text-purple-700 flex flex-col items-center justify-evenly h-[200px] rounded-lg w-[100%] "
+      className="absolute z-50 top-24 right-0 text-xl bg-purple-200 text-purple-700 flex flex-col items-center justify-evenly h-[200px] rounded-lg w-[150%] "
     >
       <motion.div
         variants={childVariants}

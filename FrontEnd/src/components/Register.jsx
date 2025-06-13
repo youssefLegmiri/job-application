@@ -8,7 +8,7 @@ import { AuthContext } from "./AuthProvider";
 
 import Loading from "./Loading";
 const Register = () => {
-  const { setIsRegister, setResponse, isRegister, userEmail } =
+  const { setIsRegister, setResponse, isRegister, userEmail, serverDomain } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
@@ -261,7 +261,7 @@ const Register = () => {
   async function formAction(previousState, formData) {
     const jsonData = Object.fromEntries(formData.entries());
     try {
-      const res = await fetch("http://localhost:5000/api/users/Register", {
+      const res = await fetch(`${serverDomain}/api/users/Register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(jsonData),

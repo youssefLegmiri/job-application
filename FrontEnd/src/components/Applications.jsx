@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 
 const Applications = () => {
   const navigate = useNavigate();
-  const { setResponse, isLoading, setIsLoading, user } =
+  const { setResponse, isLoading, setIsLoading, user, serverDomain } =
     useContext(AuthContext);
   const [applications, setApplications] = useState([]);
   const [jobApplicants, setJobApplicants] = useState([]);
@@ -15,7 +15,7 @@ const Applications = () => {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/application", {
+        const res = await fetch(`${serverDomain}/api/application`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -50,7 +50,7 @@ const Applications = () => {
       })
     );
     try {
-      const res = await fetch("http://localhost:5000/api/application", {
+      const res = await fetch(`${serverDomain}/api/application`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         credentials: "include",
