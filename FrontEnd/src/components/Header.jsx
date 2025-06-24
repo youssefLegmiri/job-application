@@ -132,7 +132,7 @@ const Header = () => {
         <motion.div
           onClick={handelUser}
           ref={userMenuRef}
-          className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[40%] cursor-pointer justify-around font-[500] text-purple-700 py-1  rounded-lg"
+          className="relative bg-purple-200 flex items-center md:w-[22%] lg:w-[20%] xl:w-[20%] 2xl:w-[12%]  w-[45%] cursor-pointer justify-around font-[500] text-purple-700 py-1  rounded-lg"
         >
           {user?.firstName}
           {user?.profileImage ? (

@@ -39,7 +39,7 @@ const User = () => {
     <main className="w-full min-h-screen flex flex-col  items-center md:flex-row md:justify-around md:items-start p-4  ">
       <CustomSelect jobsToFilter={jobsToFilter} />
 
-      <div className="p-4 2xl:w-[80%] xl:w-[70%] md:w-[65%] w-[90%]  bg-purple-200 bg-opacity-50 rounded-md border-[1px] border-stone-600 grid grid-cols-1   xl:grid-cols-2 gap-4  justify-items-center ">
+      <div className="p-2 2xl:w-[80%] xl:w-[70%] md:w-[65%] w-[100%]  bg-purple-200 bg-opacity-50 rounded-md border-[1px] border-stone-600 grid grid-cols-1   xl:grid-cols-2 gap-4  justify-items-center ">
         {jobs?.length != 0 ? (
           jobs.map((job, index) => <Job key={index} job={job} />)
         ) : (

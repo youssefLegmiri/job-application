@@ -24,7 +24,7 @@ const Job = ({ job, handleDelete }) => {
   return (
     <motion.div
       whileHover={user?.role != "admin" && { scale: 0.95 }}
-      className=" relative p-2 w-[100%] h-60 rounded-xl shadow-custom-shadow  bg-purple-50 flex flex-col 
+      className=" relative  w-[100%] h-60 rounded-xl shadow-custom-shadow  bg-purple-50 flex flex-col 
     items-center justify-evenly text-purple-900 font-[400] cursor-pointer  "
     >
       {user?.role != "admin" && (
@@ -60,7 +60,7 @@ const Job = ({ job, handleDelete }) => {
       )}
       <h1>{job?.title} </h1>
       <p>{job?.briefDescription} </p>
-      <div className="w-full absolute bottom-4 flex items-center justify-evenly text-lg ">
+      <div className="w-full absolute bottom-4 flex items-center justify-evenly text-sm ">
         <h2>{`Location : ${job.location} `} </h2>
         <h3>{`Experience : ${job.experience}`} </h3>
       </div>

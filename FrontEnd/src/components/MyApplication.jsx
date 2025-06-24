@@ -29,9 +29,9 @@ const MyApplication = () => {
     fetchData();
   }, []);
   return (
-    <div className="w-full h-screen overflow-x-auto my-4 p-4 flex flex-col items-center ">
+    <div className="w-full  flex flex-col items-center ">
       {userApplications.length != 0 ? (
-        <table className="table-styling w-[80%] min-w-[500px] overflow-x-auto ">
+        <table className="table-styling w-[80%]  overflow-x-auto ">
           <thead>
             <tr>
               <th>Job Title</th>

@@ -55,8 +55,8 @@ const Home = () => {
     navigate("/login");
   };
   return (
-    <main className={` w-full   p-4 flex flex-col`}>
-      <div className=" p-4 font-[500] rounded-lg flex flex-col justify-evenly items-center  w-full h-full  bg-opacity-50 text-white  bg-purple-600 ">
+    <main className={` w-full p-2 flex flex-col`}>
+      <div className="p-2 font-[500]  flex flex-col justify-evenly items-center  w-full h-full   text-white  bg-purple-400 ">
         <h1 className="text-6xl ">Find Your Next Opportunity Faster.</h1>
         <div className="w-[90%] md:w-[70%] flex justify-between items-center  ">
           <div

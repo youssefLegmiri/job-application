@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 const SharedLayout = () => {
   return (
-    <main className="min-h-screen relative flex flex-col justify-between items-center mb-24 ">
+    <main className="min-h-screen relative flex flex-col justify-between items-center mb-10 ">
       <Header />
       <Outlet />
       <Footer />
