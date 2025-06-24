@@ -33,9 +33,6 @@ app.get("*", (req, res) => {
 // update profile api
 app.use("/UpdateProfile", require("./routes/udateProfileRoute"));
 
-// GeneratePDF api
-app.use("/api/GeneratePDF", require("./routes/generatePDFRoute"));
-
 //users api
 app.use("/api/users", require("./routes/userRoute"));
 
