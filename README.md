@@ -33,3 +33,34 @@ This is a full-stack job application platform built with the **MERN** stack (Mon
 - Track application status
 
 ---
+
+🚀 Getting Started
+Follow these steps to run the project locally:
+
+📦 Prerequisites
+Make sure you have the following installed:
+
+Node.js (v18 or higher recommended)
+
+npm (comes with Node.js) or yarn
+
+📥 Installation
+
+1.Clone the repository:
+git clone https://github.com/youssefLegmiri/job-application.git
+
+2.Navigate to FrontEnd (react.js):
+
+cd FrontEnd
+npm install
+npm run dev
+
+3.Navigate to BackEnd (express.js):
+
+Create a .env file in the BackEnd directory and add your environment variables.
+
+Create an uploads folder in the root of the BackEnd directory (used for storing user profile images temporarily; Cloudinary integration will be added later).
+
+cd ../BackEnd
+npm install
+npm start
