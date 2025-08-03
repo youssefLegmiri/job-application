@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -7,7 +8,6 @@ const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const app = express();
 const PORT = process.env.PORT;
-require("dotenv").config();
 app.use(express.json()); // middelware to parse incoming json data
 app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));

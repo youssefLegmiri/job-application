@@ -3,15 +3,8 @@ const asyncErrorHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const RegisterUser = asyncErrorHandler(async (req, res) => {
+const RegisterUser = asyncErrorHandler(async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
-
-  // check if all user inputs are not empty
-
-  if (!firstName || !lastName || !email || !password) {
-    res.status(400);
-    throw new Error("Please enter all fields");
-  }
 
   // check if the user already exist
   const userExists = await User.findOne({ email });
@@ -66,10 +59,7 @@ const RegisterUser = asyncErrorHandler(async (req, res) => {
         throw new Error("Registration failed, please try again");
       }
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({
-        message: "Server error, please enter a valid email and try again",
-      });
+      next(error);
     }
   }
 });

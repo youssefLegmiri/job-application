@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --env-file=.env server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "youssef legmiri",
@@ -20,10 +20,10 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "express-async-handler": "^1.2.0",
+    "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^7.0.3",
-    "pdfkit": "^0.15.2"
+    "nodemailer": "^7.0.3"
   }
 }

@@ -6,8 +6,10 @@ const LogoutUser = require("../Controller/LogoutController");
 const DeleteUser = require("../Controller/DeleteUserController");
 const ResetPassword = require("../Controller/ResetPasswordController");
 const protect = require("../middleware/authMiddelware");
+const userDataValidator = require("../middleware/userDataValidator");
+const validatorResult = require("../middleware/validatorResult");
 
-router.post("/Register", RegisterUser);
+router.post("/Register", userDataValidator, validatorResult, RegisterUser);
 router.post("/Login", LoginUser);
 router.post("/Logout", LogoutUser);
 router.post("/ResetPassword", ResetPassword);

@@ -1,14 +1,16 @@
 const asyncErrorHandler = require("express-async-handler");
 const User = require("../models/UserModel");
+const Application = require("../models/ApplicationModel");
 const fs = require("fs");
-const DeleteUser = asyncErrorHandler(async (req, res) => {
-  const { profileImage } = req.user;
+const DeleteUser = asyncErrorHandler(async (req, res, next) => {
+  const { profileImage, _id } = req.user;
 
-  const deletetedUser = await User.findByIdAndDelete(req.user._id);
+  await Application.deleteMany({ userID: _id });
+  const deletetedUser = await User.findByIdAndDelete(_id);
   if (profileImage) {
     fs.unlink(profileImage, (err) => {
       if (err) {
-        console.log(err);
+        next(err);
       }
     });
   }
