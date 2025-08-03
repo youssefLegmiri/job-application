@@ -277,7 +277,7 @@ const Register = () => {
       } else if (res.status === 400) {
         setResponse({ error: data.message });
       } else {
-        setResponse({ error: data.message });
+        setResponse({ error: "Opps ! Something went wrong." });
       }
     } catch (error) {
       setIsRegister(true);

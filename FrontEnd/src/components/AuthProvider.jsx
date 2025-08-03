@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [serverDomain, setServerDomain] = useState("http://localhost:8000");
+  const [serverDomain, setServerDomain] = useState("http://localhost:5000");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);

@@ -106,7 +106,7 @@ const JobDetails = () => {
     <main className="w-full mt-6  flex flex-col items-center ">
       {!isLoading ? (
         <div
-          className=" relative p-2 mb-10 w-[90%] min-h-[900px] rounded-xl 
+          className=" relative p-2 mb-10 sm:w-[60%] w-[90%] sm:min-h-[700px] min-h-[800px] rounded-xl 
       shadow-custom-shadow bg-purple-100   flex flex-col md:items-center
         justify-evenly text-purple-600 font-[500] "
         >

@@ -23,7 +23,6 @@ const DeleteAccount = () => {
           message: response.message,
         });
       } else {
-        console.log(response.message);
         setResponse({
           message: "Something went wrong",
         });
