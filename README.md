@@ -64,8 +64,6 @@ git clone https://github.com/youssefLegmiri/job-application.git
 
 Create a **.env** file in the BackEnd directory and add your environment variables.
 
-Create an uploads folder in the root of the BackEnd directory (used for storing user profile images temporarily; Cloudinary integration will be added later).
-
 - cd ../BackEnd
 - npm install
 - npm start
