@@ -1,31 +1,52 @@
 const asyncErrorHandler = require("express-async-handler");
 const User = require("../models/UserModel");
-const fs = require("fs");
-const updateProfile = asyncErrorHandler(async (req, res) => {
+const cloudinary = require("../utils/cloudinary");
+const updateProfile = asyncErrorHandler(async (req, res, next) => {
   const { firstName, lastName } = req.body;
-  const { profileImage } = req.user;
 
-  if (profileImage) {
-    const oldFile = profileImage;
-    fs.unlink(oldFile, (err) => {
-      if (err) {
-        console.log(err);
+  if (req.file) {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "profiles",
+        public_id: `${req.user.firstName}_${req.user.lastName}_${req.user._id}`,
+        overwrite: true, // optional: allow overwrite
+        resource_type: "image",
+      },
+      async (err, result) => {
+        if (err) return next(err);
+        try {
+          // Update user's data in MongoDB
+          const user = await User.findByIdAndUpdate(req.user._id, {
+            profileImage: result.secure_url,
+            firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+            lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
+          });
+          if (user) {
+            return res
+              .status(200)
+              .json({ message: "Profile info saved successfully" });
+          }
+        } catch (dbErr) {
+          return next(dbErr); // Pass DB errors to error handler
+        }
       }
-    });
-  }
-  const updateUserProfile = await User.findByIdAndUpdate(req.user._id, {
-    profileImage: req.file?.path,
-  });
+    );
 
-  if (!firstName || !lastName) {
-    res.status(400).json({ message: "Please enter all fields" });
+    stream.end(req.file.buffer); // Stream buffer directly
   } else {
-    const user = await User.findByIdAndUpdate(req.user._id, {
-      firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
-      lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
-    });
-    if (user) {
-      res.status(200).json({ message: "Profile info saved successfully" });
+    // No file uploaded, just update the name
+    try {
+      const user = await User.findByIdAndUpdate(req.user._id, {
+        firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+        lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
+      });
+      if (user) {
+        return res
+          .status(200)
+          .json({ message: "Profile info saved successfully" });
+      }
+    } catch (dbErr) {
+      return next(dbErr);
     }
   }
 });

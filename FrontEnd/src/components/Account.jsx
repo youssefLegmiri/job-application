@@ -28,23 +28,27 @@ const Account = () => {
     }
   }, [user]);
   const handleClick = () => {
+    URL.revokeObjectURL(readFile);
     navigate("/");
   };
   const handleImageChange = async (event) => {
     // set up for reading file
     const myFile = event.target.files[0];
+    if (!myFile) return;
     setFile(myFile);
-    if (myFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setReadFile(reader.result);
-      };
-      reader.readAsDataURL(myFile);
+    // ✅ Revoke the old URL to prevent memory leak
+    if (readFile) {
+      URL.revokeObjectURL(readFile);
     }
+
+    const newUrl = URL.createObjectURL(myFile);
+    setReadFile(newUrl);
   };
   async function formAction(previous, formData) {
     // set up to upload the file to server
-    formData.append("profileImage", file);
+    if (file) {
+      formData.append("profileImage", file);
+    }
 
     try {
       const res = await fetch(`${serverDomain}/UpdateProfile`, {
@@ -52,6 +56,7 @@ const Account = () => {
         body: formData,
         credentials: "include",
       });
+
       const response = await res.json();
       setIsSaving(true);
       if (res.ok) {
